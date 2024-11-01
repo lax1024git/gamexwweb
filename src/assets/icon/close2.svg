@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="39px" height="39px" viewBox="0 0 39 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>关闭</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Login" transform="translate(-1396.8266, -135.6195)">
+            <g id="内容" transform="translate(742, 135.6195)">
+                <g id="关闭" transform="translate(654.8266, 0)">
+                    <circle id="椭圆形" fill="#FFFFFF" opacity="0.250656855" cx="19.5" cy="19.5" r="19.5"></circle>
+                    <path d="M20,8 C20.7593915,8 21.375,8.61560847 21.375,9.375 L21.375,17.625 L29.625,17.625 C30.3843915,17.625 31,18.2406085 31,19 C31,19.7593915 30.3843915,20.375 29.625,20.375 L21.375,20.375 L21.375,28.625 C21.375,29.3843915 20.7593915,30 20,30 C19.2406085,30 18.625,29.3843915 18.625,28.625 L18.625,20.375 L10.375,20.375 C9.61560847,20.375 9,19.7593915 9,19 C9,18.2406085 9.61560847,17.625 10.375,17.625 L18.625,17.625 L18.625,9.375 C18.625,8.61560847 19.2406085,8 20,8 Z" id="形状结合" fill="#F2F2F2" transform="translate(20, 19) rotate(45) translate(-20, -19)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

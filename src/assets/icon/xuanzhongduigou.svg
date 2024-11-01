@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="30px" viewBox="0 0 34 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>对勾</title>
+    <g id="页面-1" stroke="none" stroke-width="1">
+        <g id="钱包-Deposit" transform="translate(-1013, -216)">
+            <g id="内容" transform="translate(652, 29)">
+                <g id="编组-16" transform="translate(30, 157)">
+                    <g id="对勾" transform="translate(331, 30)">
+                        <path d="M34,0 L34,24 C34,27.3137085 31.3137085,30 28,30 L0,30 L0,30 L34,0 Z" id="矩形"></path>
+                        <polygon id="路径" fill="#4686DA" fill-rule="nonzero" points="16.4200066 19.3302248 19.8799997 22.8805941 27.4999955 15 29 16.5289059 19.8200052 26 15 21.0540946"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

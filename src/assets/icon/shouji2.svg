@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>手机</title>
+    <defs>
+        <linearGradient x1="50%" y1="24.9353444%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#C4E9FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="个人中心-Profile" transform="translate(-796, -455.5)">
+            <g id="02" transform="translate(479, 177)">
+                <g id="编组-16" transform="translate(308, 267)">
+                    <g id="手机" transform="translate(9, 11.5)">
+                        <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="26" height="26"></rect>
+                        <path d="M17.9232,2.5 L8.0768,2.5 C6.3792,2.5 5,3.620625 5,4.99975 L5,22.00025 C5,23.379375 6.3792,24.5 8.0768,24.5 L17.9232,24.5 C19.6208,24.5 21,23.379375 21,22.00025 L21,4.99975 C21,3.620625 19.6208,2.5 17.9232,2.5 Z M13,23.318625 C11.9792,23.318625 11.1536,22.525625 11.1536,21.54575 C11.1536,20.56425 11.9792,19.772875 13,19.772875 C14.0208,19.772875 14.8464,20.56425 14.8464,21.544125 C14.8464,22.525625 14.0208,23.318625 13,23.318625 L13,23.318625 Z M18.5392,18.5905715 L7.4608,18.5905715 L7.4608,5.593125 L18.5392,5.593125 L18.5392,18.593125 L18.5392,18.5905715 Z" id="形状" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>箭头</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页" transform="translate(-1285, -2412)">
+            <g id="04" transform="translate(479, 801)">
+                <g id="编组-3" transform="translate(32, 793)">
+                    <g id="箭头" transform="translate(782, 826) scale(1, -1) translate(-782, -826)translate(774, 818)">
+                        <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                        <polygon id="路径" fill="#BFDBFF" fill-rule="nonzero" points="1 10.9405461 8.00000842 4 15 10.9405461 13.9290326 12 7.99963805 6.12174661 2.07204485 12"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="52px" viewBox="0 0 55 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Perfil</title>
+    <defs>
+        <linearGradient x1="50%" y1="13.752876%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#E3F8FF" offset="0%"></stop>
+            <stop stop-color="#A8E3FB" offset="19.728069%"></stop>
+            <stop stop-color="#94D1F4" offset="76.4676909%"></stop>
+            <stop stop-color="#77AEFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-536, -569)" id="导航栏1">
+            <g transform="translate(0, 550)">
+                <g id="Perfil" transform="translate(536, 19)">
+                    <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="55" height="52"></rect>
+                    <path d="M32.5714286,28.0003861 L23.4285714,28.0003861 C14.9758723,27.940255 8.07229967,34.9121261 8,43.5815956 L8,44.5076182 C8,49 14.8,49 23.4285714,49 L32.5714286,49 C40.8571429,49 48,49 48,44.5076182 L48,43.584526 C47.9261329,34.915738 41.0234877,27.9448034 32.5714286,28.0033165 L32.5714286,28.0003861 Z M27.1850467,26.9995376 C33.787782,26.8976998 39.0674987,21.480071 38.9993476,14.8766341 C38.9311965,8.27319711 33.5407906,2.96569884 26.93736,3 C20.3339294,3.03463503 14.9992186,8.39811547 15,15.0019041 C15.0218021,18.209773 16.3185898,21.2772393 18.6044118,23.527904 C20.8902338,25.7785687 23.9773566,27.0275858 27.1850467,26.9995376 Z" id="形状" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

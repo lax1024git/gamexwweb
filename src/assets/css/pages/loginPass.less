@@ -1,0 +1,45 @@
+.page-box {
+  padding: 23px 0 42px;
+  font-size: 18px;
+  .md({
+    padding: 0;
+    
+    font-size: 20px;
+  });
+}
+.nav-bar {
+  margin-bottom: 15px;
+}
+.content-box {
+  background-color: var(--color1);
+  border-radius: 5px;
+  padding: 54px 300px;
+  min-height: 800px;
+  .md({
+    border-radius: 0;
+    padding: 30px;
+    min-height: calc(var(--vh) - 15px - var(--navbar-height));
+  });
+}
+.input-title {
+  color: var(--color7);
+  margin-bottom: 28px;
+}
+.btn {
+  margin-top: 43px;
+}
+.change-password-main{
+  background: linear-gradient(to top, rgb(21, 94, 136, .9), rgba(10, 33, 64, .9));
+  border: 1px solid #2cd0ff !important;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  color: #fff;
+  //margin: 12px !important;
+  padding: 16px;
+
+  :deep(.el-input__wrapper){
+    background-color: transparent;
+  }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Retrieve the balance</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="个人中心" transform="translate(-1447, -365)">
+            <g id="内容" transform="translate(1438, 79)">
+                <g id="Retrieve-the-balance" transform="translate(9, 286)">
+                    <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="25" height="25"></rect>
+                    <g id="取出" transform="translate(4, 5)" fill="#BFDBFF" fill-rule="nonzero">
+                        <path d="M1.8,0 L16.2,0 L18,3.499875 L18,14.87475 C17.9925964,15.3647265 17.5899925,15.7562589 17.1,15.750074 L0.9,15.750074 C0.410007537,15.7562589 0.00740355872,15.3647265 0,14.87475 L0,3.50325 L1.8,0 Z M8.1,9.6255 L8.1,13.12425 L9.9,13.12425 L9.9,9.6255 L12.6,9.6255 L9,6.1245 L5.4,9.6255 L8.1,9.6255 Z M15.987375,3.499875 L15.087375,1.7505 L2.91375,1.7505 L2.01375,3.499875 L15.98625,3.499875 L15.987375,3.499875 Z" id="形状"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>我的</title>
+    <defs>
+        <linearGradient x1="50%" y1="24.9353444%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#C4E9FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Login" transform="translate(-781, -297.5)">
+            <g id="内容" transform="translate(742, 135.6195)">
+                <g id="编组-16" transform="translate(30, 150.3805)">
+                    <g id="我的" transform="translate(9, 11.5)">
+                        <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="26" height="26"></rect>
+                        <path d="M11.0867177,12.1192539 C12.7369773,12.8029524 14.6266182,12.5542407 16.0437832,11.4668124 C17.4609481,10.3793841 18.1903186,8.61845869 17.9571293,6.84740442 C17.7239401,5.07635015 16.5636209,3.56425391 14.9132823,2.88074608 C13.2630227,2.19704758 11.3733818,2.44575929 9.95621684,3.53318759 C8.53905193,4.6206159 7.80968144,6.38154131 8.04287068,8.15259558 C8.27605992,9.92364985 9.43637906,11.4357461 11.0867177,12.1192539 Z M16.9722222,13.5 L9.05555554,13.5 C6.27777774,13.5 4,15.7527472 4,18.5 C4,21.2472527 6.27777777,23.5 9.05555554,23.5 L16.9444445,23.5 C19.7222223,23.5 22,21.2472528 22,18.5 C22,15.7527472 19.7222222,13.5 16.9722222,13.5 L16.9722222,13.5 Z" id="形状结合" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

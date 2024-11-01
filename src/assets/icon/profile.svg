@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Profile</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="个人中心" transform="translate(-1447, -467)">
+            <g id="内容" transform="translate(1438, 79)">
+                <g id="Profile" transform="translate(9, 388)">
+                    <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="25" height="25"></rect>
+                    <g id="数据3" transform="translate(4, 4)" fill="#BFDBFF" fill-rule="nonzero">
+                        <path d="M8.51373312,1.13521234 L8.51373312,9.64871844 L17.0270311,9.64871844 C17.0270311,14.3506005 13.2154449,18.1622624 8.51373312,18.1622624 C3.81179431,18.1622624 0,14.3505627 0,9.64871844 L0.00376273125,9.3930601 C0.138904965,4.80943721 3.8972841,1.13521234 8.51373312,1.13521234 Z M9.48645606,0 C14.1884138,0 18,3.8116808 18,8.51352502 L9.48645606,8.51361961 Z" id="形状结合"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
