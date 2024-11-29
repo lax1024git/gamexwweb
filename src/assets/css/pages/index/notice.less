@@ -4,7 +4,7 @@
   padding: 10px 14px;
   display: flex;
   align-items: center;
-  margin-bottom: 19px;
+  margin-bottom: 10px;
   cursor: pointer;
   user-select: none;
   position: relative;
@@ -32,6 +32,18 @@
     width: 34px;
     height: 36px;
   });
+  animation: zoomInOut 1.5s infinite ease-in-out;
+}
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+}
+50% {
+    transform: scale(1.2);
+}
+100% {
+    transform: scale(1);
+}
 }
 .msg-icon {
   font-size: 27px;
@@ -47,7 +59,7 @@
   right: 0;
   top: 0;
   height: 1px;
-  background: linear-gradient(to right, #1b1e1a, #3aa2ec, #1c1e1c);
+  background: linear-gradient(to right, rgba(105, 253, 254, 0) 0%, rgba(105, 253, 254, 0.23) 19%, rgb(105, 253, 254) 50%, rgba(105, 253, 254, 0) 100%);
 }
 .notice-box:after{
   content: '';
@@ -56,5 +68,5 @@
   right: 0;
   bottom: 0;
   height: 1px;
-  background: linear-gradient(to right, #1b1e1a, #3aa2ec, #1c1e1c);
+  background: linear-gradient(to right, rgba(105, 253, 254, 0) 0%, rgba(105, 253, 254, 0.23) 19%, rgb(105, 253, 254) 50%, rgba(105, 253, 254, 0) 100%);
 }

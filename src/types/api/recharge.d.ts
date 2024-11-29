@@ -142,3 +142,12 @@ export type RechargeRecordItem = {
   status: number;
   remarks: string | null;
 };
+export type TransactionRecord = {
+  id:string | number;
+  new_price:string;
+  price:string;
+  type:string;
+  add_time:string;
+  operation:string | number;
+  child_type:string;
+}

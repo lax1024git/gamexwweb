@@ -29,14 +29,14 @@ export default defineConfig({
       symbolId: "icon-[name]",
     }),
     eslintPlugin({
-      include: [
-        "src/**/*.ts",
-        "src/**/*.js",
-        "src/**/*.vue",
-        "src/*.ts",
-        "src/*.js",
-        "src/*.vue",
-      ],
+      //include: [
+      //  "src/**/*.ts",
+      //  "src/**/*.js",
+      //  "src/**/*.vue",
+      //  "src/*.ts",
+      //  "src/*.js",
+       // "src/*.vue",
+      //],
     }),
   ],
   css: {

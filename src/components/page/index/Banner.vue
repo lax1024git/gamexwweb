@@ -28,7 +28,7 @@
             modifier: 1,
           }" v-if="banner.length">
           <swiper-slide v-for="(item) in banner" :key="item" class="slider">
-            <t-img :src="item.img" class="swiper-img" style="--color:var(--color1)" @click="$openLink(item.jump_url)" />
+            <img :src="item.img" class="swiper-img" style="--color:var(--color1)" @click="$openLink(item.jump_url)" />
           </swiper-slide>
         </swiper-container>
       </template>
@@ -45,7 +45,7 @@ import { Ref, computed, onMounted, ref } from "vue";
 import lang from "@/lang";
 import ApiStorage from "@/storage/ApiStorage";
 const { systemStore } = useStore();
-
+/* const newbanner = ["@/assets/images/newbanner.png"]; */
 const data: Ref<BannerIndexApi | null> = ref(null);
 const getData = async () => {
   const fetch = new ApiStorage({

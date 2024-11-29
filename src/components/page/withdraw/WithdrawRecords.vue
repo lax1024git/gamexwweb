@@ -1,9 +1,9 @@
 <template>
   <div class="withdrawRecords-box">
-    <div class="top-input-box">
+    <!-- <div class="top-input-box">
       <el-date-picker v-model="form.time" :start-placeholder="$t('开始日期')" :end-placeholder="$t('结束日期')" size="large"
         type="daterange" prefix-icon="none" class="round search" format="YYYY-MM-DD" value-format="YYYY-MM-DD" />
-    </div>
+    </div> -->
     <Empty class="empty" :loading="loading" v-if="list.length === 0"></Empty>
 
     <el-table :data="list" size="large" class="t-table" v-else>
@@ -62,6 +62,12 @@ import Empty from "@/components/common/Empty.vue";
 import { ResCode } from "@/enum/ResultCode";
 import { WithdrawRecordItem } from "@/types/api/withdraw";
 import { Ref, onMounted, ref, watch } from "vue";
+const props = defineProps(["startDate","endDate"]);
+watch(props,()=>{
+  form.value.page = 1;
+  list.value = [];
+  getList();
+});
 
 const channelData = {
   0: "银行卡",
@@ -87,14 +93,8 @@ const statusData = {
 const form = ref({
   page: 1,
   limit: 10,
-  time: ""
 });
 
-watch(() => form.value.time, () => {
-  form.value.page = 1;
-  list.value = [];
-  getList();
-});
 
 
 const loading = ref(false);
@@ -104,8 +104,8 @@ const getList = async () => {
   const res = await withdraw_record_api({
     page: form.value.page,
     limit: form.value.limit,
-    start_time: form.value.time?.[0] || "",
-    end_time: form.value.time?.[1] || ""
+    start_time: props.startDate || "",
+    end_time: props.endDate || ""
   });
   loading.value = false;
   if (res.code === ResCode.success) {

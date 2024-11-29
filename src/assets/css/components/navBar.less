@@ -7,6 +7,15 @@
   padding: 0 25px;
   position: relative;
   justify-content: space-between;
+  &::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #1b1e1a, rgba(58, 162, 236, 0.98), #1c1e1c);
+  }
   .md({
     position: fixed;
     top: 0;
@@ -55,7 +64,7 @@
 }
 .title {
   margin: 0 22px;
-  font-size: 22px;
+  font-size: 30px;
   max-width: 360px;
   .ellipsis();
 }
@@ -67,5 +76,8 @@
 }
 .left-icon {
   margin-right: 14px;
-  font-size: 23px;
+  transform: rotate(180deg);
+  width: 50px;
+  height: auto;
+  /* font-size: 40px; */
 }

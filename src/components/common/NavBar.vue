@@ -2,7 +2,8 @@
   <div class="navbar-warp">
     <div class="navbar-box">
       <div class="back-box" @click="$router.back" v-if="props.isBack">
-        <t-svg name="left" class="left-icon"></t-svg>
+       <!--  <t-svg url="../../" class="left-icon"></t-svg> -->
+         <img src="@/assets/images/mine/arrow.png" class="left-icon" alt="">
         <span class="m-hide">{{ $t("返回") }}</span>
       </div>
       <div class="title-box">

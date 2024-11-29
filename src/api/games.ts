@@ -23,3 +23,7 @@ export const game_third_api = () =>
 
 export const game_login_game_api = (data:{gid:number | string ;platform:number}) =>
   request.post<string>("game/login_game",data);
+
+/* 游戏列表 */
+export const getnewGameList = (data) => 
+  request.post<GameItem[]>("/v2/game/game_list",data);

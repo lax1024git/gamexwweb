@@ -17,11 +17,18 @@
   .md({
     left: 50%;
     top: auto;
-    transform: translate(-50%,70px);
-    border:1px solid #FFF;
+    transform: translate(-50%,40px);
+   /*  border:1px solid #FFF; */
     .size(45px);
     font-size: 28px;
+    width: 100px;
+    height: 100px;
+    background: url(../../images/close.png) no-repeat center;
+    background-size: cover;
   });
+  &::before{
+    content: "";
+  }
 }
 .van-popup--bottom {
   width: 640px;

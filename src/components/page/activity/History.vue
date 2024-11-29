@@ -1,6 +1,6 @@
 <template>
   <div class="page-box">
-    <NavBar :title="$t('历史')" class="nav-bar m-hide"></NavBar>
+    <NavBar :title="$t('历史')" ></NavBar>
     <div class="card-box">
       <div class="top-input-box">
         <el-date-picker v-model="form.time" :start-placeholder="$t('开始日期')" :end-placeholder="$t('结束日期')" size="large"

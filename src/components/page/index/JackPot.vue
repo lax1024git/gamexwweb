@@ -1,5 +1,9 @@
 <template>
   <div class="jackpot">
+    <div class="top">
+      <div class="line"></div>
+      <div class="text">JACKPOT</div>
+    </div>
     <count-up :endVal="endNum" :startVal="startNum" :decimalPlaces="2" class="number" duration="4">
       <template #prefix>
         <span>R$ </span>

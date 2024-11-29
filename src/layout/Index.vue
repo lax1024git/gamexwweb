@@ -19,7 +19,7 @@
 
 
       <!-- 底部内容 -->
-      <Foot v-if="$route.path === '/home' || !systemStore.isPhone"></Foot>
+      <!-- <Foot v-if="$route.path === '/home' || !systemStore.isPhone"></Foot> -->
     </div>
     <Tabbar v-if="$route.meta.mobileTabbar && systemStore.isPhone"></Tabbar>
   </div>

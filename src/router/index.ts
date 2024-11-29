@@ -28,7 +28,7 @@ router.beforeEach((to, form, next) => {
 
   // 登录验证
   if (!to.meta.noLogin && !userStore.isLogin && !toPopItem?.meta?.noLogin) {
-    openLink("/login");
+    openLink("/Login");
     return;
   }
 

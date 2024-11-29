@@ -14,6 +14,7 @@ import "@/utils/addWindowCalcColor.ts";
 import "@/utils/theme.ts";
 import "vant/lib/index.css";
 import "virtual:uno.css";
+import { Icon } from "vant";
 import { require, Require } from "@/utils/$require";
 import { openLink, OpenLink } from "@/utils/openLink";
 import { register } from "swiper/element/bundle";
@@ -54,6 +55,7 @@ app.config.globalProperties.$numInit = numInit;
 app.config.globalProperties.$copy = copy;
 app.use(pinia);
 app.use(router);
+app.use(Icon);
 
 (async () => {
   popRouterInit();

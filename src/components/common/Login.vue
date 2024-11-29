@@ -107,7 +107,7 @@
           class="animate-rubber-band w-75% ring-3 ring-cyan-400/70 bg-gradient-to-t from-cyan-300 to-blue-500 rounded-full">
           {{$t("登录") }}
         </el-button>
-        <el-button size="large" style="font-size: 14px;letter-spacing: 7px;text-indent: 7px;"  @click="$router.push('/Register'); isShow = false" :loading="loginLoading"
+        <el-button size="large" style="font-size: 14px;letter-spacing: 7px;text-indent: 7px;"  @click="$router.push('/Register'); isShow = false" 
           class="animate-rubber-band !ml-0 w-75% ring-3 ring-cyan-400/70 bg-gradient-to-t from-sky-400 to-blue-700 rounded-full">
           {{$t("注册账户") }}
         </el-button>

@@ -27,14 +27,14 @@
         </div>
         <t-svg name="xuanzhongduigou" class="tip-icon" size=""></t-svg>
       </div>
-      <el-dropdown class="add-dropdown">
+      <el-dropdown class="add-dropdown" trigger="click">
         <div class="add-box">
-          <div class="item-btn">
-            <t-svg name="addAcc" class="item-icon"></t-svg>
+          <div class="item-btn newbg">
+            <!-- <t-svg name="addAcc" class="item-icon"></t-svg> -->
             <div class="item-content">
-              <span style="color: var(--color7)">{{ $t("添加账户") }}</span>
+              <span>{{ $t("添加账户") }}</span>
             </div>
-            <t-svg name="right"></t-svg>
+            <t-svg name="right" size="20"></t-svg>
           </div>
         </div>
         <template #dropdown>

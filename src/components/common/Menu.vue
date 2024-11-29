@@ -9,59 +9,50 @@
         </template>
         <template #default>
           <div class="top-menu-list">
-            <div class="top-menu-item"
-              :class="{ 'top-menu-item-active': homeActveStore.active === index && $route.path === '/home' }"
-              v-for="(item, index) in gameTypeStore.data" :key="index" @click="toHome(index)">
-              <TSvg :name="item.default_icon" class="top-menu-icon" size="" v-if="isSvgLink(item.default_icon)"></TSvg>
-              <img :src="item.default_icon" class="top-menu-icon" v-else />
-
-
-              <img :src="item.icon" class="top-menu-icon top-menu-icon-active" />
-              <span>{{ $t(item.name) }}</span>
+            <div></div>
+            <div class="top-games">
+              <ul>
+                <li class="game-item active">ATG電子</li>
+                <li class="game-item">ATG戰神賽特</li>
+              </ul>
+            </div>
+            <div class="scroll-content">
+              <div classs="horizontal-menu" style="display:flex;gap:10px">
+                <div class="menu-item">
+                  <img src="@/assets/images/home/Hot_a.png" style="width:15px;height:15px"/>
+                  热门
+                </div>
+                <div class="menu-item disabled">
+                  热门
+                </div>
+                <div class="menu-item disabled">
+                  热门
+                </div>
+              </div>
+              <div class="menuList">
+                <div class="menu-item1" v-for="item in indexMenuStore.menuData?.xw_mobile_game_menu" :key="item.href" @click="$router.push(item.href)">
+                  <img :src="item.icon_url" class="img_size"/>
+                  <span>{{$t(item.name)}}</span>
+                </div>
+              </div>
+              <div class="menuList bg">
+                <div class="menu-item1" v-for="item in indexMenuStore.menuData?.xw_mobile_navbar" :key="item.href" @click="$router.push(item.href)">
+                  <img :src="item.icon_url" class="img_size"/>
+                  <span>{{$t(item.name)}}</span>
+                </div>
+              </div>
+              <div class="menuList bg">
+                <div class="menu-item1" v-for="item in indexMenuStore.menuData?.xw_mobile_right_menu" :key="item.href" @click="$router.push(item.href)">
+                  <img :src="item.icon_url" class="img_size"/>
+                  <span>{{$t(item.name)}}</span>
+                </div>
+              </div>
             </div>
           </div>
         </template>
       </el-skeleton>
-      <div class="music-box">
-        <div class="music-icon-box">
-          <!-- 上一首 -->
-          <TSvg name="houtui" class="music-icon" @click="musicStore.pre"></TSvg>
-          <!-- 农房 -->
-          <TSvg name="bofang" class="music-icon" @click="musicStore.play" v-if="!musicStore.isPlay"></TSvg>
-          <!-- 暂停 -->
-          <TSvg name="zanting" class="music-icon" v-else @click="musicStore.pause"></TSvg>
-          <!-- 下一手 -->
-          <TSvg name="kuaijin" class="music-icon" @click="musicStore.next"></TSvg>
-
-          <!-- 循环 -->
-          <t-svg name="xunhuan" class="music-icon" v-if="musicStore.loopState === LoopState.allLoops"
-            @click="musicStore.changeLoopState"></t-svg>
-          <t-svg name="suiji" class="music-icon" v-if="musicStore.loopState === LoopState.randomPlay"
-            @click="musicStore.changeLoopState"></t-svg>
-          <t-svg name="danqu" class="music-icon" v-if="musicStore.loopState === LoopState.singleLoop"
-            @click="musicStore.changeLoopState"></t-svg>
-
-          <el-badge :value="musicStore.myMusicListIds.length" class="item" color="var(--color1)">
-            <TSvg name="bofangliebiao" class="music-icon" @click="$openLink('/music')"></TSvg>
-          </el-badge>
-        </div>
-        <span class="music-name">{{ musicStore.currentData?.name }}</span>
-      </div>
-      <div class="records-box" @click="$router.push('/report?current=0')">
-        <TSvg name="jilu" class="records-icon"></TSvg>
-        {{ $t("投注记录") }}
-      </div>
-      <div class="activity-box">
-        <div class="activity-item" v-for="(item, index) in activityList" :key="index"
-          :style="`background: ${item.color};`" @click="
-            $router.push(item.url);
-          linkHideMenu();
-          ">
-          <img :src="$require(item.icon)" class="activity-icon" />
-          <span>{{ $t(item.name) }}</span>
-        </div>
-      </div>
-      <div class="lang-box">
+      
+      <!-- <div class="lang-box">
         <el-popover placement="right" trigger="click">
           <div class="lang-select-item" v-for="item in systemStore.systemData?.alllang" :key="item.value"
             @click="lang.setLocale(item.value, true)">
@@ -79,7 +70,7 @@
           <t-svg name="download" class="lang-item-icon"></t-svg>
           <span>{{ $t("APP 下载") }}</span>
         </div>
-      </div>
+      </div> -->
     </div>
   </transition>
   <Overlay :show="menuStore.isShow" @click="menuStore.changeShow" z-index="100" class="overlay"></Overlay>
@@ -94,6 +85,7 @@ import { LoopState } from "@/enum/Music";
 import isSvgLink from "@/utils/isSvgLink";
 import downloadApp from "@/utils/downloadApp";
 import { DeviceType } from "@/enum/DeviceType";
+import { keysOf } from "element-plus/es/utils";
 const {
   menuStore,
   downloadTipStore,
@@ -101,7 +93,8 @@ const {
   systemStore,
   gameTypeStore,
   musicStore,
-  envStore
+  envStore,
+  indexMenuStore
 } = useStore();
 const $router = useRouter();
 const activityList = [

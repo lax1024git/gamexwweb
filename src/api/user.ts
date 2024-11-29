@@ -90,3 +90,8 @@ export const forget_phone_pwd = (data: {
 // 获取socket信息
 export const user_get_ws_token_api = () =>
   request.post<WsToken>("user/get_ws_token");
+
+// 余额转出
+export const game_user_transout_api = (data:{tid:string | number}) => {
+  request.post("/game/user_transout",data);
+};

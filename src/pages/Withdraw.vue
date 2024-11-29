@@ -1,8 +1,9 @@
 <template>
   <div class="page-box">
-    <NavBar :title="$t('提现')" class="nav-bar m-hide"></NavBar>
+    <NavBar :title="$t('提现')" class="nav-bar"></NavBar>
     <div class="card-box">
-      <Tabs v-model:active="active" :shrink="true" class="tabs" animated :sticky="systemStore.isPhone">
+      <Withdraw></Withdraw>
+     <!--  <Tabs v-model:active="active" :shrink="true" class="tabs" animated :sticky="systemStore.isPhone">
         <Tab :title="$t('提现')" replace to="?current=0">
           <div class="page-warp">
             <Withdraw></Withdraw>
@@ -12,13 +13,13 @@
           <div class="page-warp">
             <WithdrawRecords></WithdrawRecords>
           </div>
-        </Tab>
+        </Tab> -->
         <!-- <Tab :title="$t('审计记录')" to="?current=2" replace>
           <div class="page-warp">
             <AuditReport></AuditReport>
           </div>
         </Tab> -->
-        <Tab :title="$t('管理账户')" to="?current=2" replace>
+        <!-- <Tab :title="$t('管理账户')" to="?current=2" replace>
           <div class="page-warp">
             <ManageAccount></ManageAccount>
           </div>
@@ -28,7 +29,7 @@
             <t-svg name="left"></t-svg>
           </div>
         </template>
-      </Tabs>
+      </Tabs> -->
     </div>
 
   </div>

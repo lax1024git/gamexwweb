@@ -1,6 +1,6 @@
 <template>
   <div class="page-box member-center-d">
-    <NavBar class="nav-bar" :title="$t('轮廓')" :isBack="false"></NavBar>
+    <NavBar class="nav-bar" :title="$t('轮廓')"></NavBar>
     <div class="mamber-info-wrap">
       <div class="mascot">
         <img src="@/assets/images/mine/mascot.png">
@@ -9,21 +9,21 @@
         <div>你好，冒險家們</div>
         <div>
           <span class="AccountName">@{{ userStore.userInfo?.yphone || userStore.userInfo?.mail }}</span>
-          <!--          &nbsp; 本次登入時間 &nbsp;<span  class="login-time">2024/09/06 12:42:30 中午</span>-->
+                   <!-- &nbsp; 本次登入時間 &nbsp;<span  class="login-time">2024/09/06 12:42:30 中午</span> -->
         </div>
         <div class="wallet-info">
           <span>{{ $numInit(userStore.userInfo?.balance) }}</span>
         </div>
-        <a href="#/profile" class="vip-btn">查看更多&nbsp;<span class="more-arrow">→</span></a>
+        <a href="#/vip" class="vip-btn">查看更多&nbsp;<span class="more-arrow">→</span></a>
       </div>
     </div>
     <div  class="main-action">
       <div  class="main-link">
         <a  href="#/Deposit" class="action-link financial"><i></i>存款</a>
         <a  href="#/Withdraw" class="action-link withdraw"><i></i>提款</a>
-        <a  href="#/AwardCenter" class="action-link award-center"><i ></i> <span
+        <a  href="#/history" class="action-link award-center"><i ></i> <span
            class="d-flex">
-                    領獎中心
+                    历史
         <!----></span>
         </a>
         <a  href="#/VIP" class="action-link vip"><i ></i>VIP</a></div>
@@ -31,10 +31,10 @@
       <div  class="sub-link-group">
         <div ><a  href="#/WithdrawAccountManagement?type=Bank" class="sub-link withdrawal-account-management">設定銀行帳戶</a></div> <!----> <!---->
         <div ><a  href="#/BetRecord" class="sub-link bet-record">投注記錄</a></div>
-        <div ><a  href="#/Transaction" class="sub-link transaction">交易記錄</a></div> <!---->
+        <div ><a  href="#/Transaction?id=2" class="sub-link transaction">交易記錄</a></div> <!---->
         <div ><a  href="#/SiteMail" class="sub-link site-mail">站內信<!----></a></div> <!---->
         <div ><a  href="#/loginPass" class="sub-link change-password">修改密碼</a></div> <!----> <!----> <!---->
-        <div ><a  href="#/Promotion" class="sub-link promotion">優惠</a></div>
+        <div ><a  href="#/newactivity" class="sub-link promotion">優惠</a></div>
         <!----> <!---->
         <hr >
         <div ><a  href="javascript:void(0)" class="sub-link app">APP下載</a></div>
@@ -44,7 +44,7 @@
         <div ><a  href="#/Guide" class="sub-link faq">新手教學</a></div>
       </div>
       <div  class="SignOut-btn" @click="quit">
-        <a  href="/Account/SignOut" class="d-block px-3 py-2 text-center text-decoration-none">登出</a>
+        <a  href="##" class="d-block px-3 py-2 text-center text-decoration-none">登出</a>
       </div>
     </div>
 

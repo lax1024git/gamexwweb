@@ -5,11 +5,11 @@ import {
 } from "@/types/api/action";
 import { request } from "@/utils/request";
 import { ElementType } from "@/types/utils";
-
 // 活动列表
 export const action_list_api = (data: {
   page: number | string;
   limit: number | string;
+  type_id:number | string;
 }) => request.post<ActionItem[]>("action/list", data);
 
 // 活动详情

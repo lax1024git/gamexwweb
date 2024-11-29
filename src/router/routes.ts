@@ -19,8 +19,16 @@ const routes = [
       {
         path: "/Register",
         name: "Register",
-        component: () => import("@/pages/Register.vue"),
-        meta: {
+        component: () => import("@/pages/register.vue"),
+        meta: { 
+          noLogin: true,
+        }
+      },
+      {
+        path: "/Login",
+        name: "login",
+        component: () => import("@/pages/Login.vue"),
+        meta: { 
           noLogin: true,
         }
       },
@@ -37,7 +45,6 @@ const routes = [
         name: "gameInfo",
         component: () => import("@/pages/GameInfo.vue"),
       },
-
       {
         path: "/agent",
         redirect: "/agent/shareLink",
@@ -171,6 +178,9 @@ const routes = [
         path: "/WithdrawAccountManagement",
         name: "withdrawAccountManagement",
         component: () => import("@/pages/WithdrawAccountManagement.vue"),
+        meta: {
+          mobileTabbar: true,
+        },
       },
       {
         path: "/BetRecord",
@@ -184,6 +194,16 @@ const routes = [
         meta: {
           mobileTabbar: true,
         },
+      },
+      {
+        path: "/playGameList",
+        name: "playGameList",
+        component: () => import("@/pages/playGameList.vue"),
+      },
+      {
+        path: "/showGame",
+        name: "showGame",
+        component: () => import("@/pages/showGame.vue"),
       },
       {
         path: "/SiteMail",
@@ -229,6 +249,27 @@ const routes = [
         path: "/turntable",
         name: "turntable",
         component: () => import("@/pages/Turntable.vue"),
+      },
+      {
+        path:"/newactivity",
+        name:"newactivity",
+        component:()=>import("@/pages/newActivity.vue"),
+        meta: {
+          mobileTabbar: true,
+        },
+      },
+      {
+        path:"/activityContent",
+        name:"activityContent",
+        component:()=>import("@/pages/activityContent.vue"),
+        meta: {
+          mobileTabbar: true,
+        },
+      },
+      {
+        path:"/history",
+        name:"history",
+        component:()=>import("@/pages/History.vue"),
       },
       {
         path: "/userCenter",
@@ -284,7 +325,7 @@ const routes = [
               },
             ],
           },
-          {
+          /* {
             path: "history",
             name: "history",
             component: () => import("@/components/page/activity/History.vue"),
@@ -298,7 +339,7 @@ const routes = [
             path: "mission",
             name: "mission",
             component: () => import("@/components/page/activity/History.vue"),
-          },
+          }, */
         ],
       },
     ],

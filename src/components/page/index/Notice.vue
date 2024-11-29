@@ -5,7 +5,7 @@
     </template>
 
     <div class="notice-box" v-if="horseRaceLampStore.data.length" @click="tabItem">
-      <img :src="$require('news.png')" class="notice-icon">
+      <img :src="$require('newsphone.png')" class="notice-icon">
       <NoticeBar background="none" scrollable class="notice-bar" @replay="next">
         <span>{{ horseRaceLampStore.data[active]?.title }}</span>
       </NoticeBar>

@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <NavBar title="注册"></NavBar>
     <div class="logo">
       <img
           :src="systemStore.isPhone ? systemStore.systemDataNew?.site.website_mobile_logo : systemStore.systemDataNew?.site.website_pc_logo"

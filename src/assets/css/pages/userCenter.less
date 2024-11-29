@@ -1,10 +1,10 @@
 .page-box {
-  padding: 30px 0;
+  padding: 30px 0 200px 0px;
 
-  .md({
+  /* .md({
     padding: 0;
 
-  });
+  }); */
 }
 
 .nav-bar {
@@ -215,17 +215,21 @@
 }
 .mamber-info-wrap .mascot {
   position: absolute;
-  bottom: -12px;
-  left: -32px;
+  /* bottom: -12px; */
+  left: -12px;
+  img{
+    width: 80%;
+  }
 }
 .mamber-info-wrap .mamber-info {
-  padding-left: 245px;
+  padding-left: 345px;
   padding-top: 58px;
   padding-right: 55px;
   color: #dadbf3;
   font-size: 22px;
   height: 100%;
   display: flex;
+  gap: 10px;
   flex-direction: column;
 }
 .mamber-info-wrap .mamber-info div:first-child {
@@ -237,6 +241,7 @@
   font-family: "Saira Semi Condensed", sans-serif;
   font-size: 26px;
   margin-top: 8px;
+  align-items: center;
   border-radius: 4px 4px 0px 0px;
   background: rgba(0, 0, 0, .4);
   height: 56px;
@@ -299,25 +304,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 25px;
   padding: 4px;
   gap: 8px;
   text-decoration: none;
 }
 .main-action .main-link .action-link i {
-  width: 60px;
-  height: 60px;
+  width: 90px;
+  height: 90px;
   background-size: contain;
-  background-image: url("@/assets/images/mine/deposit.png");
+  background-image: url("@/assets/images/mine/deposit_dark.png");
 }
 .main-action .main-link .action-link.withdraw i {
-  background-image: url("@/assets/images/mine/withdraw.png");
+  background-image: url("@/assets/images/mine/withdraw_dark.png");
 }
 .main-action .main-link .action-link.award-center i {
   position: relative;
-  background-image: url("@/assets/images/mine/AwardCenter.png");
+  background-image: url("@/assets/images/mine/AwardCenter_dark.png");
 }
 .main-action .main-link .action-link.vip i {
-  background-image: url("@/assets/images/mine/vip.png");
+  background-image: url("@/assets/images/mine/vip_dark.png");
 }
 
 .member-center-d .sub-link-group a, .member-center-d .sub-link-group .set-language {
@@ -375,7 +381,7 @@
   background-image: url("@/assets/images/mine/Tutorial.png");
 }
 .SignOut-btn {
-  background: url("@/assets/images/mine/SignOut-btn.png") no-repeat center;
+  background: url("@/assets/images/mine/SignOut-btn_dark.png") no-repeat center;
   background-size: contain;
   box-shadow: none;
   width: 600px;
@@ -383,10 +389,11 @@
   margin: 16px auto 0;
   display: flex;
   a{
-    color: #1971a2;
+    color: #84C5E9;
     font-size: 28px;
+    font-weight: 800;
     flex: 1;
-    line-height: 88px;
+    line-height: 0px;
     text-decoration: none !important;
     text-align: center !important;
     //padding: 8px 12px;

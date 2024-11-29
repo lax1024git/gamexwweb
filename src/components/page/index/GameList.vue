@@ -1,11 +1,11 @@
 <template>
   <div class="game-box">
     <div class="tabs-warp">
-      <el-skeleton animated :loading="loading">
+      <el-skeleton animated :loading="false">
         <template #template>
           <div class="game-list skeleton-warp">
             <AspectRatio aspect="204/153" v-for="i in 24" :key="i">
-              <el-skeleton-item variant="image" class="skeleton-item"/>
+              <el-skeleton-item variant="image" class="skeleton-item" />
             </AspectRatio>
           </div>
         </template>
@@ -48,280 +48,192 @@
         <template #default>
           <div class="game-content">
             <div class="game-content-left">
-              <div class="tab-title" v-for="(item, index) in gameData" :key="item.name" :class="homeActveStore.active === index?'game-content-active':''" @click="homeActveStore.active=index">
+              <!--  <div class="tab-title" v-for="(item, index) in indexMenuStore.menuData?.xw_mobile_game_menu" :key="item.name" :class="homeActveStore.active === index?'game-content-active':''" @click="homeActveStore.active=index">
                 <img :src="item.icon" class="tabs-icon" v-show="homeActveStore.active === index">
-                <t-svg :name="item.default_icon" class="tabs-icon" size="" v-if="isSvgLink(item.default_icon)"
-                       v-show="homeActveStore.active !== index"></t-svg>
-                <img :src="item.default_icon" class="tabs-icon" v-else v-show="homeActveStore.active !== index">
+                <t-svg :name="item.icon_url" class="tabs-icon" size="" v-if="isSvgLink(item.default_icon)"
+                       v-show="homeActveStore.active !== index">
+                </t-svg>
+                <img :src="item.select_icon_url" class="tabs-icon" v-else v-show="homeActveStore.active !== index">
                 <div>{{ $t(item.name) }}</div>
-              </div>
+              </div> -->
+              <ul class="game-tab">
+                <li v-for="(item, index) in indexMenuStore.menuData?.xw_mobile_game_menu"
+                  :class="[activeIndex == index ? 'swiper-pagination-bullet-active' : '']" :style="{'--acImg': `url(${item.select_icon_url})`,'--Img':`url(${item.icon_url})`}" :key="index" @click="changeType(index)">
+                  <span>{{ $t(item.name) }}</span>
+                </li>
+              </ul>
             </div>
             <div class="game-content-right">
-              <div class="game-list">
-                <GameItem :data="gameItem" v-for="gameItem in list[homeActveStore.active].gameList" :key="gameItem.id"></GameItem>
-              </div>
+              <Hotgame ref="Hot"></Hotgame>
             </div>
           </div>
         </template>
       </el-skeleton>
-
-
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {Tab, Tabs, TabsInstance} from "vant";
-import {Ref, computed, nextTick, onActivated, onDeactivated, onMounted, onUnmounted, ref, watch} from "vue";
-import GameItem from "@/components/common/GameItem.vue";
-import More from "@/components/common/More.vue";
 import useStore from "@/store";
-import isSvgLink from "@/utils/isSvgLink";
-import {game_list_api} from "@/api/games";
-import {GameItem as GameItemType, GameTypeItem} from "@/types/api/games";
-import antiShake from "@/utils/antiShake";
-import {useRoute, useRouter} from "vue-router";
-import bus from "@/utils/bus";
-import {OpenState} from "@/enum/OpenState";
-import ApiStorage from "@/storage/ApiStorage";
-
-const {systemStore, downloadTipStore, homeActveStore, gameTypeStore} = useStore();
+import { onMounted, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 const $route = useRoute();
-const $router = useRouter();
-
-// isActivated 是否在本页面
-const isActivated = ref(true);
-
-
-// 格式化tabs
-
-// 距离顶部的距离
-const offsetTop = ref(0);
-// tabs上下文对象
-const tabsRef: Ref<TabsInstance | null> = ref(null);
-
-// tabsbox 元素对象
-const tabsBoxRef: Ref<HTMLElement | null> = ref(null);
-
-// 游戏列表元素对象
-const gameListRef: Ref<HTMLElement[] | null> = ref(null);
-
-// 监听滚动的函数
-const scrollTo = (e: number) => {
-  if (!gameListRef.value) return;
-  // 重新给数组排序，vue切换会乱掉
-  gameListRef.value.sort((a, b) => Number(a.getAttribute("sort")) - Number(b.getAttribute("sort")));
-
-  // 改变选中的字段
-  homeActveStore.active = e;
-  // 判断有没有展示这个列表，没有默认0
-  if (!gameListRef.value[e]) e = 0;
-  // 距离顶部的距离
-  const top = (tabsBoxRef.value?.offsetHeight || 0) + offsetTop.value;
-  // 滚动到制定距离
-  window.scrollTo({
-    top: gameListRef.value[e].getBoundingClientRect().top + window.scrollY - top
-  });
-};
-
-// beforeChange执行切换前的操作
-const beforeChange = (e: number) => {
-  // 判断要切换的字段是否在滑动列表内，在的话给gameActiveData复制会自动展示，清空展示滚动列表
-  if (!gameData.value[e].isScroll) {
-    gameActiveData.value = gameData.value[e];
-    $router.replace(`?current=${e}`);
-    // 拉取接口
-    gameActiveData.value.page = 1;
-    gameActiveData.value.gameList = [];
-    gameActiveData.value.loading = true;
-    getGameList(gameActiveData.value).then(() => {
-      gameActiveData.value && (gameActiveData.value.loading = false);
-    });
-  } else {
-    gameActiveData.value = null;
-  }
-  // 渲染完进行 滚动操作
-  nextTick(() => {
-    scrollTo(e);
-  });
-};
-
-
-// 监听路由，进行切换
-watch(() => $route.query, (query) => {
-  nextTick(() => {
-    if (!isActivated.value) return;
-    if (!homeActveStore.isWatchRouter) return;
-    if (query.current) {
-      beforeChange(Number(query.current));
-    } else {
-      window.scrollTo(0, 0);
-    }
-  });
-});
-
-
-// 滚动时间监听，加上防抖函数
-const scroll = antiShake(() => {
-  if (!gameListRef.value) return;
-  if (gameActiveData.value) return;
-  const top = (tabsBoxRef.value?.offsetHeight || 0) + offsetTop.value;
-  let index = 0;
-  gameListRef.value.forEach((item, i) => {
-    if ((item.getBoundingClientRect().top - top) < 10) {
-      index = i;
-    }
-  });
-  homeActveStore.active = index;
-  $router.replace(`?current=${index}`);
-}, 66);
-
-
-// 获取距离顶部定位距离
-const initTop = () => {
-  const headEl = document.getElementById("head");
-  if (!headEl) return;
-  const headClientRect = headEl.getBoundingClientRect();
-  offsetTop.value = headClientRect.top + headClientRect.height;
-};
-
-// 监听下载显示情况,获取距离,避免样式混乱
-watch(() => downloadTipStore.isShow, () => nextTick(initTop));
-
-// 监听收藏广播事件
-const collectEvent = (data: unknown) => {
-  const eventData = data as GameItemType;
-  gameData.value.forEach(item => {
-    item.gameList.forEach(gameItem => {
-      if (gameItem.id == eventData.id) {
-        gameItem.is_collect = eventData.is_collect;
-      }
-    });
-    if (item.id === "collect_id" && eventData.is_collect !== OpenState.open) {
-      item.gameList = item.gameList.filter(gameItem => gameItem.id !== eventData.id);
-    }
-  });
-};
-
-// 清除副作用
-onMounted(() => {
-  bus.on("game-collect", collectEvent);
-});
-onUnmounted(() => {
-  bus.off("game-collect", collectEvent);
-});
-onActivated(() => {
-  initTop();
-  window.addEventListener("resize", initTop);
-  window.addEventListener("scroll", scroll);
-  isActivated.value = true;
-});
-onDeactivated(() => {
-  window.removeEventListener("resize", initTop);
-  window.removeEventListener("scroll", scroll);
-  isActivated.value = false;
-});
-
-
-// 请求数据
-const loading = ref(true);
-// item里面加的字段数据
-type GameDataItem = GameTypeItem & {
-  page: number,
-  limit: number,
-  gameList: GameItemType[],
-  isScroll: boolean,
-  loading?: boolean
-}
-
-// 游戏类型加列表，重新定义了数据结构
-const gameData: Ref<GameDataItem[]> = ref([]);
-
-// 列表只展示一个的时候存储的数据
-const gameActiveData: Ref<GameDataItem | null> = ref(null);
-
-// 获取游戏列表
-const getGameList = async (item: GameDataItem) => {
-  const page = item.page;
-  const fetch = new ApiStorage({
-    api: () => game_list_api({
-      limit: item.limit,
-      page,
-      hot: item.tag === "hot" ? 1 : "",
-      t_id: item.id,
-      tc_id: 0,
-    }),
-    key: String(item.tag) + String(item.id),
-    success(data) {
-      item.gameList = page === 1 ? data : [...item.gameList, ...data];
-      // page = -1 不会显示加载更多
-      item.page = data.length < item.limit ? -1 : item.page;
-    },
-  });
-  if (item.page === 1 && item.id !== "collect_id") {
-    await fetch.getData();
-  } else {
-    await fetch.getApiData();
+const {indexMenuStore } = useStore();
+const activeIndex = ref(0);
+const Hot = ref(null);
+const changeType = (index) => {
+  /* if(activeIndex.value === index)return; */
+  activeIndex.value = index;
+  if(Hot.value){
+    Hot.value.index = activeIndex.value;
+    Hot.value.changedata();
   }
 };
-const loadMore = async (item: GameDataItem) => {
-  item.page++;
-  item.loading = true;
-  await getGameList(item);
-  item.loading = false;
-};
-
-// 获取需要渲染的游戏列表
-const list = computed(() => {
-  return gameActiveData.value ? [gameActiveData.value] : gameData.value.filter(item => item.isScroll);
-});
-
-// 监听gameTypeStore.data，有数据进行下次请求
-watch(() => gameTypeStore.data, async (v) => {
-  // 监听数值不一样
-  if (v.length) {
-    // 增加字段isScroll是否展示在首页滑动列表中
-    gameData.value = v.map(item => ({...item, page: 1, limit: 12, gameList: [], isScroll: item.id !== "collect_id"}));
-
-    // 一次性请求全部数据接口，加上loading显示控制,去掉isScroll的请求
-    loading.value = true;
-    await Promise.all(gameData.value.filter(item => item.isScroll).map(item => getGameList(item)));
-    loading.value = false;
-
-    // 判断是否有路由上是否有current，有责进行选中操作
-    Number($route.query.current) && nextTick(() => beforeChange(Number($route.query.current)));
+watch($route,()=>{
+  if($route.query.gameId){
+    if(String(activeIndex.value) == $route.query.gameId)return;
+    changeType($route.query.gameId);
   }
-}, {immediate: true});
-
+});
+onMounted(()=>{
+  changeType(activeIndex.value);
+});
 </script>
 
 <style scoped lang="less" src="@/assets/css/pages/index/gameList.less"></style>
 <style scoped lang="less">
-.game-content{
+.game-content {
   display: flex;
-  gap: 10px;
-  &-left{
+  gap: 20px;
+  overflow-y: auto;
+  height: 51vh;
+  padding-bottom: 50px;
+
+  &-left {
     width: 21%;
   }
-  &-right{
+
+  &-right {
     flex: 1;
   }
 }
-.tab-title:after{
-  content: '';
+.game-tab {
   position: absolute;
-  top: 0;
   left: 0;
-  right: 0;
+  top: 0;
   bottom: 0;
-  border-radius: 14px;
-  border: 4px solid transparent;
-  background: linear-gradient(270deg, #263557 0%, #3B4D71 100%) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-.game-content-active.tab-title:after{
-  background: linear-gradient(180deg, #63FFFF 0%, #D6D6D6 100%) border-box;
+  width: 24%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 0px 30px 0px 0px;
+  border-radius: 0 5px 0 0;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0);
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  transform: none;
+  right: 10px;
+
+  li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 50px;
+    flex: 1;
+    color: #97a8c7;
+    text-align: center;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    background: #0c1429;
+    -webkit-box-shadow: 2px 1px 4px 0px #545c70;
+    -moz-box-shadow: 2px 1px 4px 0px #545c70;
+    box-shadow: 2px 1px 4px 0px #545c70;
+    height: calc(19.5% - 7px);
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(3, 3, 3, 0.3) 0%, rgba(51, 66, 107, 0.6) 100%);
+    box-shadow: none;
+  }
+
+  li.swiper-pagination-bullet-active {
+    box-shadow: none;
+    color: #fff;
+    background: radial-gradient(96.76% 96.76% at 50% 3.24%, #1F53A0 0%, #1764AB 30.5%, #0C1429 100%);
+  }
+
+  li:before {
+    content: "";
+    display: block;
+    width: 100%;
+    min-height: 50px;
+    background-size: contain;
+    background-position: center;
+    height: 60%;
+    margin-top: -3px;
+    background: var(--Img) center no-repeat;
+    background-size: contain;
+
+  }
+
+  span {
+    font-size: 25px;
+    overflow: hidden;
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  li:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: linear-gradient(270deg, #263557 0%, #3b4d71 100%) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  li.swiper-pagination-bullet-active:after {
+    background: linear-gradient(180deg, #63ffff 0%, #d6d6d6 100%) border-box;
+  }
+
+  li.swiper-pagination-bullet-active:before {
+    /* background: var(--amg) center no-repeat; */
+    content: "";
+    display: block;
+    width: 100%;
+    min-height: 50px;
+    background-size: contain;
+    background-position: center;
+    height: 60%;
+    margin-top: -3px;
+    background: var(--acImg) center no-repeat;
+    background-size: contain;
+    animation: aniGame .8s ease-out infinite;
+    -webkit-animation: aniGame .8s ease-out infinite;
+  }
+
+  @keyframes aniGame {
+    0% {
+      transform: translateY(-3px);
+    }
+
+    50% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(-3px);
+    }
+  }
 }
 </style>

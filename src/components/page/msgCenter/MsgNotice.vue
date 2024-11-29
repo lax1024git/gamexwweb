@@ -18,7 +18,7 @@ import More from "@/components/common/More.vue";
 import MsgItem from "@/components/common/MsgItem.vue";
 import { ResCode } from "@/enum/ResultCode";
 import { MessageListItem } from "@/types/api/message";
-import { Ref, ref, watch } from "vue";
+import { onMounted, Ref, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 const $route = useRoute();
 
@@ -71,6 +71,10 @@ watch(() => $route.fullPath, async v => {
     loading.value = false;
   }
 }, { immediate: true });
+
+onMounted(async()=>{
+  await getMsgList();
+});
 </script>
 
 <style scoped lang="less" src="@/assets/css/pages/msgCenter/msg.less"></style>

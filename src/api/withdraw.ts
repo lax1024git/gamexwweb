@@ -1,5 +1,6 @@
-import { WithdrawLimit, WithdrawRecordItem } from "@/types/api/withdraw";
+import { WithdrawLimit, WithdrawRecordItem,TransactionRecord } from "@/types/api/withdraw";
 import { request } from "@/utils/request";
+import { registerRuntimeCompiler } from "vue";
 
 export const withdraw_limit_api = () =>
   request.post<WithdrawLimit>("withdraw/limit");
@@ -18,3 +19,14 @@ export const withdraw_record_api = (data: {
   start_time?: number | string;
   end_time?: number | string;
 }) => request.post<WithdrawRecordItem[]>("withdraw/record", data);
+
+//交易记录
+
+export const transaction_record_api = (data: {
+  page: number | string;
+  limit: number | string;
+  start_time?: number | string;
+  end_time?: number | string;
+}) => {
+  return request.post<TransactionRecord[]>("/my/balanceRecord",data);
+};
