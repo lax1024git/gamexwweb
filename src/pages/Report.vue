@@ -6,7 +6,7 @@
         <Tab :title="$t('投注记录')" to="?current=0" replace>
           <div class="input-list">
             <el-select class="round input" size="large" v-model="form.level" :placeholder="$t('级别')">
-              <el-option :label="$t(item.name)" :value="item.value" v-for="item in levelList" :key="item.value" />
+              <el-option :label="$t(item.name)" :value="item.value" popper-class="custom-header" v-for="item in levelList" :key="item.value" />
             </el-select>
 
             <el-select class="round input" size="large" v-model="form.settlement" :placeholder="$t('结算')">

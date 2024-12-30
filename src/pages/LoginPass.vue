@@ -52,6 +52,8 @@ import {passwordAgainRule, passwordRule} from "@/utils/rule";
 import {ElMessage, FormInstance} from "element-plus";
 import {Ref, ref} from "vue";
 import {useRouter} from "vue-router";
+import { my_logout_api } from "@/api";
+import Token from "@/storage/Token";
 
 const $router = useRouter();
 const formRef: Ref<FormInstance | null> = ref(null);
@@ -82,8 +84,15 @@ const submit = async (code?: string, tips = false) => {
       type: "success",
       message: lang.t("修改成功")
     });
-    $router.back();
-    formRef.value?.resetFields();
+    // $router.back();
+    // formRef.value?.resetFields();
+
+    const res = await my_logout_api();
+      if (res.code === ResCode.success) {
+        Token.removeData();
+        $router.push("/");
+      }
+
     return true;
   } else if (res.code === ResCode.verificationCode) {
     openLink("/sendCodePop", {

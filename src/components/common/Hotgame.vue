@@ -33,7 +33,7 @@
         </div>
         <div class="gamelist">
             <div class="gamelistItem" v-for="item in GameList" :key="item" @click="jumpshowGame(item)">
-                <img :src="item.icon" alt="">
+                <img :src="item.icon" alt="" style="object-fit: cover;">
                 <span>{{item.game_name}}</span>
             </div>
             
@@ -71,6 +71,9 @@ let data = reactive({
 const loading = ref(false);
 const nextPage = ref(false);
 const changeId = (index) =>{
+    if (loading.value) {
+        return;
+    }
   data.page = 1;
   activeIndex.value = index;
   GameList.value = [];

@@ -202,7 +202,10 @@ const btnLoadingM = ref(false);
 
 const receive = async (reward_type: number) => {
   const loading = reward_type === 1 ? btnLoadingW : btnLoadingM;
-  loading.value = true;
+  if (loading.value) {
+    return;
+  }
+  // loading.value = true;
   const res = await user_receiveLevelReward_api({
     level_id: curLev.value?.id as number,
     reward_type
