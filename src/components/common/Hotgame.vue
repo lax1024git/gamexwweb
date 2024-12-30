@@ -1,11 +1,11 @@
 <template>
     <div :class="['common-list', index != 0 ? 'All' : '']" v-if="index != 2">
-        <template v-if="index === 0">
+        <template v-if="index == 0">
             <div v-for="item in gameList" class="hot-item" :key="item.href" @click=jumpGameList(item)>
                 <div class="game-img-box">
-                    <img :src="item.show_img" alt="">
+                    <img :src="item?.show_img" alt="">
                 </div>
-                <span class="game-name">{{ $t(item.name) }}</span>
+                <span class="game-name">{{ $t(item?.name) }}</span>
             </div>
         </template>
         <template v-else>
@@ -29,20 +29,23 @@
     <div v-else>
         <div class="tabsList">
             <div :class="['tabitem',activeIndex === index ? 'swiper-pagination-bullet-active' :'']" v-for="(item,index) in gameList" :key="item"
-            @click="getGameList(index)">{{$t(item.name)}}</div>
+            @click="changeId(index)">{{$t(item.name)}}</div>
         </div>
         <div class="gamelist">
             <div class="gamelistItem" v-for="item in GameList" :key="item" @click="jumpshowGame(item)">
-                <img :src="item.gi_headimg" alt="">
-                <span>{{$t(item.tc_name)}}</span>
+                <img :src="item.icon" alt="">
+                <span>{{item.game_name}}</span>
             </div>
+            
         </div>
+        <More @loadmore="loadmore" :loading="loading" :isMore="nextPage"></More>
+        <Empty class="empty" v-if="GameList.length === 0 && !loading"></Empty>
     </div>
 </template>
 
 <script setup>
 import useStore from "@/store";
-import { onMounted, ref } from "vue";
+import {onActivated, reactive, ref } from "vue";
 import { getnewGameList } from "@/api/games";
 import { useRouter } from "vue-router";
 const $router = useRouter();
@@ -50,6 +53,7 @@ const { indexMenuStore } = useStore();
 const index = ref(0);
 const gameList = ref([]);
 gameList.value = indexMenuStore.menuData?.xw_mobile_game_menu[index.value].children;
+
 const changedata = () => {
   gameList.value = indexMenuStore.menuData?.xw_mobile_game_menu[index.value].children[0];
   if(index.value === 2){
@@ -59,21 +63,37 @@ const changedata = () => {
 const activeIndex = ref(0);
 const GameList = ref([]);
 
-let data = {
+let data = reactive({
   limit:20,
   page:1,
   t_id:"",
-};
-
-const getGameList =async (index) => {
+});
+const loading = ref(false);
+const nextPage = ref(false);
+const changeId = (index) =>{
+  data.page = 1;
   activeIndex.value = index;
+  GameList.value = [];
+  getGameList();
+};
+const getGameList =async () => {
+  loading.value = true;
   data.t_id = gameList.value[activeIndex.value].extra;
   const res = await getnewGameList(data);
+  loading.value = false;
   if(res.code === 1){
-    GameList.value = res.data;
+    GameList.value = [...GameList.value,...res.data];
+    if(GameList.value.length < res.total){
+      nextPage.value = true;
+    }else{
+      nextPage.value = false;
+    }
   }
 };
-
+const loadmore = () => {
+  data.page++;
+  getGameList();
+};
 const jumpGameList = (item) => {
   $router.push(`/playGameList?id=${item.extra}&title=${item.name}`);
 };
@@ -84,7 +104,6 @@ defineExpose(({
   index,
   changedata
 }));
-
 </script>
 
 <style scoped lang="less">
@@ -136,6 +155,7 @@ defineExpose(({
     border-radius: 8px 8px 0 0 !important;
     background: none;
     height: 78%;
+    object-fit: cover;
     overflow: hidden;
 
     &::before {
@@ -151,7 +171,6 @@ defineExpose(({
         -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
-        /* z-index: 1; */
     }
 
     img {
@@ -170,7 +189,7 @@ defineExpose(({
 }
 
 .game-name {
-    position: static;
+    position: relative;
     height: auto;
     width: 100%;
     padding: 6px 0;

@@ -220,3 +220,22 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="less" src="@/assets/css/pages/withdraw/withdraw.less"></style>
+
+<style lang="less" scoped>
+.btn{
+  border-style: none;
+  margin: 20px auto !important;
+  color: #68affb;
+  background: url("@/assets/images/submitBtn.png") no-repeat center;
+  background-size: contain;
+  box-shadow: none;
+  height: 104px;
+  margin: 0;
+  width: 100%;
+  font-size: 24px;
+  /* filter: brightness(.5); */
+}
+::v-deep(.el-button.is-loading:before){
+  background-color: transparent !important;
+}
+</style>

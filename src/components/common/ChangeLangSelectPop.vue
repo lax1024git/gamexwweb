@@ -1,7 +1,7 @@
 <template>
   <Popup v-model:show="isShow" @closed="emit('closed')">
     <div class="title">{{ $t("语言") }}</div>
-    <div class="lang-item" v-for="item in systemStore.systemData?.alllang" :key="item.value"
+    <div :class="['lang-item',lang.getLocale() == item.value ? 'active' : '']" v-for="item in systemStore.systemData?.alllang" :key="item.value"
       @click="lang.setLocale(item.value, true)">{{ item.label }}</div>
   </Popup>
 </template>

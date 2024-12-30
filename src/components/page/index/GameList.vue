@@ -85,7 +85,7 @@ const changeType = (index) => {
   /* if(activeIndex.value === index)return; */
   activeIndex.value = index;
   if(Hot.value){
-    Hot.value.index = activeIndex.value;
+    Hot.value.index = index;
     Hot.value.changedata();
   }
 };
@@ -106,7 +106,7 @@ onMounted(()=>{
   display: flex;
   gap: 20px;
   overflow-y: auto;
-  height: 51vh;
+  height: 53vh;
   padding-bottom: 50px;
 
   &-left {

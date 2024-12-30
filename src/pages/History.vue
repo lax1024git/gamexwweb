@@ -21,12 +21,12 @@
         </el-table-column>
         <el-table-column :label="$t('变更余额')">
           <template #default="scope">
-            {{ $numInit(scope.row.price) }}
+            {{ scope.row.price }}
           </template>
         </el-table-column>
         <el-table-column :label="$t('变更后余额')">
           <template #default="scope">
-            {{ $numInit(scope.row.new_price) }}
+            {{ scope.row.new_price }}
           </template>
         </el-table-column>
         <el-table-column :label="$t('时间')">

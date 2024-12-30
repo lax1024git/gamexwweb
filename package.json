@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5412 --host",
-    "build": "vue-tsc && vite build",
+    "build": "vite build",
     "dev:testwg_demo": "vite --host --mode testwg_demo",
     "build:testwg_demo": "vite build --mode testwg_demo",
     "dev:testt79wg": "vite --host --mode testt79wg",

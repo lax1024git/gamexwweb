@@ -34,7 +34,7 @@
             <div class="item-content">
               <span>{{ $t("添加账户") }}</span>
             </div>
-            <t-svg name="right" size="20"></t-svg>
+            <t-svg name="right" size="25" color="red"></t-svg>
           </div>
         </div>
         <template #dropdown>

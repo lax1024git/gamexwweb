@@ -80,9 +80,7 @@ const menuList = [
     { name: "退出", icon: "quit", callBack: quit },
   ],
 ];
-onMounted(()=>{
-  refreshBalance();
-});
+
 const menuVisible = ref(false);
 const btnVisible = ref(false);
 const tabMenu = (item: ElementType<ElementType<typeof menuList>>) => {

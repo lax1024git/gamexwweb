@@ -22,7 +22,7 @@ const props = defineProps<{
 }>();
 const collect = async () => {
   if (!userStore.isLogin) {
-    openLink("/login");
+    openLink("/Login");
     return;
   }
   collect_collect_api({

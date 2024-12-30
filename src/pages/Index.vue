@@ -8,7 +8,7 @@
     </div>
     <RightMenu></RightMenu>
     <GameList></GameList>
-    <FloatBox></FloatBox>
+    <!-- <FloatBox></FloatBox> -->
     <Menu></Menu>
 
   </div>

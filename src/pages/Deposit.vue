@@ -1,109 +1,113 @@
 <template>
-  <div style="padding: 0 16px">
+  <div style="padding: 0 16px;background: rgba(31, 49, 67, 0.8);">
     <NavBar class="nav-bar" :title="$t('充值')"></NavBar>
-    <Tabs v-model:active="tabActive" :shrink="true">
-      <Tab v-for="tabItem in tabList" :key="tabItem.type">
-        <template #title>
-          <div class="tab-title">
-            <t-svg :name="tabItem.icon" class="tabs-icon"></t-svg>
-            <div>{{ $t(tabItem.name) }}</div>
-          </div>
-        </template>
-        <el-form :rules="rules" ref="formRef" :model="form">
-          <div class="select-box1">
-            <div class="select-btn" :class="{ active: rechargeTypeActive == index }"
-                 v-for="item, index in rechargeTypeList" :key="item.type" @click="rechargeTypeActive = index">
-              <img :src="item.icon" class="select-btn-icon">
-              <span>{{ $t(item.name) }}</span>
-              <t-svg class="active-icon" name="xuanzhongduigou" size=""></t-svg>
+    <div style="">
+      <Tabs v-model:active="tabActive" :shrink="true">
+        <Tab v-for="tabItem in tabList" :key="tabItem.type">
+          <template #title>
+            <div class="tab-title">
+              <t-svg :name="tabItem.icon" class="tabs-icon"></t-svg>
+              <div>{{ $t(tabItem.name) }}</div>
             </div>
-          </div>
-          <div class="select-box2">
-            <div class="select-btn" :class="{ active: index === channeActive }" v-for="item, index in channelList"
-                 :key="item.id" @click="channeActive = index">
-              <span>{{ item['bank_name'] || item['pay_name'] }}</span>
-              <t-svg class="active-icon" name="xuanzhongduigou" size=""></t-svg>
+          </template>
+          <el-form :rules="rules" ref="formRef" :model="form">
+            <div class="select-box1">
+              <div class="select-btn" :class="{ active: rechargeTypeActive == index }"
+                v-for="item, index in rechargeTypeList" :key="item.type" @click="rechargeTypeActive = index">
+                <img :src="item.icon" class="select-btn-icon">
+                <span>{{ $t(item.name) }}</span>
+                <t-svg class="active-icon" name="xuanzhongduigou" size=""></t-svg>
+              </div>
             </div>
-          </div>
-          <div class="amount-title">{{ $t("充值金额") }}</div>
-          <div class="select-box3">
-            <div class="select-btn" :class="{ active: form.apply_price === item }" v-for="item, index in amountList"
-                 :key="index" @click="form.apply_price = item">
-              <span>{{ item }}</span>
-              <t-svg class="active-icon" name="xuanzhongduigou" size=""></t-svg>
-              <div class="bonus-corner-marker" v-if="computedBonus(Number(item))">+{{
+            <div class="select-box2">
+              <div class="select-btn" :class="{ active: index === channeActive }" v-for="item, index in channelList"
+                :key="item.id" @click="channeActive = index">
+                <span>{{ item['bank_name'] || item['pay_name'] }}</span>
+                <t-svg class="active-icon" name="xuanzhongduigou" size=""></t-svg>
+              </div>
+            </div>
+            <div class="amount-title">{{ $t("充值金额") }}</div>
+            <div class="select-box3">
+              <div class="select-btn" :class="{ active: form.apply_price === item }" v-for="item, index in amountList"
+                :key="index" @click="form.apply_price = item">
+                <span>{{ item }}</span>
+                <t-svg class="active-icon" name="xuanzhongduigou" size=""></t-svg>
+                <div class="bonus-corner-marker" v-if="computedBonus(Number(item))">+{{
                   computedBonus(Number(item))?.bonus || 0
                 }}</div>
+              </div>
             </div>
-          </div>
-          <el-form-item prop="apply_price">
-            <el-input class="input" :placeholder="placeholderText()" size="large" v-model="form.apply_price"
-                      type="number">
-              <template #prefix>
-                <div class="input-icon">{{ rechargeAll?.currency_symbol }}</div>
-              </template>
-              <template #suffix v-if="computedBonus(Number(form.apply_price))">
-                <div class="input-bonus">+{{
+            <el-form-item prop="apply_price">
+              <el-input class="input" :placeholder="placeholderText()" size="large" v-model="form.apply_price"
+                type="number">
+                <template #prefix>
+                  <div class="input-icon">{{ rechargeAll?.currency_symbol }}</div>
+                </template>
+                <template #suffix v-if="computedBonus(Number(form.apply_price))">
+                  <div class="input-bonus">+{{
                     computedBonus(Number(form.apply_price))?.bonus
                   }}</div>
-              </template>
-            </el-input>
-          </el-form-item>
+                </template>
+              </el-input>
+            </el-form-item>
 
-          <el-form-item v-if="isAction">
-            <el-select size="large" v-model="form.not_auto_action" :placeholder="$t('请选择参与活动')">
-              <el-option :label="item.news_title" :value="item.id" v-for="item in rechargeAll?.action_list"
-                         :key="item.id" />
-            </el-select>
-          </el-form-item>
+            <el-form-item v-if="isAction">
+              <el-select size="large" v-model="form.not_auto_action" :placeholder="$t('请选择参与活动')">
+                <el-option :label="item.news_title" :value="item.id" v-for="item in rechargeAll?.action_list"
+                  :key="item.id" />
+              </el-select>
+            </el-form-item>
 
-          <!-- 单位不一样，进行实时汇率显示 -->
-          <div class="tips" v-if="channeActiveData?.currencyApi.currency_symbol !== rechargeAll?.currency_symbol">
-            <div class="tip">
-              {{ $t("实时汇率") }}
-              <span style="color: var(--color4);">
-                {{ channeActiveData?.currencyApi.currency_symbol }} 1 =
-                {{ rechargeAll?.currency_symbol }} {{ Number(channeActiveData?.currencyApi.recharge_rate) }}
-              </span>
+            <!-- 单位不一样，进行实时汇率显示 -->
+            <div class="tips" v-if="channeActiveData?.currencyApi.currency_symbol !== rechargeAll?.currency_symbol">
+              <div class="tip">
+                {{ $t("实时汇率") }}
+                <span style="color: var(--color4);">
+                  {{ channeActiveData?.currencyApi.currency_symbol }} 1 =
+                  {{ rechargeAll?.currency_symbol }} {{ Number(channeActiveData?.currencyApi.recharge_rate) }}
+                </span>
+              </div>
+              <div class="tip">
+                {{ $t("实际付款金额") }}
+                <span style="color: var(--color4);">
+                  {{ channeActiveData?.currencyApi.currency_symbol }}
+                  {{ $numInit(currencyConversion(Number(form.apply_price), true)) }}
+                </span>
+              </div>
+              <div class="tip">
+                {{ $t("实际到账金额") }}
+                <span style="color: var(--color4);">
+                  {{ rechargeAll?.currency_symbol }}
+                  {{ $numInit(Number(form.apply_price) + (computedBonus(Number(form.apply_price))?.bonus || 0)) }}
+                </span>
+              </div>
             </div>
-            <div class="tip">
-              {{ $t("实际付款金额") }}
-              <span style="color: var(--color4);">
-                {{ channeActiveData?.currencyApi.currency_symbol }}
-                {{ $numInit(currencyConversion(Number(form.apply_price), true)) }}
-              </span>
-            </div>
-            <div class="tip">
-              {{ $t("实际到账金额") }}
-              <span style="color: var(--color4);">
-                {{ rechargeAll?.currency_symbol }}
-                {{ $numInit(Number(form.apply_price) + (computedBonus(Number(form.apply_price))?.bonus || 0)) }}
-              </span>
-            </div>
-          </div>
 
-          <el-button class="full btn" type="primary" size="large" @click="submit()" :loading="btnLoading">{{ $t("现在充值")
-            }}</el-button>
-        </el-form>
-      </Tab>
-    </Tabs>
+            <el-button class="full btn"  @click="submit()" :loading="btnLoading">{{
+              $t("现在充值")
+              }}</el-button>
+          </el-form>
+        </Tab>
+      </Tabs>
+    </div>
+
   </div>
 </template>
 <script setup lang="ts">
 import NavBar from "@/components/common/NavBar.vue";
-import {ref, onMounted, Ref, computed} from "vue";
-import {RechargeAll} from "@/types/api/recharge";
-import {recharge_apply_api, recharge_get_all_api} from "@/api/recharge";
-import {ResCode} from "@/enum/ResultCode";
-import {RechargeType} from "@/enum/RechargeType";
-import {require} from "@/utils/$require";
-import {watch} from "vue";
+import { ref, onMounted, Ref, computed } from "vue";
+import { RechargeAll } from "@/types/api/recharge";
+import { recharge_apply_api, recharge_get_all_api } from "@/api/recharge";
+import { ResCode } from "@/enum/ResultCode";
+import { RechargeType } from "@/enum/RechargeType";
+import { require } from "@/utils/$require";
+import { watch } from "vue";
 import lang from "@/lang";
-import {ElMessage, FormInstance} from "element-plus";
-import {openLink} from "@/utils/openLink";
+import { ElMessage, FormInstance } from "element-plus";
+import { openLink } from "@/utils/openLink";
 import Loading from "@/utils/loading";
 import ApiStorage from "@/storage/ApiStorage";
-import {Tab, Tabs} from "vant";
+import { Tab, Tabs } from "vant";
 
 const isShow = ref(false);
 const formRef: Ref<FormInstance[] | null> = ref(null);
@@ -112,8 +116,8 @@ const formRef: Ref<FormInstance[] | null> = ref(null);
 // 1是线下充值
 const tabList = computed(() => {
   const list: { name: string, type: string, icon: string }[] = [];
-  if (rechargeAll.value?.online.length) list.push({name: "网上存款", type: "online", icon: "online"});
-  if (rechargeAll.value?.offline.length) list.push({name: "线下存款", type: "offline", icon: "offline"});
+  if (rechargeAll.value?.online.length) list.push({ name: "网上存款", type: "online", icon: "online" });
+  if (rechargeAll.value?.offline.length) list.push({ name: "线下存款", type: "offline", icon: "offline" });
   return list;
 });
 const tabActive = ref(0);//选中的索引
@@ -147,7 +151,7 @@ const rechargeTypeList = computed(() => {
   // 筛选掉下面不存在的渠道,列表内不显示
   const typeList = [
     ...((tabActiveData.value.type === "online" ? rechargeAll.value?.online : rechargeAll.value?.offline)
-        || []
+      || []
     )].map(item => item.type);
   return rechargeTypeList.filter(item => typeList.includes(item.type));
 });
@@ -210,7 +214,7 @@ const rules = {
       validator: (_rule: unknown, value: string, callback: (err?: Error) => void) => {
         const valueNum = Number(value);
         if ((valueNum > max.value || valueNum < min.value) && max.value > 0) {
-          callback(new Error(lang.t("最少{min}，最多{max}", {min: min.value, max: max.value})));
+          callback(new Error(lang.t("最少{min}，最多{max}", { min: min.value, max: max.value })));
         }
         callback();
       },
@@ -310,7 +314,7 @@ const max = computed(() => currencyConversion(Number(channeActiveData.value?.["p
 // 占位文字，根据限制变化
 const placeholderText = () => {
   if (max.value > 0) {
-    return lang.t("最少{min}，最多{max}", {min: min.value, max: max.value});
+    return lang.t("最少{min}，最多{max}", { min: min.value, max: max.value });
   } else {
     return lang.t("请输入充值金额");
   }
@@ -326,5 +330,20 @@ onMounted(async () => {
 </script>
 <style scoped lang="less" src="@/assets/css/components/deposit.less"></style>
 <style scoped lang="less">
-
+.btn{
+  border-style: none;
+  margin: 20px auto !important;
+  color: #68affb;
+  background: url("@/assets/images/submitBtn.png") no-repeat center;
+  background-size: contain;
+  box-shadow: none;
+  height: 104px;
+  margin: 0;
+  width: 100%;
+  font-size: 24px;
+  /* filter: brightness(.5); */
+}
+::v-deep(.el-button.is-loading:before){
+  background-color: transparent !important;
+}
 </style>

@@ -80,14 +80,14 @@ const searchBtn = () => {
 };
 
 const jumpshowGame = (item) => {
-  $router.push(`/showGame?id=${item.id}`);
+  $router.push(`/showGame?id=${item.id}&isback=true`);
 };
 onActivated(()=>{
-  gameList.value = [];
   if($route.query.id){
     data.t_id = $route.query.id;
   }
-  getGameList();
+  keyword.value = ""
+  searchBtn()
 });
 </script>
 

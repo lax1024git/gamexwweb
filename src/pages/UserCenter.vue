@@ -6,7 +6,7 @@
         <img src="@/assets/images/mine/mascot.png">
       </div>
       <div class="mamber-info d-flex flex-column">
-        <div>你好，冒險家們</div>
+        <div>{{$t("你好，冒险家们")}}</div>
         <div>
           <span class="AccountName">@{{ userStore.userInfo?.yphone || userStore.userInfo?.mail }}</span>
                    <!-- &nbsp; 本次登入時間 &nbsp;<span  class="login-time">2024/09/06 12:42:30 中午</span> -->
@@ -14,37 +14,36 @@
         <div class="wallet-info">
           <span>{{ $numInit(userStore.userInfo?.balance) }}</span>
         </div>
-        <a href="#/vip" class="vip-btn">查看更多&nbsp;<span class="more-arrow">→</span></a>
+        <a href="#/vip" class="vip-btn">{{$t("查看更多")}}&nbsp;<span class="more-arrow">→</span></a>
       </div>
     </div>
     <div  class="main-action">
       <div  class="main-link">
-        <a  href="#/Deposit" class="action-link financial"><i></i>存款</a>
-        <a  href="#/Withdraw" class="action-link withdraw"><i></i>提款</a>
+        <a  href="#/Deposit" class="action-link financial"><i></i>{{$t("存款")}}</a>
+        <a  href="#/Withdraw" class="action-link withdraw"><i></i>{{$t("提款")}}</a>
         <a  href="#/history" class="action-link award-center"><i ></i> <span
            class="d-flex">
-                    历史
-        <!----></span>
-        </a>
-        <a  href="#/VIP" class="action-link vip"><i ></i>VIP</a></div>
+                    {{$t("历史")}}
+        </span>
+        </a>  
+        <a  href="#/VIP" class="action-link vip"><i ></i>{{$t("VIP")}}</a></div>
       <hr >
-      <div  class="sub-link-group">
-        <div ><a  href="#/WithdrawAccountManagement?type=Bank" class="sub-link withdrawal-account-management">設定銀行帳戶</a></div> <!----> <!---->
-        <div ><a  href="#/BetRecord" class="sub-link bet-record">投注記錄</a></div>
-        <div ><a  href="#/Transaction?id=2" class="sub-link transaction">交易記錄</a></div> <!---->
-        <div ><a  href="#/SiteMail" class="sub-link site-mail">站內信<!----></a></div> <!---->
-        <div ><a  href="#/loginPass" class="sub-link change-password">修改密碼</a></div> <!----> <!----> <!---->
-        <div ><a  href="#/newactivity" class="sub-link promotion">優惠</a></div>
-        <!----> <!---->
+      <div class="sub-link-group">
+        <div ><a  href="#/WithdrawAccountManagement?type=Bank" class="sub-link withdrawal-account-management">{{$t("设定银行账户")}}</a></div>  
+        <div ><a  href="#/BetRecord" class="sub-link bet-record">{{$t("投注记录")}}</a></div>
+        <div ><a  href="#/Transaction?id=2" class="sub-link transaction">{{$t("交易记录")}}</a></div> 
+        <div ><a  href="#/SiteMail" class="sub-link site-mail">{{$t("站内信")}}</a></div> 
+        <div ><a  href="#/loginPass" class="sub-link change-password">{{$t("修改密码")}}</a></div> 
+        <div ><a  href="#/newactivity" class="sub-link promotion">{{$t("活动")}}</a></div>
         <hr >
-        <div ><a  href="javascript:void(0)" class="sub-link app">APP下載</a></div>
+        <div ><a  href="javascript:void(0)" class="sub-link app">{{$t("APP下載")}}</a></div>
         <div @click="$openLink('/changeLangSelectPop')">
-          <div class="sub-link set-language">設定語系</div>
+          <div class="sub-link set-language">{{$t("设定语系")}}</div>
         </div>
-        <div ><a  href="#/Guide" class="sub-link faq">新手教學</a></div>
+        <div ><a  href="#/Guide" class="sub-link faq">{{$t("新手教学")}}</a></div>
       </div>
       <div  class="SignOut-btn" @click="quit">
-        <a  href="##" class="d-block px-3 py-2 text-center text-decoration-none">登出</a>
+        <a  href="##" class="d-block px-3 py-2 text-center text-decoration-none">{{$t("登出")}}</a>
       </div>
     </div>
 
@@ -227,7 +226,7 @@ import quit from "@/utils/quit";
 import NavBar from "@/components/common/NavBar.vue";
 import {ref} from "vue";
 
-const {userStore} = useStore();
+const {userStore,indexMenuStore} = useStore();
 
 // 刷新余额
 const isRefresh = ref(false);

@@ -28,7 +28,7 @@ import { useRoute } from "vue-router";
 const tabList = ["存款记录", "提款记录", "交易记录"];
 const $route = useRoute();
 const DataTime = [{title:"今日",value:"today"}, {title:"昨天",value:"yesterday"},{title:"七日内",value:"last7"}, {title:"30日内",value:"last30"}];
-const tabCurrent = ref(0);
+const tabCurrent = ref<Number>(0);
 const DataCyrrent = ref("today");
 let startDate = ref("");
 let endDate = ref("");
@@ -63,7 +63,7 @@ const showDateRange = (range) => {
 };
 onActivated(()=>{
   if($route.query.id){
-    tabCurrent.value = $route.query.id;
+    tabCurrent.value = Number($route.query.id);
   }
   showDateRange(DataCyrrent.value);
 });

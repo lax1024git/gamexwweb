@@ -61,7 +61,7 @@ body {
 .container {
   width: var(--container-width);
   padding: 0 var(--container-padding);
-  max-width: 100%;
+  max-width: 100% !important;
   margin: 0 auto;
 }
 .page-box:before {
@@ -71,9 +71,10 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("@/assets/images/bg.jpg") no-repeat center !important;
-  z-index: -1;
+  background: url("@/assets/images/bg.jpg") no-repeat center;
   background-size: cover;
+  z-index: -1;
+
 }
 .input-icon {
   font-size: 27px;

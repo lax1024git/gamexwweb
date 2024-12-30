@@ -1,19 +1,19 @@
 <template>
   <div>
-    <NavBar class="nav-bar" :title="$t('客戶服務')" :isBack="false"></NavBar>
+    <NavBar class="nav-bar" :title="$t('客服服务')" :isBack="false"></NavBar>
     <div class="page-content">
       <img src="@/assets/images/servise_banner.png">
-      <div class="services-link" @click="$openLink(indexMenuStore.menuData?.wg_service[0]?.children?.[0].href || '')">
-        <div class="icon"><img src="@/assets/images/Line.png" width="45"></div>
+      <div class="services-link" @click="$openLink(indexMenuStore.menuData?.xw_service[0]?.children?.[0].href || '')">
+        <div class="icon"><img :src="indexMenuStore.menuData?.xw_service[0]?.children?.[0].icon_url" width="30"></div>
         <div class="text">
-          <span>{{ $t('LINE 客服') }}</span>
-          <b>{{$t('LINE 客戶服務')}}</b>
+          <span>{{ $t(indexMenuStore.menuData?.xw_service[0]?.name) }}</span>
+          <b>{{$t(indexMenuStore.menuData?.xw_service[0]?.children?.[0].name)}}</b>
         </div>
         <div class="join">{{$t('JOIN NOW')}}</div>
       </div>
       <div class="card-box">
         <Tabs v-model:active="active" :shrink="true" class="service-tabs" animated>
-          <Tab v-for="(tab, index) in indexMenuStore.menuData?.wg_service" :key="index">
+          <Tab v-for="(tab, index) in indexMenuStore.menuData?.xw_service" :key="index">
             <template #title>
               <div class="title-box">
                 <img :src="tab.icon_url" class="title-icon">
@@ -22,7 +22,7 @@
             </template>
             <div class="service-list">
               <div class="service-item" v-for="(item, index) in tab.children" :key="index">
-                <img :src="item.icon_url" class="service-item-icon" />
+                <img :src="item.icon_url" class="service-item-icon"/>
                 <div class="service-item-content">
                   <div class="item-name">{{ tab.name }}</div>
                   <div class="item-desc">{{ item.name }}</div>

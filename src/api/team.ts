@@ -18,6 +18,7 @@ import {
   V2TeamCommissionRateItem,
   V2TeamIncomeItem,
   V2TeamStatistics,
+  GameOrderlistItem,
 } from "@/types/api/team";
 import { request } from "@/utils/request";
 
@@ -98,6 +99,18 @@ export const team_orderlist_api = (data: {
   level?: number | string;
   settlement?: number | string;
 }) => request.post<TeamOrderlistItem[]>("team/orderlist", data);
+// 个人投注列表
+export const game_orderlist_api = (data:{
+  page: number;
+  limit: number;
+  date?: string;
+  isday?: number | string;
+  settlement?: number | string;
+  sports?: number;
+}) => {
+  return request.post<GameOrderlistItem[]>("game/order",data);
+};
+
 
 export const v2_team_recommend_api = () =>
   request.get<TeamRecommend>("v2/team/recommend");

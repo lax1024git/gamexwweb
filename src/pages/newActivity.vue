@@ -5,7 +5,7 @@
             <swiper-container speed="20" :loop="false" :autoplay="false" class="swiper" slidesPerView="3" ref="swiper">
                 <swiper-slide :class="['swiper-slide', activeIndex === index ? 'active' : '']" v-for="(item, index) in actionTypeList"
                     :key="item.id" @click="getActionList(index)">
-                    {{ item.name }}
+                    {{ $t(item.name) }}
                 </swiper-slide>
             </swiper-container>
         </div>
@@ -16,7 +16,7 @@
         </div>
     </div>
     <More :loading="loading" :isMore="false"></More>
-    <Empty  v-if="actionList.length == 0"></Empty>
+    <Empty  v-if="actionList.length == 0 && !loading"></Empty>
     
 </template>
 
@@ -122,6 +122,7 @@ onMounted(()=>{
     min-height: 40px;
     line-height: 40px;
     white-space: nowrap;
+    overflow:auto;
     font-size: 25px;
     display: table-cell;
     min-width: auto;

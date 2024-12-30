@@ -14,12 +14,12 @@
                 </h3>
                 <div class="text-box-wrap">
                   <div class="text-box">
-                    <p>貢獻值</p>
-                    <h4>$&nbsp;-</h4>
+                    <p>{{ $t('晋级充值') }}</p>
+                    <h4>{{item.recharge_amount}}</h4>
                   </div>
                   <div class="text-box">
-                    <p>有效投注</p>
-                    <h4>$&nbsp;-</h4>
+                    <p>{{ $t('晋级流水') }}</p>
+                    <h4>{{item.water}}</h4>
                   </div>
                 </div>
               </div>
@@ -34,7 +34,7 @@
 
       <div class="vip-member-info">
         <div class="welcome-text">
-          您好，歡迎回來！
+          {{$t("您好，欢迎回来！")}}
         </div>
         <div class="member-info">
           <div class="d-flex">
@@ -45,13 +45,13 @@
         </div>
         <div class="progress-wrap">
           <div class="bar-box">
-            <p class="d-flex progress-top">{{ $t("贡献值") }}<span class="ml-auto">{{ Number(userStore.userInfo?.recharge1) }} / {{ Number(nextLev?.recharge_amount) }}</span></p>
+            <p class="d-flex progress-top">{{ $t('晋级充值') }}<span class="ml-auto">{{ Number(userStore.userInfo?.recharge1) }} / {{ Number(nextLev?.recharge_amount) }}</span></p>
             <div class="progressbar"><span class="progressbar-text">0 %</span>
               <div class="bar color2" :style="{'width': `${((Number(userStore.userInfo?.recharge1)) / (Number(nextLev?.recharge_amount))) * 100 || 0}%`}"><span></span></div>
             </div>
           </div>
           <div class="bar-box">
-            <p class="d-flex progress-top">{{$t("有效投注")}}<span class="ml-auto">{{ Number(userStore.userInfo?.water) }} / {{ Number(nextLev?.water) }}</span></p>
+            <p class="d-flex progress-top">{{ $t('晋级流水') }}<span class="ml-auto">{{ Number(userStore.userInfo?.water) }} / {{ Number(nextLev?.water) }}</span></p>
             <div class="progressbar"><span class="progressbar-text">0 %</span>
               <div class="bar color5" :style="{'width':`${((Number(userStore.userInfo?.water)) / (Number(nextLev?.water))) * 100 || 0}%`}"><span></span></div>
             </div>

@@ -3,7 +3,7 @@
     <div class="v-bottom-navigation--fixed">
       <div class="newtabbar-item" v-for="item in tabsList" :key="item.name" @click="openToLink(item)">
         <span class="v-btn__content">
-          <span :style="[{'color':activeIndex == item.url ? '#68affb':''}]">{{ item.name }}</span>
+          <span :style="[{'color':activeIndex == item.url ? '#68affb':''}]">{{ $t(item.name) }}</span>
           <i :class="[`v-icon`, item.icon,activeIndex == item.url ? 'active' : '']"></i>
         </span>
       </div>
@@ -39,9 +39,9 @@ const $route = useRoute();
 const activeIndex = ref();
 let tabsList = reactive([
   { name: "首页", icon: "home", url: "/home" },
-  { name: "線上客服", icon: "servise", url: "/OnlineServices" },
+  { name: "客服", icon: "servise", url: "/OnlineServices" },
   { name: "存提", icon: "deposit", url: "" },
-  { name: "帳務", icon: "Accounts", url: "/Transaction" },
+  { name: "账务", icon: "Accounts", url: "/Transaction" },
   { name: "轮廓", icon: "mine", url: "/userCenter" },
 ]);
 let showPopup = ref(false);
@@ -50,12 +50,21 @@ const getAssetsImge = name => {
   return new URL(name, import.meta.url).href;
 };
 watch($route,()=>{
-  activeIndex.value = $route.fullPath;
+  if($route.path === "/home"){
+    tabsList[0] = { name: "活动", icon: "promotion", url: "/newactivity" };
+  }else{
+    tabsList[0] = { name: "首页", icon: "home", url: "/home" };
+  }
+  activeIndex.value = $route.path;
 },{immediate:true});
+
 const openToLink = (item) => {
-  activeIndex.value = item.icon;
+  activeIndex.value = item.url
   if (item.url) {
     router.push(item.url);
+    if(showPopup.value){
+      showPopup.value = !showPopup.value;
+    }
   } else {
     activeIndex.value = "";
     showPopup.value = !showPopup.value;
@@ -246,6 +255,10 @@ const openToLink = (item) => {
 
   .mine {
     background: url(@/assets/images/tabbar/my_1.png) no-repeat center;
+    background-size: contain;
+  }
+  .promotion{
+    background: url(@/assets/images/tabbar/promotion_1.png) no-repeat center;
     background-size: contain;
   }
 }

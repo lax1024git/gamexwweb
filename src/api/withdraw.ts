@@ -1,6 +1,5 @@
-import { WithdrawLimit, WithdrawRecordItem,TransactionRecord } from "@/types/api/withdraw";
+import { TransactionRecord, WithdrawLimit, WithdrawRecordItem } from "@/types/api/withdraw";
 import { request } from "@/utils/request";
-import { registerRuntimeCompiler } from "vue";
 
 export const withdraw_limit_api = () =>
   request.post<WithdrawLimit>("withdraw/limit");

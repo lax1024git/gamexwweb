@@ -46,7 +46,7 @@ watch(() => $route.query.current, v => {
 const beforeChange = (v: number) => {
   // 登录验证
   if (!userStore.isLogin && (v === 1 || v === 2)) {
-    openLink("/login");
+    openLink("/Llogin");
     return;
   }
   return true;

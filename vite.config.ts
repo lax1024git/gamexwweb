@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import eslintPlugin from "vite-plugin-eslint";
+/* import eslintPlugin from "vite-plugin-eslint"; */
 import UnoCSS from "unocss/vite";
 import path from "path";
 import AutoImport from "unplugin-auto-import/vite";
@@ -28,16 +28,16 @@ export default defineConfig({
       ],
       symbolId: "icon-[name]",
     }),
-    eslintPlugin({
-      //include: [
-      //  "src/**/*.ts",
-      //  "src/**/*.js",
-      //  "src/**/*.vue",
-      //  "src/*.ts",
-      //  "src/*.js",
-       // "src/*.vue",
-      //],
-    }),
+    // eslintPlugin({
+    //   include: [
+    //     "src/**/*.ts",
+    //     "src/**/*.js",
+    //     "src/**/*.vue",
+    //     "src/*.ts",
+    //     "src/*.js",
+    //     "src/*.vue",
+    //   ],
+    // }),
   ],
   css: {
     preprocessorOptions: {
@@ -64,4 +64,5 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  
 });

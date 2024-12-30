@@ -93,5 +93,5 @@ export const user_get_ws_token_api = () =>
 
 // 余额转出
 export const game_user_transout_api = (data:{tid:string | number}) => {
-  request.post("/game/user_transout",data);
+  return request.post("/game/user_transout",data);
 };

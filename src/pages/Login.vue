@@ -1,6 +1,6 @@
 <template>
     <div class="app-container">
-        <NavBar title="登录"></NavBar>
+        <NavBar :title="$t('登录')"></NavBar>
         <div class="logo">
             <img :src="systemStore.isPhone ? systemStore.systemDataNew?.site.website_mobile_logo : systemStore.systemDataNew?.site.website_pc_logo"
                 class="" />
@@ -299,7 +299,7 @@ onMounted(() => {
 .app-container {
     width: 100%;
     min-height: 100vh;
-    background: url("@/assets/images/bg.jpg") no-repeat;
+    // background: url("@/assets/images/bg.jpg") no-repeat;
 }
 
 .logo {
@@ -335,5 +335,8 @@ onMounted(() => {
     text-align: center;
     font-size: 36px;
     font-weight: 900;
+}
+::v-deep .el-button:hover{
+    color: #fff;
 }
 </style>

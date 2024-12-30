@@ -279,3 +279,16 @@ export type V2TeamCommissionRateItem = {
   level: number; // 等级，例如：一级返佣
   rate: string; // 比例
 };
+
+export type GameOrderlistItem = {
+  gb_id: number;
+  gb_gid: number;
+  gb_price: string;
+  gb_sn: string;
+  gb_winlose: number;
+  gb_bettime: string;
+  gb_overtime: string;
+  gb_winprice: string;
+  game_name: string;
+  game_icon: string;
+};

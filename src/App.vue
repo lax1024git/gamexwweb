@@ -54,6 +54,11 @@ watch(() => userStore.isLogin, async (v) => {
 
 // 初始化
 onMounted(async () => {
+  window.addEventListener("resize",()=>{
+    if(window.innerWidth > 768){
+      window.location.href = "https://www.voc86.site/#/home";
+    }
+  });
   // 等待路由结束
   await $router.isReady();
 

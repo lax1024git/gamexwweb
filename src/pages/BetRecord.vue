@@ -2,7 +2,7 @@
   <div>
     <NavBar :title="$t('投注記錄')" class="nav-bar"></NavBar>
     <div class="input-list">
-      <el-select class="round input" size="large" v-model="form.level" :placeholder="$t('级别')">
+      <el-select class="round input" size="large" v-model="form.Sport" :placeholder="$t('级别')">
         <el-option :label="$t(item.name)" :value="item.value" v-for="item in levelList" :key="item.value" />
       </el-select>
 
@@ -17,34 +17,33 @@
     </div>
     <Empty class="empty" :loading="loading" v-if="list.length === 0"></Empty>
     <el-table :data="list" size="large" class="t-table" v-else>
-      <el-table-column :label="$t('用户名')">
+      <el-table-column :label="$t('游戏名称')">
         <template #default="scope">
-          {{ scope.row.username }}
+          {{ scope.row.game_name }}
         </template>
       </el-table-column>
       <el-table-column :label="$t('输赢金额')">
         <template #default="scope">
-          {{ $numInit(scope.row.sy_res) }}
+          {{ scope.row.gb_winprice }}  
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('下注金额')">
+        <template #default="scope">
+          {{ scope.row.gb_price }}
         </template>
       </el-table-column>
       <el-table-column :label="$t('状态')">
         <template #default="scope">
-          {{ $t(statusData[scope.row.status]) }}
+          {{ $t(systatus[scope.row.gb_winlose]) }}
         </template>
       </el-table-column>
       <el-table-column :label="$t('下注时间')">
         <template #default="scope">
-          {{ scope.row.add_time }}
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('单号')" :width="systemStore.isPhone ? 150 : 200">
-        <template #default="scope">
-          <span class="order-num">{{ scope.row.zd_number }}</span>
-          <t-svg name="copy" class="copy-icon" @click="$copy(scope.row.zd_number)"></t-svg>
+          {{ scope.row.gb_overtime }}
         </template>
       </el-table-column>
       <template #append v-if="form.page !== -1">
-        <More @loadmore="loadmore" :loading="loading"></More>
+        <More @loadmore="loadmore" :loading="loading" :is-more="form.nextPage"></More>
       </template>
     </el-table>
   </div>
@@ -54,14 +53,12 @@ import NavBar from "@/components/common/NavBar.vue";
 import { Ref, onActivated, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { ResCode } from "@/enum/ResultCode";
-import { team_orderlist_api } from "@/api/team";
-import { TeamOrderlistItem } from "@/types/api/team";
+import {game_orderlist_api } from "@/api/team";
+import { GameOrderlistItem } from "@/types/api/team";
 import { levelList } from "@/data/levelList";
 import { settlementList } from "@/data/settlement";
 import More from "@/components/common/More.vue";
 import Empty from "@/components/common/Empty.vue";
-import useStore from "@/store";
-const { systemStore } = useStore();
 const $route = useRoute();
 const active = ref(0);
 watch(() => $route.query.current, v => {
@@ -69,36 +66,33 @@ watch(() => $route.query.current, v => {
     active.value = Number(v) || 0;
   }
 }, { immediate: true });
-const statusData = {
-  1: "已下单",
-  2: "已注销",
-  3: "输",
-  4: "赢",
-};
+
+const systatus = ["无效", "未结算", "输", "赢", "平"];
 // 时间控制
 const form = ref({
   page: 1,
   limit: 10,
   time: "",
   settlement: "",
-  level: "",
+  Sport: 0,
+  nextPage:false
 });
 
-watch(() => [form.value.time, form.value.level, form.value.settlement], () => {
+watch(() => [form.value.time, form.value.Sport, form.value.settlement], () => {
   form.value.page = 1;
   list.value = [];
   getList();
 });
 
 const loading = ref(false);
-const list: Ref<TeamOrderlistItem[]> = ref([]);
+const list: Ref<GameOrderlistItem[]> = ref([]);
 const getList = async () => {
   loading.value = true;
-  const res = await team_orderlist_api({
+  const res = await game_orderlist_api({
     page: form.value.page,
     limit: form.value.limit,
     settlement: form.value.settlement,
-    level: form.value.level,
+    sports: form.value.Sport,
     date: form.value.time && form.value.time?.[0] + "|" + form.value.time?.[1],
   });
   loading.value = false;
@@ -107,7 +101,12 @@ const getList = async () => {
       ...list.value,
       ...res.data
     ];
-    if (res.data.length < form.value.limit) form.value.page = -1;
+    if (list.value.length < res.total) {
+      form.value.nextPage = true;
+    }else{
+      form.value.nextPage = false;
+    }
+    /* if (res.data.length < form.value.limit) form.value.page = -1; */
   }
 };
 
