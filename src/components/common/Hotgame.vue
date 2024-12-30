@@ -1,51 +1,54 @@
 <template>
-    <div :class="['common-list', index != 0 ? 'All' : '']" v-if="index != 2">
-        <template v-if="index == 0">
-            <div v-for="item in gameList" class="hot-item" :key="item.href" @click=jumpGameList(item)>
-                <div class="game-img-box">
-                    <img :src="item?.show_img" alt="">
+    <div class="pb-[50px]">
+        <div :class="['common-list', index != 0 ? 'All' : '']" v-if="index != 2">
+            <template v-if="index == 0">
+                <div v-for="item in gameList" class="hot-item" :key="item.href" @click=jumpGameList(item)>
+                    <div class="game-img-box">
+                        <img :src="item?.show_img" alt="">
+                    </div>
+                    <span class="game-name">{{ $t(item?.name) }}</span>
                 </div>
-                <span class="game-name">{{ $t(item?.name) }}</span>
-            </div>
-        </template>
-        <template v-else>
-            <div class="AllBetReal" v-for="item in gameList" :key="item.name" @click="jumpGameList(item)">
-                <img src="@/assets/images/home/Live_bg.png" class="game_bg" alt="">
-                <img :src="item.show_img" alt="" class="game-image">
-                <div class="content-text">
-                    <span class="game-logo-wrap">
-                        <span class="img-wrap">
-                            <img :src="item.icon_url" alt="">
+            </template>
+            <template v-else>
+                <div class="AllBetReal" v-for="item in gameList" :key="item.name" @click="jumpGameList(item)">
+                    <img src="@/assets/images/home/Live_bg.png" class="game_bg" alt="">
+                    <img :src="item.show_img" alt="" class="game-image">
+                    <div class="content-text">
+                        <span class="game-logo-wrap">
+                            <span class="img-wrap">
+                                <img :src="item.icon_url" alt="">
+                            </span>
                         </span>
-                    </span>
-                    <div class="game-name-BetReal">
-                        <span>{{ $t(item.name) }}</span>
-                        <b>{{ $t(item.icon) }}</b>
+                        <div class="game-name-BetReal">
+                            <span>{{ $t(item.name) }}</span>
+                            <b>{{ $t(item.icon) }}</b>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </template>
-    </div>
-    <div v-else>
-        <div class="tabsList">
-            <div :class="['tabitem',activeIndex === index ? 'swiper-pagination-bullet-active' :'']" v-for="(item,index) in gameList" :key="item"
-            @click="changeId(index)">{{$t(item.name)}}</div>
+            </template>
         </div>
-        <div class="gamelist">
-            <div class="gamelistItem" v-for="item in GameList" :key="item" @click="jumpshowGame(item)">
-                <img :src="item.icon" alt="" style="object-fit: cover;">
-                <span>{{item.game_name}}</span>
+        <div v-else>
+            <div class="tabsList">
+                <div :class="['tabitem', activeIndex === index ? 'swiper-pagination-bullet-active' : '']"
+                    v-for="(item, index) in gameList" :key="item" @click="changeId(index)">{{ $t(item.name) }}</div>
             </div>
-            
+            <div class="gamelist">
+                <div class="gamelistItem" v-for="item in GameList" :key="item" @click="jumpshowGame(item)">
+                    <img :src="item.icon" alt="">
+                    <span>{{ item.game_name }}</span>
+                </div>
+
+            </div>
+            <More @loadmore="loadmore" :loading="loading" :isMore="nextPage"></More>
+            <Empty class="empty" v-if="GameList.length === 0 && !loading"></Empty>
         </div>
-        <More @loadmore="loadmore" :loading="loading" :isMore="nextPage"></More>
-        <Empty class="empty" v-if="GameList.length === 0 && !loading"></Empty>
     </div>
+
 </template>
 
 <script setup>
 import useStore from "@/store";
-import {onActivated, reactive, ref } from "vue";
+import { onActivated, reactive, ref } from "vue";
 import { getnewGameList } from "@/api/games";
 import { useRouter } from "vue-router";
 const $router = useRouter();
@@ -55,57 +58,57 @@ const gameList = ref([]);
 gameList.value = indexMenuStore.menuData?.xw_mobile_game_menu[index.value].children;
 
 const changedata = () => {
-  gameList.value = indexMenuStore.menuData?.xw_mobile_game_menu[index.value].children[0];
-  if(index.value === 2){
-    getGameList(activeIndex.value);
-  }
+    gameList.value = indexMenuStore.menuData?.xw_mobile_game_menu[index.value].children[0];
+    if (index.value === 2) {
+        getGameList(activeIndex.value);
+    }
 };
 const activeIndex = ref(0);
 const GameList = ref([]);
 
 let data = reactive({
-  limit:20,
-  page:1,
-  t_id:"",
+    limit: 20,
+    page: 1,
+    t_id: "",
 });
 const loading = ref(false);
 const nextPage = ref(false);
-const changeId = (index) =>{
+const changeId = (index) => {
     if (loading.value) {
         return;
     }
-  data.page = 1;
-  activeIndex.value = index;
-  GameList.value = [];
-  getGameList();
+    data.page = 1;
+    activeIndex.value = index;
+    GameList.value = [];
+    getGameList();
 };
-const getGameList =async () => {
-  loading.value = true;
-  data.t_id = gameList.value[activeIndex.value].extra;
-  const res = await getnewGameList(data);
-  loading.value = false;
-  if(res.code === 1){
-    GameList.value = [...GameList.value,...res.data];
-    if(GameList.value.length < res.total){
-      nextPage.value = true;
-    }else{
-      nextPage.value = false;
+const getGameList = async () => {
+    loading.value = true;
+    data.t_id = gameList.value[activeIndex.value].extra;
+    const res = await getnewGameList(data);
+    loading.value = false;
+    if (res.code === 1) {
+        GameList.value = [...GameList.value, ...res.data];
+        if (GameList.value.length < res.total) {
+            nextPage.value = true;
+        } else {
+            nextPage.value = false;
+        }
     }
-  }
 };
 const loadmore = () => {
-  data.page++;
-  getGameList();
+    data.page++;
+    getGameList();
 };
 const jumpGameList = (item) => {
-  $router.push(`/playGameList?id=${item.extra}&title=${item.name}`);
+    $router.push(`/playGameList?id=${item.extra}&title=${item.name}`);
 };
 const jumpshowGame = (item) => {
-  $router.push(`/showGame?id=${item.id}`);
+    $router.push(`/showGame?id=${item.id}`);
 };
 defineExpose(({
-  index,
-  changedata
+    index,
+    changedata
 }));
 </script>
 
@@ -281,18 +284,20 @@ defineExpose(({
     width: 100%;
     height: 100%;
 }
-.tabsList{
-    width:540px;
+
+.tabsList {
+    width: 540px;
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 15px;
     position: sticky;
     top: -5px;
-    z-index:5;
+    z-index: 5;
     padding: 10px 0px;
     background: rgba(31, 49, 67, 0.8) !important;
-    .tabitem{
+
+    .tabitem {
         color: #c8d5e9;
         padding: 15px 20px;
         font-size: 20px;
@@ -305,19 +310,21 @@ defineExpose(({
         position: relative;
         z-index: -1;
     }
-    .swiper-pagination-bullet-active{
+
+    .swiper-pagination-bullet-active {
         text-shadow: none;
         color: #fff;
         border: 1px solid #6c82ad;
         background: linear-gradient(180deg, #1163AF -0.27%, #032758 100.27%);
     }
 }
-.gamelist{
+
+.gamelist {
     flex: 1;
     display: block;
     width: 540px;
     height: 100%;
-    padding: 0 0 135px;
+    padding: 0 0 30px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
@@ -325,12 +332,14 @@ defineExpose(({
     user-select: none;
     cursor: grab;
     transition: transform .3s ease;
-    img{
+
+    img {
         max-height: 100%;
         max-width: 100%;
         margin: 0 auto;
     }
-    span{
+
+    span {
         display: block;
         text-align: center;
         color: #fff;
