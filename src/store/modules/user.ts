@@ -8,7 +8,8 @@ export default defineStore("user", {
   state: () => {
     return {
       isLogin: Boolean(Token.getData()),
-      userInfo:null as UserInfo | null
+      userInfo:null as UserInfo | null,
+      isgame:Boolean(false)
     };
   },
   actions: {

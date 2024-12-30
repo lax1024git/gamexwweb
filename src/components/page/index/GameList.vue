@@ -106,7 +106,7 @@ onMounted(()=>{
   display: flex;
   gap: 20px;
   overflow-y: auto;
-  height: 53vh;
+  height: 51vh;
   padding-bottom: 50px;
 
   &-left {

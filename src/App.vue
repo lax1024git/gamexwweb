@@ -33,7 +33,7 @@ musicStore.init();
 
 // 获取用户信息
 userStore.getUserInfo();
-
+userStore.isgame = false;
 // 获取菜单配置
 indexMenuStore.getData();
 
@@ -56,6 +56,7 @@ watch(() => userStore.isLogin, async (v) => {
 onMounted(async () => {
   window.addEventListener("resize",()=>{
     if(window.innerWidth > 768){
+      if(userStore.isgame)return;
       window.location.href = "https://www.voc86.site/#/home";
     }
   });

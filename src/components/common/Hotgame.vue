@@ -114,7 +114,7 @@ defineExpose(({
     height: 100%;
     overflow: auto;
     gap: 16px;
-    padding-bottom: 10px;
+    padding-bottom: 50px;
 }
 
 .All {

@@ -86,7 +86,7 @@ const stopDrag = () => {
   isDragging.value = false; // 重置拖拽状态
 };
 onActivated(() => {
-
+  userStore.isgame = true;
   if ($route.query.id) {
     id.value = $route.query.id;
     getUrl();
