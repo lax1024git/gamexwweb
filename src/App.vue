@@ -10,7 +10,7 @@
 import CommonPop from "@/components/common/CommonPop.vue";
 import useStore from "@/store";
 import Announcement from "@/components/common/Announcement.vue";
-import { onMounted, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { init as webSocketInit, wsServe } from "@/utils/websocket/webSocket";
 import webSocketEventInit from "@/utils/websocket/webSocketEventInit";
@@ -21,7 +21,7 @@ const $route = useRoute();
 const $router = useRouter();
 const { systemStore, gameTypeStore, musicStore, userStore, indexMenuStore, shareCodeStore, envStore, downloadTipStore } = useStore();
 
-
+const isphone = ref(true)
 // 添加监听事件
 systemStore.addEventIsPhone();
 
@@ -52,11 +52,39 @@ watch(() => userStore.isLogin, async (v) => {
   }
 }, { immediate: true });
 
+watch(() => $route.path, () => {
+  closeFullscreen()
+})
+
+const closeFullscreen = () => {
+  if (document.fullscreenElement) {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) { // Firefox
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { // IE/Edge
+      document.msExitFullscreen();
+    }
+  }
+};
+
+const isMobileDevice = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  )
+};
+const isSmallScreen = () => { return window.innerWidth < 768 };
+
+
 // 初始化
 onMounted(async () => {
-  window.addEventListener("resize",()=>{
-    if(window.innerWidth > 768){
-      if(userStore.isgame)return;
+  console.log(window.innerWidth, "初始化宽度！！")
+  window.addEventListener("resize", () => {
+    if (isMobileDevice() || isSmallScreen()) {
+
+    } else {
       window.location.href = "https://www.voc86.site/#/home";
     }
   });

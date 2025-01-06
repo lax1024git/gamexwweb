@@ -49,7 +49,7 @@ const loadmore = async () => {
 
 // 每次切换都重新加载
 watch(() => $route.fullPath, async v => {
-  if (v === "/msgCenter?current=1") {
+  if (v === "/msgCenter?current=0") {
     loading.value = true;
     msgList.value = [];
     params.value.page = 1;

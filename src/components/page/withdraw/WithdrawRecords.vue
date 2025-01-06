@@ -14,17 +14,17 @@
       </el-table-column>
       <el-table-column :label="$t('申请金额')">
         <template #default="scope">
-          {{ $numInit(scope.row.w_price) }}
+          {{ scope.row.w_price }}
         </template>
       </el-table-column>
       <el-table-column :label="$t('实际到账金额')">
         <template #default="scope">
-          {{ $numInit(scope.row.arrival_price) }}
+          {{ scope.row.arrival_price}}
         </template>
       </el-table-column>
       <el-table-column :label="$t('手续费')">
         <template #default="scope">
-          {{ $numInit(scope.row.w_service) }}
+          {{ scope.row.w_service }}
         </template>
       </el-table-column>
 

@@ -21,9 +21,9 @@
       <div  class="main-link">
         <a  href="#/Deposit" class="action-link financial"><i></i>{{$t("存款")}}</a>
         <a  href="#/Withdraw" class="action-link withdraw"><i></i>{{$t("提款")}}</a>
-        <a  href="#/history" class="action-link award-center"><i ></i> <span
+        <a  href="#/redemptionCenter" class="action-link award-center"><i ></i> <span
            class="d-flex">
-                    {{$t("历史")}}
+                    {{$t("兑换中心")}}
         </span>
         </a>  
         <a  href="#/VIP" class="action-link vip"><i ></i>{{$t("VIP")}}</a></div>

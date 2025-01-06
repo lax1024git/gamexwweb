@@ -2,19 +2,19 @@
   <div class="page-box">
     <NavBar class="nav-bar" :title="$t('消息中心')"></NavBar>
     <Tabs v-model:active="active" :shrink="true" class="tabs" animated :before-change="beforeChange">
-      <Tab :title="$t('支持')" to="?current=0" replace>
+     <!--  <Tab :title="$t('支持')" to="?current=0" replace>
         <Support class="content-box"></Support>
-      </Tab>
-      <Tab :title="$t('消息')" :to="userStore.isLogin ? '?current=1' : undefined" replace>
+      </Tab> -->
+      <Tab :title="$t('消息')" :to="userStore.isLogin ? '?current=0' : undefined" replace>
         <Msg class="content-box"></Msg>
       </Tab>
-      <Tab :title="$t('通知')" :to="userStore.isLogin ? '?current=2' : undefined" replace>
+      <!-- <Tab :title="$t('通知')" :to="userStore.isLogin ? '?current=1' : undefined" replace>
         <MsgNotice class="content-box"></MsgNotice>
-      </Tab>
-      <Tab :title="$t('滚动面板')" to="?current=3" replace>
+      </Tab> -->
+      <Tab :title="$t('滚动面板')" to="?current=1" replace>
         <ScrollPanel class="content-box"></ScrollPanel>
       </Tab>
-      <Tab :title="$t('反馈')" to="?current=4" replace>
+      <Tab :title="$t('反馈')" to="?current=2" replace>
         <Proposal class="content-box"></Proposal>
       </Tab>
     </Tabs>

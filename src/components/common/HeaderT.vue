@@ -14,7 +14,7 @@
             <div class="user-label">{{ userStore.userInfo?.level_name }}</div>
             <div class="username">{{ userStore.userInfo?.yphone || userStore.userInfo?.mail }}</div>
             <div class="balance">
-              <img src="@/assets/images/home/$.png" class="cion">
+              <img :src="systemStore.systemData?.data.currency.symbol_img" class="cion">
               <span class="text-size">{{ $numInit(userStore.userInfo?.balance) }}</span>
               <Refresh :is-refresh="isRefresh" class="refresh-icon" @click="refreshBalance"></Refresh>
             </div>
@@ -80,7 +80,7 @@ const menuList = [
     { name: "退出", icon: "quit", callBack: quit },
   ],
 ];
-
+console.log(systemStore.systemData?.data.currency.symbol,"11111111111111");
 const menuVisible = ref(false);
 const btnVisible = ref(false);
 const tabMenu = (item: ElementType<ElementType<typeof menuList>>) => {
@@ -361,6 +361,7 @@ const refreshBalance = async () => {
 }
 .cion{
   height:40px;
+  margin-right: -10px;
   transform: translateY(-4px);
 }
 .text-size{

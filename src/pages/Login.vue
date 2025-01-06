@@ -11,12 +11,12 @@
                 <!-- closeIco -->
                 <!-- <div @click="emit('closed')" class="closeIco size-100px absolute top-3vh right-2.5vh"></div> -->
                 <!-- 分段器 -->
-                <el-segmented v-model="active" block size="large"
-                    :options="[{ label: '邮箱登录', value: 0 }, { label: '手机登录', value: 1 }]"
+                <el-segmented v-model="active" block size="large" :options="tabs"
                     class="bg-transparent border-base border-white border-4px mt-1 mb-2">
                     <template #default="{ item }">
                         <div class="center">
-                            <t-svg :name="item.value ? 'dianhua' : 'yonghu'" class="title-icon"></t-svg>
+                           
+                            <t-svg :name="item.icon" class="title-icon"></t-svg>
                             <div class="py-15px text-23px">{{ $t(item.label) }}</div>
                         </div>
                     </template>
@@ -33,20 +33,7 @@
                                     </template>
                                 </el-input>
                             </el-form-item>
-                            <el-form-item prop="code" v-if="systemStore.systemData?.data.phone_check == OpenState.open">
-                                <el-input size="large" :placeholder="$t('验证码')" v-model="formEmail.code">
-                                    <template #prefix>
-                                        <t-svg name="key" class="input-icon"></t-svg>
-                                    </template>
-                                    <template #suffix>
-                                        <div class="send-code">
-                                            <SendCode :email="formEmail.username" scene="verify"
-                                                :beforSend="beforSendEmail"></SendCode>
-                                        </div>
-                                    </template>
-                                </el-input>
-                            </el-form-item>
-                            <el-form-item prop="password" v-else>
+                            <el-form-item prop="password">
                                 <el-input size="large" v-model="formEmail.password" :placeholder="$t('密码')"
                                     type="password">
                                     <template #prefix>
@@ -73,21 +60,8 @@
                                     >
                                 </el-input>
                             </el-form-item>
-                            <el-form-item prop="code" v-if="systemStore.systemData?.data.phone_check == OpenState.open">
-                                <el-input size="large" :placeholder="$t('验证码')" v-model="formPhone.code">
-                                    <template #prefix>
-                                        <t-svg name="key" class="input-icon"></t-svg>
-                                    </template>
-                                    <template #suffix>
-                                        <div class="send-code">
-                                            <SendCode :qh="formPhone.qh" :phone="formPhone.phone" scene="verify"
-                                                :beforSend="beforSendPhone">
-                                            </SendCode>
-                                        </div>
-                                    </template>
-                                </el-input>
-                            </el-form-item>
-                            <el-form-item prop="password" v-else>
+                            
+                            <el-form-item prop="password">
                                 <el-input size="large" v-model="formPhone.password" :placeholder="$t('密码')"
                                     type="password">
                                     <template #prefix>
@@ -108,7 +82,7 @@
                     <el-checkbox :label="$t('记住密码')" fill="#0080FF" size="large" v-model="checkboxRememberPass" />
                     <div class="cursor-pointer select-none text-white"
                         @click="$openLink('/retrievePassword'); isShow = false">{{
-                        $t("忘记密码?") }}</div>
+                            $t("忘记密码?") }}</div>
                 </div>
             </div>
             <!-- bottom -->
@@ -128,26 +102,17 @@
                 </div>
                 <!-- link -->
                 <div class="link-list">
-                    <div class="link text-white" @click="$router.push('/msgCenter?current=0'); isShow = false">{{
-                        $t("客户服务") }}
+                    <div class="link text-white" @click="$router.push('/OnlineServices'); isShow = false">{{
+                        $t("客服服务") }}
                     </div>
                 </div>
             </div>
         </div>
-    
-            <!-- <div class="other-title">
-      <span>{{ $t("其他登录方式") }}</span>
     </div>
-    <div class="other-box">
-      <img :src="$require('google.png')" alt="" class="other-login-item">
-      <img :src="$require('facebook.png')" alt="" class="other-login-item">
-    </div> -->
-</div>
 </template>
 
 <script setup lang="ts">
-import { Ref, computed, onMounted, ref } from "vue";
-// import Popup from "@/components/common/Popup.vue";
+import { Ref, computed, onActivated, onMounted, reactive, ref } from "vue";
 import { Popup } from "vant";
 import { Tab, Tabs } from "vant";
 import { passwordRule, phoneCodeRule, phoneRule, usernameRule } from "@/utils/rule";
@@ -164,49 +129,48 @@ import { PhoneBind } from "@/enum/PhoneBind";
 import { OpenState } from "@/enum/OpenState";
 import BaseStorage from "@/storage/BaseStorage";
 import Encryption from "@/utils/Encryption";
-const {systemStore, envStore} = useStore();
+const { systemStore, envStore } = useStore();
 const isShow = ref(false);
 const $router = useRouter();
 const active = ref(0);
 
 const activeType = computed(() => {
-  const typeList: AccountType[] = [];
-  if (systemStore.systemData?.data.phone_bind == PhoneBind.email || systemStore.systemData?.data.phone_bind == PhoneBind.all) {
-    typeList.push(AccountType.email);
-  }
-  if (systemStore.systemData?.data.phone_bind == PhoneBind.phone || systemStore.systemData?.data.phone_bind == PhoneBind.all) {
-    typeList.push(AccountType.phone);
-  }
-  return typeList[active.value];
+    const typeList: AccountType[] = [];
+    if (systemStore.systemData?.data.phone_bind == PhoneBind.email || systemStore.systemData?.data.phone_bind == PhoneBind.all) {
+        typeList.push(AccountType.email);
+    }
+    if (systemStore.systemData?.data.phone_bind == PhoneBind.phone || systemStore.systemData?.data.phone_bind == PhoneBind.all) {
+        typeList.push(AccountType.phone);
+    }
+    return typeList[active.value];
 });
-
 const formEmailRef: Ref<FormInstance | null> = ref(null);
 const formPhoneRef: Ref<FormInstance | null> = ref(null);
 const emit = defineEmits(["closed"]);
-
+const tabs = ref([])
 // 表单
 const formEmail = ref({
-  username: "",
-  password: "",
-  code: "",
-  account_type: AccountType.email
+    username: "",
+    password: "",
+    code: "",
+    account_type: AccountType.email
 });
 
 const formPhone = ref({
-  password: "",
-  qh: systemStore.systemData?.idc_default || "",
-  phone: "",
-  code: "",
-  account_type: AccountType.phone
+    password: "",
+    qh: systemStore.systemData?.idc_default || "",
+    phone: "",
+    code: "",
+    account_type: AccountType.phone
 });
 
 
 // 表单规则
 const rules = {
-  username: usernameRule(),
-  password: passwordRule(),
-  phone: phoneRule(),
-  code: phoneCodeRule()
+    username: usernameRule(),
+    password: passwordRule(),
+    phone: phoneRule(),
+    code: phoneCodeRule()
 };
 
 // 18岁协议
@@ -217,33 +181,33 @@ type passStorageType = { password: string, username: string, qh?: string, accoun
 const passStorage = new BaseStorage<string>("usernameData", true);
 const checkboxRememberPass = ref(true);
 const rememberPass = (data: passStorageType) => {
-  if (checkboxRememberPass.value) {
-    passStorage.setData(Encryption.encrypt({
-      username: data.username,
-      password: data.password,
-      account_type: data.account_type,
-      qh: data.qh
-    }));
-  } else {
-    passStorage.removeData();
-  }
+    if (checkboxRememberPass.value) {
+        passStorage.setData(Encryption.encrypt({
+            username: data.username,
+            password: data.password,
+            account_type: data.account_type,
+            qh: data.qh
+        }));
+    } else {
+        passStorage.removeData();
+    }
 
 };
 const getRememberPass = () => {
-  const rememberStr = passStorage.getData();
+    const rememberStr = passStorage.getData();
 
-  if (rememberStr) {
-    const rememberPass = Encryption.decrypt<passStorageType>(rememberStr);
-    if (rememberPass.account_type === AccountType.email) {
-      formEmail.value.username = rememberPass.username;
-      formEmail.value.password = rememberPass.password;
-    } else if (rememberPass.account_type === AccountType.phone) {
-      formPhone.value.phone = rememberPass.username;
-      formPhone.value.password = rememberPass.password;
-      formPhone.value.qh = rememberPass.qh || formPhone.value.qh;
-      active.value = 1;
+    if (rememberStr) {
+        const rememberPass = Encryption.decrypt<passStorageType>(rememberStr);
+        if (rememberPass.account_type === AccountType.email) {
+            formEmail.value.username = rememberPass.username;
+            formEmail.value.password = rememberPass.password;
+        } else if (rememberPass.account_type === AccountType.phone) {
+            formPhone.value.phone = rememberPass.username;
+            formPhone.value.password = rememberPass.password;
+            formPhone.value.qh = rememberPass.qh || formPhone.value.qh;
+            active.value = 1;
+        }
     }
-  }
 };
 
 
@@ -254,43 +218,60 @@ const beforSendEmail = async () => Boolean(await formEmailRef.value?.validateFie
 // 执行登录操作
 const loginLoading = ref(false);
 const login = async () => {
-  // 验证数据
-  const validate = await (activeType.value == AccountType.email ? formEmailRef : formPhoneRef).value?.validate();
-  if (!validate) return;
-  if (!checkbox18YearsOld.value) {
-    ElMessage({
-      message: lang.t("首先查看并同意用户协议"),
-      type: "error",
+    // 验证数据
+    const validate = await (activeType.value == AccountType.email ? formEmailRef : formPhoneRef).value?.validate();
+    if (!validate) return;
+    if (!checkbox18YearsOld.value) {
+        ElMessage({
+            message: lang.t("首先查看并同意用户协议"),
+            type: "error",
+        });
+        return;
+    }
+    loginLoading.value = true;
+    // 手机号码注册，表单用户名取电话号码
+    const formData = activeType.value == AccountType.email ? formEmail.value : {
+        ...formPhone.value,
+        username: formPhone.value.phone,
+    };
+    const res = await login_login_api({
+        ...formData,
+        device_type: envStore.getDevice()
     });
-    return;
-  }
-  loginLoading.value = true;
-  // 手机号码注册，表单用户名取电话号码
-  const formData = activeType.value == AccountType.email ? formEmail.value : {
-    ...formPhone.value,
-    username: formPhone.value.phone,
-  };
-  const res = await login_login_api({
-    ...formData,
-    device_type: envStore.getDevice()
-  });
-  loginLoading.value = false;
-  if (res.code === ResCode.success) {
-    Token.setData(res.data);
-    isShow.value = false;
-    $router.push("/");
-    rememberPass(formData);
-    ElMessage({
-      message: lang.t("登录成功"),
-      type: "success",
-    });
-  }
+    loginLoading.value = false;
+    if (res.code === ResCode.success) {
+        Token.setData(res.data);
+        isShow.value = false;
+        $router.push("/");
+        rememberPass(formData);
+        ElMessage({
+            message: lang.t("登录成功"),
+            type: "success",
+        });
+    }
 };
 
-onMounted(() => {
-  getRememberPass();
-  isShow.value = true;
+onActivated(() => {
+    tabs.value = []
+    if (systemStore.systemData?.data.phone_bind == PhoneBind.email || systemStore.systemData?.data.phone_bind == PhoneBind.all) {
+        tabs.value.push({ label: '邮箱登录', value: 0,icon:"yonghu" })
+    }
+    if (systemStore.systemData?.data.phone_bind == PhoneBind.phone || systemStore.systemData?.data.phone_bind == PhoneBind.all) {
+        tabs.value.push({ label: '手机登录', value: 1 ,icon:"dianhua"})
+    }
+    if(tabs.value.length != 2){
+        if(tabs.value[0].value == 1){
+            tabs.value[0].value = 0
+            active.value = 1
+            console.log("active的值",active.value,tabs.value[0].value)
+        }
+    }
+    
 });
+onMounted(()=>{
+    getRememberPass();
+    isShow.value = true;
+})
 </script>
 
 <style scoped lang="less" src="@/assets/css/components/login.less"></style>
@@ -336,7 +317,8 @@ onMounted(() => {
     font-size: 36px;
     font-weight: 900;
 }
-::v-deep .el-button:hover{
+
+::v-deep .el-button:hover {
     color: #fff;
 }
 </style>

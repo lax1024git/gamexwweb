@@ -284,6 +284,7 @@ const routes = [
         name: "OnlineServices",
         component: () => import("@/pages/OnlineServices.vue"),
         meta: {
+          noLogin: true,
           mobileTabbar: true,
         },
       },
@@ -291,6 +292,14 @@ const routes = [
         path: "/VIP",
         name: "VIP",
         component: () => import("@/pages/VipTwo.vue"),
+        meta: {
+          mobileTabbar: true,
+        },
+      },
+      {
+        path: "/RedemptionCenter",
+        name: "RedemptionCenter",
+        component: () => import("@/pages/RedemptionCenter.vue"),
         meta: {
           mobileTabbar: true,
         },

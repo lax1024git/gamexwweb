@@ -48,14 +48,13 @@
 
 <script setup>
 import useStore from "@/store";
-import { onActivated, reactive, ref } from "vue";
+import { onActivated, onMounted, reactive, ref } from "vue";
 import { getnewGameList } from "@/api/games";
 import { useRouter } from "vue-router";
 const $router = useRouter();
 const { indexMenuStore } = useStore();
 const index = ref(0);
 const gameList = ref([]);
-gameList.value = indexMenuStore.menuData?.xw_mobile_game_menu[index.value].children;
 
 const changedata = () => {
     gameList.value = indexMenuStore.menuData?.xw_mobile_game_menu[index.value].children[0];
@@ -106,10 +105,15 @@ const jumpGameList = (item) => {
 const jumpshowGame = (item) => {
     $router.push(`/showGame?id=${item.id}`);
 };
+
+onMounted(()=>{
+    changedata();
+})
 defineExpose(({
     index,
     changedata
 }));
+
 </script>
 
 <style scoped lang="less">
@@ -247,7 +251,7 @@ defineExpose(({
 
         .img-wrap {
             width: 80%;
-            overflow: hidden;
+            object-fit: contain;
             vertical-align: top;
             background: none;
         }
@@ -321,28 +325,36 @@ defineExpose(({
 
 .gamelist {
     flex: 1;
-    display: block;
     width: 540px;
     height: 100%;
     padding: 0 0 30px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     user-select: none;
     cursor: grab;
     transition: transform .3s ease;
 
-    img {
-        max-height: 100%;
-        max-width: 100%;
-        margin: 0 auto;
+    .gamelistItem {
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        img {
+            max-width: 100%;
+           
+        }
+
+        span {
+       
+            width: 120px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
     }
 
-    span {
-        display: block;
-        text-align: center;
-        color: #fff;
-    }
 }
 </style>

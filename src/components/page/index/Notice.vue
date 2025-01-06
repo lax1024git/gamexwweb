@@ -31,7 +31,7 @@ const next = () => {
 
 // 点击事件
 const tabItem = () => {
-  $router.push(`/msgCenter?id=${horseRaceLampStore.data[active.value].id}&current=3`);
+  $router.push(`/msgCenter?id=${horseRaceLampStore.data[active.value].id}&current=1`);
 };
 
 // 获取数据

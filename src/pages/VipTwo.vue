@@ -9,7 +9,7 @@
               <div class="status-box"></div>
               <div class="text-wrap">
                 <h3 class="vip-1 vip-text">
-                  <img :src="getImgUrl('./../assets/images/vip/icon/' + (index + 1) + '.png')">
+                  <img :src="item.image">
                   {{ item?.level_name }}
                 </h3>
                 <div class="text-box-wrap">
@@ -23,7 +23,7 @@
                   </div>
                 </div>
               </div>
-              <div class="img-box"><img :src="getImgUrl('./../assets/images/vip/tiger/' + (index + 1) + '_lock.png')">
+              <div class="img-box"><img :src="imagesList[index]">
               </div>
             </div>
           </Swipe-item>
@@ -110,6 +110,21 @@ import { ElMessage } from "element-plus";
 import lang from "@/lang";
 const { userStore } = useStore();
 let swiper = ref(null);
+
+const imagesList = [
+  new URL('@/assets/images/vip/tiger/1.png', import.meta.url).href,
+  new URL('@/assets/images/vip/tiger/2.png', import.meta.url).href,
+  new URL('@/assets/images/vip/tiger/3.png', import.meta.url).href,
+  new URL('@/assets/images/vip/tiger/4.png', import.meta.url).href,
+  new URL('@/assets/images/vip/tiger/5.png', import.meta.url).href,
+  new URL('@/assets/images/vip/tiger/6.png', import.meta.url).href,
+  new URL('@/assets/images/vip/tiger/7.png', import.meta.url).href,
+  new URL('@/assets/images/vip/tiger/8.png', import.meta.url).href,
+  new URL('@/assets/images/vip/tiger/9.png', import.meta.url).href,
+  new URL('@/assets/images/vip/tiger/10.png', import.meta.url).href,
+]
+
+
 const vipList: Ref<VipListItem[]> = ref([]);
 const activeIndex = ref(0);
 const swiperGo = (val) => {
@@ -150,14 +165,17 @@ const ununlockedLevelList = computed(() => {
   return unlocked_VipList;
 });
 
-const getImgUrl = (url) => {
-  return new URL(url, import.meta.url).href;
-};
+/* const getImgUrl = (url) => {
+  
+  return new URL('url', import.meta.url).href;
+}; */
 
 /* 领取奖金 */
 const btnLoadingW = ref(false);
 const btnLoadingM = ref(false);
 const receive = async (reward_type: number) => {
+  if(btnLoadingW.value)return;
+  if(btnLoadingW.value)return;
   if(reward_type === 1){
     btnLoadingW.value = true;
   }else{
@@ -343,6 +361,8 @@ onMounted(()=>{
   align-items: center;
   gap: 4px;
   align-self: stretch;
+  position: relative;
+  z-index: 2;
 }
 
 .swiper-item .img-box {

@@ -57,7 +57,7 @@ const getData = async () => {
   await fetch.getData();
 };
 const banner = computed(() => {
-  const key = systemStore.isPhone ? "mobile" : "pc";
+  const key = systemStore.isPhone ? "mobile" : "mobile";
   return [
     ...(systemStore.systemDataNew?.banner?.[key] || []),
     ...(data.value?.[key] || [])

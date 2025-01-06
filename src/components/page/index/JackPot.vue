@@ -6,7 +6,7 @@
     </div>
     <count-up :endVal="endNum" :startVal="startNum" :decimalPlaces="2" class="number" duration="4">
       <template #prefix>
-        <span>R$ </span>
+        <span>{{systemStore.systemData?.data.currency.symbol}}</span>
       </template>
     </count-up>
   </div>
@@ -15,6 +15,8 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import CountUp from "vue-countup-v3";
+import useStore from "@/store";
+const {systemStore } = useStore();
 const startNum = ref(0);
 const endNum = ref(0);
 let timeID: number;

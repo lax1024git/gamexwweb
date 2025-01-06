@@ -37,7 +37,7 @@ import { useRouter } from "vue-router";
 const { horseRaceLampStore } = useStore();
 const $router = useRouter();
 const toInfo = (item: NoticeListApiItem) => {
-  $router.push(`?current=3&id=${item.id}`);
+  $router.push(`?current=1&id=${item.id}`);
 };
 
 // 获取数据

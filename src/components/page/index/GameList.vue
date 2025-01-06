@@ -75,7 +75,7 @@
 
 <script setup lang="ts">
 import useStore from "@/store";
-import { onMounted, ref, watch } from "vue";
+import { nextTick, onActivated, onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 const $route = useRoute();
 const {indexMenuStore } = useStore();
@@ -91,12 +91,13 @@ const changeType = (index) => {
 };
 watch($route,()=>{
   if($route.query.gameId){
-    if(String(activeIndex.value) == $route.query.gameId)return;
-    changeType($route.query.gameId);
+    let menuIndex = indexMenuStore.menuData?.xw_mobile_game_menu.findIndex(item=>item.href==$route.fullPath)
+    if(activeIndex.value == menuIndex)return;
+    changeType(menuIndex);
   }
 });
-onMounted(()=>{
-  changeType(activeIndex.value);
+onMounted(async()=>{
+  await changeType(activeIndex.value);
 });
 </script>
 

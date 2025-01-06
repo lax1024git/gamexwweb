@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar class="nav-bar" :title="$t('消息中心')"></NavBar>
+    <NavBar class="nav-bar" :title="$t('站内信')"></NavBar>
     <MsgNotice class="content-box"></MsgNotice>
   </div>
 </template>

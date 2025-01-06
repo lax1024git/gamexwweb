@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="backindex" id="draggable" @mousedown="startDrag" @touchstart="startDrag" @mouseup="stopDrag"
       @touchend="stopDrag" @mousemove="drag" @touchmove="drag"
       :style="{ left: position.x + 'px', top: position.y + 'px' }">
@@ -14,7 +13,7 @@
 </template>
 
 <script setup>
-import { onActivated, onDeactivated, ref } from "vue";
+import { onActivated, onBeforeUnmount, onDeactivated, ref } from "vue";
 import { House } from "@element-plus/icons-vue";
 import { game_login_game_api } from "@/api/games";
 import { game_user_transout_api } from "@/api/user";
@@ -75,27 +74,43 @@ const drag = (e) => {
 const stopDrag = () => {
   clearTimeout(longPressTimer.value); // 清除定时器
   if (!isDragging.value) {
-    clicked.value = true; // 如果不是拖拽，则标记为点击
+    clicked.value = false; // 如果不是拖拽，则标记为点击
     setTimeout(() => (clicked.value = false), 200); // 短暂显示点击效果
     if ($route.query.isback) {
       $router.back();
-      return; 
+      return;
     }
     $router.push("/");
   }
   isDragging.value = false; // 重置拖拽状态
 };
+
+const openFullscreen = () => {
+  const elem = document.documentElement; // 获取整个文档元素
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen(); // 标准方法
+  } else if (elem.mozRequestFullScreen) { // Firefox
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { // Chrome, Safari 和 Opera
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { // IE/Edge
+    elem.msRequestFullscreen();
+  }
+};
+
 onActivated(() => {
   userStore.isgame = true;
   if ($route.query.id) {
     id.value = $route.query.id;
     getUrl();
-  }else{
+  } else {
     $router.push("/");
   }
 });
 
+
 onDeactivated(async () => {
+  userStore.isgame = false;
   await userStore.getUserInfo();
   if (userStore.userInfo.third_balance) {
     const res = await game_user_transout_api({ tid: 0 });
@@ -116,6 +131,7 @@ iframe {
 .backindex {
   cursor: pointer;
   position: absolute;
+  z-index: 9999;
 }
 
 .error-img {

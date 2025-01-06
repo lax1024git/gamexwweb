@@ -2,7 +2,7 @@
   <div>
 
     <!-- 头部内容 -->
-    <Header v-if="$route.meta.mobileHead || !systemStore.isPhone"></Header>
+    <Header v-if="$route.meta.mobileHead"></Header>
 <!--    <header-t></header-t>-->
     <div class="page-box" :style="{ paddingLeft: menuStore.isShow ? 'var(--menu-width)' : 0 }">
       <!-- 缓存页面，做法10张界面清理 -->
