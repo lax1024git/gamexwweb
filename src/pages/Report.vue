@@ -107,7 +107,7 @@ const getList = async () => {
     limit: form.value.limit,
     settlement: form.value.settlement,
     level: form.value.level,
-    date: form.value.time && form.value.time?.[0] + "|" + form.value.time?.[1],
+    date: form.value.time ? form.value.time?.[0] + "|" + form.value.time?.[1] : new Date().toISOString().split('T')[0] + "|" + new Date().toISOString().split('T')[0] ,
   });
   loading.value = false;
   if (res.code === ResCode.success) {

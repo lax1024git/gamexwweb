@@ -11,10 +11,10 @@
       <!-- <Tab :title="$t('通知')" :to="userStore.isLogin ? '?current=1' : undefined" replace>
         <MsgNotice class="content-box"></MsgNotice>
       </Tab> -->
-      <Tab :title="$t('滚动面板')" to="?current=1" replace>
+      <Tab :title="$t('平台信息')" to="?current=1" replace>
         <ScrollPanel class="content-box"></ScrollPanel>
       </Tab>
-      <Tab :title="$t('反馈')" to="?current=2" replace>
+      <Tab :title="$t('反馈')" :to="userStore.isLogin ? '?current=2' : undefined" replace>
         <Proposal class="content-box"></Proposal>
       </Tab>
     </Tabs>
@@ -45,11 +45,10 @@ watch(() => $route.query.current, v => {
 
 const beforeChange = (v: number) => {
   // 登录验证
-  if (!userStore.isLogin && (v === 1 || v === 2)) {
+  if (!userStore.isLogin && v === 0 || v === 2) {
     openLink("/Llogin");
     return;
   }
-  return true;
 };
 </script>
 

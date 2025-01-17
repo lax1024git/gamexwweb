@@ -18,17 +18,17 @@
           <span>{{ $t("反馈内容") }}</span>
           <span>（{{ $t("反馈问题我会跟进") }}）</span>
         </template>
-        <el-input type="textarea" v-model="form.desc"
+        <el-input type="textarea" v-model="form.desc" show-word-limit maxlength="500"
           :autosize="systemStore.isPhone ? { minRows: 6, maxRows: 6 } : { minRows: 9, maxRows: 9 }"
           :placeholder="$t('您的意见对我们很有价值。任何有价值的建议都会被考虑，一旦被采纳，重要程度将决定现金奖励。欢迎提出建议')"></el-input>
       </el-form-item>
-      <el-form-item prop="img">
+     <!--  <el-form-item prop="img">
         <template #label>
           <span>{{ $t("图片不会说谎") }}</span>
           <span>（{{ $t("更容易采用") }}）</span>
         </template>
         <Upload v-model="form.img"></Upload>
-      </el-form-item>
+      </el-form-item> -->
       <div class="upload-tip">{{ $t("支持发送图像和视频（最大50MB）") }}</div>
       <div class="rule-title">{{ $t("奖励规则") }}</div>
       <div class="rule">{{ $t("我们专门设立了丰厚的奖金来收集反馈，以优化系统和功能，为您提供更好的体验！一旦接受，将根据效用给与奖励（未接收的除外）。") }}</div>
@@ -50,7 +50,7 @@ const { systemStore } = useStore();
 const active = ref(0);
 const form = ref({
   desc: "",
-  img: ""
+  /* img: "" */
 });
 const formRef: Ref<FormInstance | null> = ref(null);
 const rules = {

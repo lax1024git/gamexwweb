@@ -1,6 +1,6 @@
 <template>
   <div class="page-box">
-    <NavBar :title="$t('轮廓')" class="nav-bar"></NavBar>
+    <NavBar :title="$t('个人信息')" class="nav-bar"></NavBar>
     <div class="user-box">
       <el-form label-position="top" ref="formRef" :model="form" :rules="rules">
         <div class="avatar-wrap">
@@ -34,7 +34,7 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item>
+        <!-- <el-form-item>
           <el-input size="large" disabled :placeholder="$t('链接到您的电子邮件')" :value="userStore.userInfo?.mail">
             <template #prefix>
               <t-svg name="youxiang" class="input-icon"></t-svg>
@@ -43,7 +43,7 @@
               <div class="link" @click="$router.push('/email')" v-if="!userStore.userInfo?.mail">{{ $t("链接") }}</div>
             </template>
           </el-input>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item prop="whatsapp">
           <el-input size="large" :placeholder="$t('输入您的Whatsapp账号')" v-model="form.whatsapp">
             <template #prefix>

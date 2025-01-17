@@ -11,6 +11,7 @@ export default defineStore("bank", {
   },
   actions: {
     async getList(isGet = true) {
+      this.bankList = [];
       // isGet为false  直接强拉数据，否则判断有就不重复拉取
       if (this.bankList.length && isGet) return;
       const fetch = new ApiStorage({

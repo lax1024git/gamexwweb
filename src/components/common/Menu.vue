@@ -9,22 +9,21 @@
         </template>
         <template #default>
           <div class="top-menu-list">
-            <div></div>
-            <div class="top-games">
+           <!--  <div class="top-games">
               <ul>
                 <li class="game-item active" @click="jumpUrl('/home?gameId=2')">ATG電子</li>
                 <li class="game-item">战神赛特</li>
               </ul>
-            </div>
+            </div> -->
             <div class="scroll-content">
               <div classs="horizontal-menu" style="display:flex;gap:10px">
                 <div class="menu-item" @click="jumpUrl(indexMenuStore.menuData?.xw_mobile_game_menu[0].href)">
                   <img :src="indexMenuStore.menuData?.xw_mobile_game_menu[0].icon_url" style="width:15px;height:15px"/>
                  {{$t(`${indexMenuStore.menuData?.xw_mobile_game_menu[0].name}`)}}
                 </div>
-                <div class="menu-item disabled">
+                <!-- <div class="menu-item disabled">
                   {{$t("我的最爱")}}
-                </div>
+                </div> -->
                 <div class="menu-item" @click="jumpUrl('/history')">
                   {{$t("历史记录")}}
                 </div>

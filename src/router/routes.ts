@@ -289,6 +289,14 @@ const routes = [
         },
       },
       {
+        path: "/RetrievePassword",
+        name: "RetrievePassword",
+        component: () => import("@/components/common/RetrievePassword.vue"),
+        meta: {
+          noLogin: true,
+        },
+      },
+      {
         path: "/VIP",
         name: "VIP",
         component: () => import("@/pages/VipTwo.vue"),
@@ -305,6 +313,16 @@ const routes = [
         },
       },
       {
+        path: "/BeginnerTeaching",
+        name: "BeginnerTeaching",
+        component: () => import("@/pages/BeginnerTeaching.vue"),
+      },
+      {
+        path: "/BeginnerTeachingDetail/:id",
+        name: "BeginnerTeachingDetail",
+        component: () => import("@/pages/BeginnerTeachingDetail.vue"),
+      },
+      {
         path: "/promotion",
         name: "promotion",
         component: () => import("@/pages/Promotion.vue"),
@@ -313,11 +331,6 @@ const routes = [
         },
         redirect: "/promotion/activity/all",
         children: [
-          {
-            path: "vip",
-            name: "vip",
-            component: () => import("@/pages/Vip.vue"),
-          },
           {
             path: "activity",
             name: "activity",

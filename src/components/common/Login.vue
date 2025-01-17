@@ -27,7 +27,7 @@
                 </template>
               </el-input>
             </el-form-item>
-            <el-form-item prop="code" v-if="systemStore.systemData?.data.phone_check == OpenState.open">
+            <!-- <el-form-item prop="code" v-if="systemStore.systemData?.data.phone_check == OpenState.open">
               <el-input size="large" :placeholder="$t('验证码')" v-model="formEmail.code">
                 <template #prefix>
                   <t-svg name="key" class="input-icon"></t-svg>
@@ -38,8 +38,8 @@
                   </div>
                 </template>
               </el-input>
-            </el-form-item>
-            <el-form-item prop="password" v-else>
+            </el-form-item> -->
+            <el-form-item prop="password">
               <el-input size="large" v-model="formEmail.password" :placeholder="$t('密码')" type="password">
                 <template #prefix>
                   <t-svg name="pass" class="input-icon"></t-svg>
@@ -96,7 +96,7 @@
       </el-checkbox>
       <div class="flex items-center justify-between" v-else>
         <el-checkbox :label="$t('记住密码')" fill="#0080FF" size="large" v-model="checkboxRememberPass"/>
-        <div class="cursor-pointer select-none text-white" @click="$openLink('/retrievePassword'); isShow = false">{{ $t("忘记密码?") }}</div>
+        <div class="cursor-pointer select-none text-white" @click="$router.push('/retrievePassword'); isShow = false">{{ $t("忘记密码?") }}</div>
       </div>
     </div>
     <!-- bottom -->

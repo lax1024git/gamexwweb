@@ -2,7 +2,7 @@
   <div>
     <NavBar class="nav-bar" :title="$t('VIP')" :is-back="false"></NavBar>
     <div class="vip-content">
-      <div class="vip-list-wrap">
+      <div class="vip-list-wrap" v-if="ununlockedLevelList.length">
         <Swipe class="my-swipe" indicator-color="white" ref="swiper" :loop="false" @change="onChange">
           <Swipe-item v-for="(item, index) in ununlockedLevelList"  :key="index">
             <div class="swiper-item">
@@ -14,7 +14,7 @@
                 </h3>
                 <div class="text-box-wrap">
                   <div class="text-box">
-                    <p>{{ $t('晋级充值') }}</p>
+                    <p>{{ $t('晋级充值') }} ({{ $t(recharge_Type[item.type]) }})</p>
                     <h4>{{item.recharge_amount}}</h4>
                   </div>
                   <div class="text-box">
@@ -31,7 +31,10 @@
         <div class="swiper-button-prev" @click="swiperGo('left')"></div>
         <div class="swiper-button-next" @click="swiperGo('right')"></div>
       </div>
-
+      <div v-if="!ununlockedLevelList.length" class="vip-list-wrap">
+        <div class="flex justify-center items-center text-[30px] font-700 h-[200px]"> {{$t("恭喜您，已升到顶级")}} </div>
+        
+      </div>
       <div class="vip-member-info">
         <div class="welcome-text">
           {{$t("您好，欢迎回来！")}}
@@ -39,13 +42,13 @@
         <div class="member-info">
           <div class="d-flex">
             <span class="vip-level">{{curLev?.level_name}}</span>
-            <span class="account">{{ userStore.userInfo?.mail}}</span>
+            <span class="account">{{ userStore.userInfo?.mail ||userStore.userInfo?.yphone}}</span>
           </div>
           <!--          <div>&nbsp;本次登入時間&nbsp;<span class="login-time">2024/09/19 12:12:41 PM</span></div>-->
         </div>
         <div class="progress-wrap">
           <div class="bar-box">
-            <p class="d-flex progress-top">{{ $t('晋级充值') }}<span class="ml-auto">{{ Number(userStore.userInfo?.recharge1) }} / {{ Number(nextLev?.recharge_amount) }}</span></p>
+            <p class="d-flex progress-top">{{ $t('晋级充值') }} ({{vipList.length ? $t(recharge_Type[vipList.filter(item => item.id == userStore.userInfo?.level_id)[0].type]) : ""}})<span class="ml-auto">{{ Number(userStore.userInfo?.recharge1) }} / {{ Number(nextLev?.recharge_amount) }}</span></p>
             <div class="progressbar"><span class="progressbar-text">0 %</span>
               <div class="bar color2" :style="{'width': `${((Number(userStore.userInfo?.recharge1)) / (Number(nextLev?.recharge_amount))) * 100 || 0}%`}"><span></span></div>
             </div>
@@ -124,7 +127,7 @@ const imagesList = [
   new URL('@/assets/images/vip/tiger/10.png', import.meta.url).href,
 ]
 
-
+const recharge_Type = ref(["累计充值","单次累计"])
 const vipList: Ref<VipListItem[]> = ref([]);
 const activeIndex = ref(0);
 const swiperGo = (val) => {

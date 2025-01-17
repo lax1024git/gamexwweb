@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <NavBar class="nav-bar" :title="$t('客服服务')" :isBack="false"></NavBar>
+  <div class="pb-[150px]">
+    <NavBar class="nav-bar" :title="$t('在线客服')" :isBack="false"></NavBar>
     <div class="page-content">
       <img src="@/assets/images/servise_banner.png">
-      <div class="services-link" @click="$openLink(indexMenuStore.menuData?.xw_service[0]?.children?.[0].href || '')">
+      <div class="services-link" @click="jumpserve(indexMenuStore.menuData?.xw_service[0]?.children?.[0].href)">
         <div class="icon"><img :src="indexMenuStore.menuData?.xw_service[0]?.children?.[0].icon_url" width="30"></div>
         <div class="text">
-          <span>{{ $t(indexMenuStore.menuData?.xw_service[0]?.name) }}</span>
-          <b>{{$t(indexMenuStore.menuData?.xw_service[0]?.children?.[0].name)}}</b>
+          <span>{{ indexMenuStore.menuData?.xw_service[0]?.name}}</span>
+          <b>{{indexMenuStore.menuData?.xw_service[0]?.children?.[0].name}}</b>
         </div>
         <div class="join">{{$t('JOIN NOW')}}</div>
       </div>
@@ -27,7 +27,7 @@
                   <div class="item-name">{{ tab.name }}</div>
                   <div class="item-desc">{{ item.name }}</div>
                 </div>
-                <el-button type="primary" @click="$openLink(item.href)">{{ $t("现在联系") }}</el-button>
+                <el-button type="primary" @click="jumpserve(item.href)">{{ $t("现在联系") }}</el-button>
               </div>
             </div>
           </Tab>
@@ -41,6 +41,11 @@ import NavBar from "@/components/common/NavBar.vue";
 import { ref } from "vue";
 import { Tab, Tabs } from "vant";
 import useStore from "@/store";
+import { useRouter } from "vue-router";
+
+const jumpserve = (href) => {
+  window.location.href = href
+}
 const active = ref(0);
 const { indexMenuStore } = useStore();
 

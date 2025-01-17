@@ -104,8 +104,8 @@ const getList = async () => {
   const res = await withdraw_record_api({
     page: form.value.page,
     limit: form.value.limit,
-    start_time: props.startDate || "",
-    end_time: props.endDate || ""
+    start_time: props.startDate || new Date().toISOString().split('T')[0],
+    end_time: props.endDate || new Date().toISOString().split('T')[0]
   });
   loading.value = false;
   if (res.code === ResCode.success) {

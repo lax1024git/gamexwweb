@@ -69,7 +69,7 @@ import { ResCode } from "@/enum/ResultCode";
 import useStore from "@/store";
 import { BankLists } from "@/types/api/bank";
 import getBankTypeData from "@/utils/getBankTypeData";
-import { Ref, onMounted, ref } from "vue";
+import { Ref, onActivated, onMounted, ref } from "vue";
 import Empty from "@/components/common/Empty.vue";
 import { BankType } from "@/enum/BankType";
 import bankNameFilter from "@/utils/bankNameFilter";
@@ -85,6 +85,14 @@ const getBankLists = async () => {
 };
 
 const loading = ref(false);
+onActivated(async()=>{
+  loading.value = true;
+  await Promise.all([
+    bankStore.getList(),
+    getBankLists()
+  ]);
+  loading.value = false;
+})
 onMounted(async () => {
   loading.value = true;
   await Promise.all([
@@ -93,6 +101,7 @@ onMounted(async () => {
   ]);
   loading.value = false;
 });
+
 </script>
 
 <style scoped lang="less" src="@/assets/css/pages/withdraw/manageAccount.less"></style>

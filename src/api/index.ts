@@ -50,12 +50,14 @@ export const login_register_api = (data: {
 
 // 登录
 export const my_logout_api = () => request.post("my/logout");
-
+//获取公告类型
+export const notice_type_api = () =>
+  request.post("notice/type");
 // 获取公告
 export const notice_list_api = (data: {
   page: number;
   limit: number;
-  type: number;
+  type?: number;
 }) =>
   request.post<NoticeListApiItem[]>("notice/list", { ...data, show_loca: 1 });
 

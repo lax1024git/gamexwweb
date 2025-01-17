@@ -10,6 +10,10 @@ export type SystemInfoApi = Request<{
     symbol: string;
     symbol_img: string;
   };
+  mail_phone_reg_rule:{
+    phone_num_rule:number;
+    phone_rule:number;
+  };
   detail_notes: { value: string }[];
   favicon: string;
   flyerStatus: number;

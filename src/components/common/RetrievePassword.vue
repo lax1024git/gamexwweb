@@ -1,7 +1,10 @@
 <template>
-  <Popup v-model:show="isShow" class="login-box" @closed="emit('closed')">
-    <Tabs v-model:active="active" class="tabs" animated>
-      <Tab>
+  <div class="page-box">
+    <NavBar :title="$t('找回密码')" class="nav-bar"></NavBar>
+    <div class="content-box ">
+      <div class="change-password-main">
+        <Tabs v-model:active="active" class="tabs" animated>
+      <Tab v-if="systemStore.systemData?.data.phone_bind == PhoneBind.email || systemStore.systemData?.data.phone_bind == PhoneBind.all">
         <template #title>
           <div class="tab-title">
             <t-svg name="yonghu" class="title-icon"></t-svg>
@@ -47,7 +50,7 @@
         </el-form>
 
       </Tab>
-      <Tab>
+      <Tab v-if="systemStore.systemData?.data.phone_bind == PhoneBind.phone || systemStore.systemData?.data.phone_bind == PhoneBind.all">
         <template #title>
           <div class="tab-title">
             <t-svg name="dianhua" class="title-icon"></t-svg>
@@ -99,8 +102,10 @@
     </Tabs>
     <el-button type="primary" size="large" class="full login-btn" @click="register" :loading="bthLoading">{{ $t("提交")
       }}</el-button>
+      </div>
 
-  </Popup>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -113,6 +118,7 @@ import SendCode from "./SendCode.vue";
 import { passwordAgainRule, passwordRule, phoneCodeRule, phoneRule, usernameRule } from "@/utils/rule";
 import { ElMessage, FormInstance } from "element-plus";
 import lang from "@/lang";
+import { PhoneBind } from "@/enum/PhoneBind";
 import { ResCode } from "@/enum/ResultCode";
 import { forget_mail_api, forget_phone_pwd } from "@/api/user";
 import { openLink } from "@/utils/openLink";
@@ -146,16 +152,25 @@ const formPhone = ref({
 const rules = {
   mail: usernameRule(),
   password: passwordRule(),
-  passwordAgain: passwordAgainRule(() => active.value == 0 ? formEmail.value.password : formPhone.value.password),
+  passwordAgain: passwordAgainRule(() => active.value == 1 ? formEmail.value.password : formPhone.value.password),
   phoneUsername: phoneRule(),
-  phone: phoneRule(),
+  phone: phoneRule(systemStore.systemData?.mail_phone_reg_rule?.phone_rule,systemStore.systemData?.mail_phone_reg_rule?.phone_num_rule),
   code: phoneCodeRule(),
   mail_code: phoneCodeRule()
 };
 
 // 发送验证码前的验证
-const beforSendPhone = async () => Boolean(await formPhoneRef.value?.validateField(["phone"]));
-const beforSendEmail = async () => Boolean(await formEmailRef.value?.validateField(["mail"]));
+const beforSendPhone = async () => {
+    try {
+        const result = await formPhoneRef.value?.validateField(["phone"]);
+        // 假设 result 包含验证通过的结果，您可以进一步处理
+        return result
+    } catch (error) {
+        console.error("Error validating phone field:", error);
+         
+    }
+}
+const beforSendEmail = async () =>await formEmailRef.value?.validateField(["username"])
 
 
 
@@ -163,13 +178,17 @@ const beforSendEmail = async () => Boolean(await formEmailRef.value?.validateFie
 const bthLoading = ref(false);
 const register = async () => {
   // 验证数据
-  const validate = await (active.value == 0 ? formEmailRef : formPhoneRef).value?.validateField();
+  const validate = await (active.value == 1 ? formEmailRef : formPhoneRef).value?.validateField().then(()=>{
+    return true
+  }).catch(()=>{
+    return false
+  });
   if (!validate) return;
 
 
   bthLoading.value = true;
 
-  const res = await (active.value === 0 ? forget_mail_api(formEmail.value) : forget_phone_pwd(formPhone.value));
+  const res = await (active.value === 1 ? forget_mail_api(formEmail.value) : forget_phone_pwd(formPhone.value));
   bthLoading.value = false;
   if (res.code === ResCode.success) {
     ElMessage({
@@ -183,4 +202,4 @@ const register = async () => {
 
 </script>
 
-<style scoped lang="less" src="@/assets/css/components/retrievePassword.less"></style>
+<style scoped lang="less" src="@/assets/css/pages/loginPass.less"></style>

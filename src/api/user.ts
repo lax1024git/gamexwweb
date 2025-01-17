@@ -10,14 +10,14 @@ import { request } from "@/utils/request";
 
 // 发送验证码
 export const sendcode_index_api = (data: {
-  scene: "bind" | "verify" | "forget" | "register";
+  // scene: "bind" | "verify" | "forget" | "register";
   qh: string;
   phone: string;
 }) => request.post("sendcode/index", data);
 
 // 发送验证码
 export const sendcode_mail_api = (data: {
-  scene: "bind" | "verify" | "forget" | "register";
+  // scene: "bind" | "verify" | "forget" | "register";
   email: string;
 }) => request.post("sendcode/mail", data);
 

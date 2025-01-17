@@ -1,6 +1,6 @@
 <template>
     <div class="activity">
-        <NavBar :title="$t('活动专区')" class="nav-bar"></NavBar>
+        <NavBar :title="$t('活动')" class="nav-bar"></NavBar>
         <div class="categories">
             <swiper-container speed="20" :loop="false" :autoplay="false" class="swiper" slidesPerView="3" ref="swiper">
                 <swiper-slide :class="['swiper-slide', activeIndex === index ? 'active' : '']" v-for="(item, index) in actionTypeList"

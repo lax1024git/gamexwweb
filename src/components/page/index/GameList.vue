@@ -9,53 +9,9 @@
             </AspectRatio>
           </div>
         </template>
-        <!--        <template #default>-->
-        <!--          <div ref="tabsBoxRef" class="tabs" :style="`&#45;&#45;offset-top:${offsetTop}px`">-->
-        <!--            <Tabs ref="tabsRef" v-model:active="homeActveStore.active" :shrink="!systemStore.isPhone"-->
-        <!--              :before-change="beforeChange">-->
-        <!--              <Tab v-for="(item, index) in gameData" :key="item.name">-->
-        <!--                <template #title>-->
-        <!--                  <div class="tab-title">-->
-        <!--                    <img :src="item.icon" class="tabs-icon" v-show="homeActveStore.active === index">-->
-        <!--                    <t-svg :name="item.default_icon" class="tabs-icon" size="" v-if="isSvgLink(item.default_icon)"-->
-        <!--                      v-show="homeActveStore.active !== index"></t-svg>-->
-        <!--                    <img :src="item.default_icon" class="tabs-icon" v-else v-show="homeActveStore.active !== index">-->
-        <!--                    <div>{{ $t(item.name) }}</div>-->
-        <!--                  </div>-->
-        <!--                </template>-->
-        <!--              </Tab>-->
-        <!--              <template #nav-right>-->
-        <!--                <div class="search-box m-hide" @click="$router.push('/sub-games')">-->
-        <!--                  <t-svg name="search"></t-svg>-->
-        <!--                </div>-->
-        <!--              </template>-->
-        <!--            </Tabs>-->
-        <!--          </div>-->
-        <!--          <div class="game-list-item-box" :sort="index" v-for="(item, index) in list" :key="item.name" ref="gameListRef">-->
-        <!--            <div class="game-title-box">-->
-        <!--              <img :src="item.icon" class="game-title-icon">-->
-        <!--              <div class="game-title">{{ $t(item.name) }}</div>-->
-        <!--              <div class="all" @click="$router.push('/sub-games')">{{ $t("全部") }}</div>-->
-        <!--            </div>-->
-        <!--            <div class="game-list" v-if="item.gameList.length">-->
-        <!--              <GameItem :data="gameItem" v-for="gameItem in item.gameList" :key="gameItem.id"></GameItem>-->
-        <!--            </div>-->
-        <!--            <Empty v-else class="empty" :loading="item.loading"></Empty>-->
-        <!--            <More @loadmore="loadMore(item)" :loading="item.loading"-->
-        <!--              v-if="item.page !== -1 && item.gameList.length !== 0"></More>-->
-        <!--          </div>-->
-        <!--        </template>-->
         <template #default>
           <div class="game-content">
             <div class="game-content-left">
-              <!--  <div class="tab-title" v-for="(item, index) in indexMenuStore.menuData?.xw_mobile_game_menu" :key="item.name" :class="homeActveStore.active === index?'game-content-active':''" @click="homeActveStore.active=index">
-                <img :src="item.icon" class="tabs-icon" v-show="homeActveStore.active === index">
-                <t-svg :name="item.icon_url" class="tabs-icon" size="" v-if="isSvgLink(item.default_icon)"
-                       v-show="homeActveStore.active !== index">
-                </t-svg>
-                <img :src="item.select_icon_url" class="tabs-icon" v-else v-show="homeActveStore.active !== index">
-                <div>{{ $t(item.name) }}</div>
-              </div> -->
               <ul class="game-tab">
                 <li v-for="(item, index) in indexMenuStore.menuData?.xw_mobile_game_menu"
                   :class="[activeIndex == index ? 'swiper-pagination-bullet-active' : '']" :style="{'--acImg': `url(${item.select_icon_url})`,'--Img':`url(${item.icon_url})`}" :key="index" @click="changeType(index)">
@@ -96,8 +52,11 @@ watch($route,()=>{
     changeType(menuIndex);
   }
 });
-onMounted(async()=>{
-  await changeType(activeIndex.value);
+onActivated(()=>{
+  nextTick(async()=>{
+    await changeType(activeIndex.value);
+  })
+  
 });
 </script>
 
@@ -186,6 +145,10 @@ onMounted(async()=>{
     overflow: hidden;
     text-decoration: none;
     line-height: 1;
+    /* width: 100%;
+    text-overflow: ellipsis;
+    padding: 4px 1px;
+    white-space:nowrap; */
   }
 
   li:after {

@@ -73,20 +73,13 @@
                     </Tab>
                 </Tabs>
                 <!-- PWord操作 -->
-                <el-checkbox size="large" v-model="checkbox18YearsOld"
-                    v-if="systemStore.systemData?.data.phone_check == OpenState.open">
-                    <span>{{ $t("我已年满18岁，我已阅读并同意") }}</span>
-                    <span class="user-rule" @click.stop.prevent="$openLink('/rule')">{{ $t("《用户协议》") }}</span>
-                </el-checkbox>
-                <div class="flex items-center justify-between" v-else>
+                <div class="flex items-center justify-between">
                     <el-checkbox :label="$t('记住密码')" fill="#0080FF" size="large" v-model="checkboxRememberPass" />
                     <div class="cursor-pointer select-none text-white"
-                        @click="$openLink('/retrievePassword'); isShow = false">{{
+                        @click="$router.push('/RetrievePassword'); isShow = false">{{
                             $t("忘记密码?") }}</div>
                 </div>
-            </div>
-            <!-- bottom -->
-            <div>
+                <div>
                 <!-- button -->
                 <div class="center flex-col my-30px space-y-30px">
                     <el-button size="large" style="font-size: 14px;letter-spacing: 7px;text-indent: 7px;" @click="login"
@@ -107,6 +100,7 @@
                     </div>
                 </div>
             </div>
+            </div> 
         </div>
     </div>
 </template>
@@ -210,11 +204,6 @@ const getRememberPass = () => {
     }
 };
 
-
-// 发送验证码前的验证
-const beforSendPhone = async () => Boolean(await formPhoneRef.value?.validateField(["phone"]));
-const beforSendEmail = async () => Boolean(await formEmailRef.value?.validateField(["username"]));
-
 // 执行登录操作
 const loginLoading = ref(false);
 const login = async () => {
@@ -263,7 +252,6 @@ onActivated(() => {
         if(tabs.value[0].value == 1){
             tabs.value[0].value = 0
             active.value = 1
-            console.log("active的值",active.value,tabs.value[0].value)
         }
     }
     

@@ -19,12 +19,12 @@
         </el-table-column>
         <el-table-column :label="$t('申请金额')">
           <template #default="scope">
-            {{ $numInit(scope.row.apply_price) }}
+            {{ scope.row.apply_price }}
           </template>
         </el-table-column>
         <el-table-column :label="$t('到账金额')">
           <template #default="scope">
-            {{ $numInit(scope.row.arrival_price) }}
+            {{ scope.row.arrival_price }}
           </template>
         </el-table-column>
 

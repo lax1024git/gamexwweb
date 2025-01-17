@@ -21,12 +21,58 @@
     min-height: calc(var(--vh) - 15px - var(--navbar-height));
   });
 }
+.select {
+  border-right: 1px solid var(--color12);
+  margin-right: 20px;
+  padding-right: 10px;
+  width: 105px;
+  :deep(.el-select__wrapper) {
+    box-shadow: none !important;
+  }
+}
 .input-title {
   color: var(--color7);
   margin-bottom: 28px;
 }
 .btn {
   margin-top: 43px;
+}
+.tabs {
+  --van-tabs-line-height: auto;
+  :deep(.van-tabs__line) {
+    --van-tabs-bottom-bar-width: 290px;
+    .md({--van-tabs-bottom-bar-width: 313px;});
+  }
+  :deep(.van-tabs__line) {
+    bottom: 0;
+  }
+  :deep(.van-tabs__nav) {
+    padding-bottom: 0;
+  }
+  :deep(.van-tabs__wrap) {
+    margin-bottom: 25px;
+   /*  border-bottom: 1px solid var(--color2); */
+    .md({
+      margin-bottom: 27px;
+    });
+  }
+}
+.tab-title {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  padding: 22px 0;
+  .md({
+    font-size: 24px;
+  });
+}
+.title-icon {
+  font-size: 27px;
+  margin-right: 7px;
+  .md({
+    font-size: 29px;
+    margin-right: 9px;
+  });
 }
 .change-password-main{
   background: linear-gradient(to top, rgb(21, 94, 136, .9), rgba(10, 33, 64, .9));

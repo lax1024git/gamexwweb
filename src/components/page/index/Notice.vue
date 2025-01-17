@@ -36,7 +36,7 @@ const tabItem = () => {
 
 // 获取数据
 onMounted(() => {
-  horseRaceLampStore.getData();
+  horseRaceLampStore.getData(1);
 });
 </script>
 

@@ -6,7 +6,7 @@
         <img src="@/assets/images/mine/mascot.png">
       </div>
       <div class="mamber-info d-flex flex-column">
-        <div>{{$t("你好，冒险家们")}}</div>
+        <div>{{$t("您好，冒险家们")}}</div>
         <div>
           <span class="AccountName">@{{ userStore.userInfo?.yphone || userStore.userInfo?.mail }}</span>
                    <!-- &nbsp; 本次登入時間 &nbsp;<span  class="login-time">2024/09/06 12:42:30 中午</span> -->
@@ -40,7 +40,8 @@
         <div @click="$openLink('/changeLangSelectPop')">
           <div class="sub-link set-language">{{$t("设定语系")}}</div>
         </div>
-        <div ><a  href="#/Guide" class="sub-link faq">{{$t("新手教学")}}</a></div>
+        <div ><a  href="#/BeginnerTeaching" class="sub-link faq">{{$t("新手教学")}}</a></div>
+        <div ><a  href="#/profile" class="sub-link faq">{{$t("个人信息")}}</a></div>
       </div>
       <div  class="SignOut-btn" @click="quit">
         <a  href="##" class="d-block px-3 py-2 text-center text-decoration-none">{{$t("登出")}}</a>

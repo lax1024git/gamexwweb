@@ -22,6 +22,13 @@ const activeIndex = ref(false);
     right: 10px;
     top: 40vh;
     z-index: 7;
+    @media (min-width:427px) {
+        top: 20vh;
+    }
+    @media (min-width:573px) {
+        top: 12vh;
+        
+    }
 }
 
 .main-icon {

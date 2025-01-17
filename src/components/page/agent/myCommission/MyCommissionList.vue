@@ -81,8 +81,8 @@ const getList = async () => {
   const res = await v2_team_commission_api({
     page: form.value.page,
     limit: form.value.limit,
-    start_time: form.value.time?.[0],
-    end_time: form.value.time?.[1]
+    start_time: form.value.time?.[0] || new Date().toISOString().split('T')[0],
+    end_time: form.value.time?.[1] || new Date().toISOString().split('T')[0]
   });
   loading.value = false;
   if (res.code === ResCode.success) {

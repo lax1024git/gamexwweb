@@ -1,6 +1,6 @@
 <template>
   <div class="transaction">
-    <NavBar :title="$t('帳戶交易紀錄')" class="nav-bar"></NavBar>
+    <NavBar :title="$t('账户交易记录')" class="nav-bar"></NavBar>
     <div class="tab">
       <div :class="['tab-item', tabCurrent == index ? 'active' : '']" v-for="(item, index) in tabList" :key="item"
         @click="tabCurrent = index">
@@ -84,7 +84,7 @@ onActivated(()=>{
   margin-bottom: 8px !important;
   z-index: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-around !important;
   margin-top: 20px;
 
@@ -115,9 +115,9 @@ onActivated(()=>{
   border-radius: 6px;
   flex-grow: 1;
   margin: 18px 15px;
-  min-width: 100px;
-  max-width: 200px;
-  font-size: 30px;
+  /* min-width: 100px;
+  max-width: 200px; */
+  font-size: 20px;
   font-weight: 400;
   line-height: 1.42857143;
   text-align: center;

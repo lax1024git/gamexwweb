@@ -3,31 +3,23 @@
     <NavBar :title="$t('修改密码')" class="nav-bar"></NavBar>
     <div class="content-box ">
       <div class="change-password-main">
-<!--        <div class="input-title">{{ $t("修改密码") }}</div>-->
         <el-form ref="formRef" :model="form" :rules="rules">
           <el-form-item prop="old_password">
             <el-input size="large" v-model="form.old_password" :placeholder="$t('请输入旧密码')" type="password"
                       show-password>
-<!--              <template #prefix>-->
-<!--                <t-svg name="pass" class="input-icon"></t-svg>-->
-<!--              </template>-->
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input size="large" v-model="form.password" :placeholder="$t('请输入新密码')" type="password"
                       show-password>
-<!--              <template #prefix>-->
-<!--                <t-svg name="pass" class="input-icon"></t-svg>-->
-<!--              </template>-->
+
             </el-input>
           </el-form-item>
           <PassLevel :password="form.password"></PassLevel>
           <el-form-item prop="again_password">
             <el-input size="large" v-model="form.again_password" :placeholder="$t('确认新密码')" type="password"
                       show-password>
-<!--              <template #prefix>-->
-<!--                <t-svg name="pass" class="input-icon"></t-svg>-->
-<!--              </template>-->
+
             </el-input>
           </el-form-item>
           <el-button type="primary" size="large" class="full btn" @click="submit()" :loading="btnLoading">{{
@@ -84,8 +76,6 @@ const submit = async (code?: string, tips = false) => {
       type: "success",
       message: lang.t("修改成功")
     });
-    // $router.back();
-    // formRef.value?.resetFields();
 
     const res = await my_logout_api();
       if (res.code === ResCode.success) {

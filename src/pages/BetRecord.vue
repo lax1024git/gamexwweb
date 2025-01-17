@@ -1,12 +1,12 @@
 <template>
   <div>
-    <NavBar :title="$t('投注記錄')" class="nav-bar"></NavBar>
+    <NavBar :title="$t('投注记录')" class="nav-bar"></NavBar>
     <div class="input-list">
-      <el-select class="round input" size="large" v-model="form.Sport" :placeholder="$t('级别')">
+      <!-- <el-select class="round input" size="large" v-model="form.Sport" :placeholder="$t('级别')">
         <el-option :label="$t(item.name)" :value="item.value" v-for="item in levelList" :key="item.value" />
-      </el-select>
+      </el-select> -->
 
-      <el-select class="round input" size="large" v-model="form.settlement" :placeholder="$t('结算')">
+      <el-select class="round input" size="large" v-model="form.settlement" :placeholder="$t('所有')">
         <el-option :label="$t(item.name)" :value="item.value" v-for="item in settlementList" :key="item.value" />
       </el-select>
       <div>
@@ -74,11 +74,11 @@ const form = ref({
   limit: 10,
   time: "",
   settlement: "",
-  Sport: 0,
+/*   Sport: 0, */
   nextPage:false
 });
-
-watch(() => [form.value.time, form.value.Sport, form.value.settlement], () => {
+// form.value.Sport, 
+watch(() => [form.value.time, form.value.settlement], () => {
   form.value.page = 1;
   list.value = [];
   getList();
@@ -92,8 +92,8 @@ const getList = async () => {
     page: form.value.page,
     limit: form.value.limit,
     settlement: form.value.settlement,
-    sports: form.value.Sport,
-    date: form.value.time && form.value.time?.[0] + "|" + form.value.time?.[1],
+    /* sports: form.value.Sport, */
+    date: form.value.time ? form.value.time?.[0] + "|" + form.value.time?.[1] : new Date().toISOString().split('T')[0] + "|" + new Date().toISOString().split('T')[0] ,
   });
   loading.value = false;
   if (res.code === ResCode.success) {

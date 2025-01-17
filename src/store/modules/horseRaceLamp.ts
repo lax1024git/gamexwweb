@@ -12,7 +12,7 @@ export default defineStore("horseRaceLamp", {
     };
   },
   actions: {
-    async getData() {
+    async getData(num) {
       // 有数禁止啦接口，避免重复请求
       if (this.data.length) return;
       const fetch = new ApiStorage({
@@ -20,7 +20,7 @@ export default defineStore("horseRaceLamp", {
           notice_list_api({
             page: 1,
             limit: 10,
-            type: NoticeListType.horseRaceLamp,
+            type:num ? NoticeListType.horseRaceLamp : 0,
           }),
         success: (data) => {
           this.data = data;

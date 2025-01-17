@@ -17,6 +17,7 @@ import webSocketEventInit from "@/utils/websocket/webSocketEventInit";
 import { openLink } from "./utils/openLink";
 import { DeviceType } from "./enum/DeviceType";
 import { createPixel } from "./utils/pixel/createPixel";
+import { game_user_transout_api } from "@/api/user";
 const $route = useRoute();
 const $router = useRouter();
 const { systemStore, gameTypeStore, musicStore, userStore, indexMenuStore, shareCodeStore, envStore, downloadTipStore } = useStore();
@@ -80,7 +81,14 @@ const isSmallScreen = () => { return window.innerWidth < 768 };
 
 // 初始化
 onMounted(async () => {
-  console.log(window.innerWidth, "初始化宽度！！")
+  // 获取用户信息
+  await userStore.getUserInfo();
+  if (userStore.userInfo?.third_balance) {
+    const res = await game_user_transout_api({ tid: 0 });
+    if (res.code === 1) {
+      await userStore.getUserInfo();
+    }
+  }
   window.addEventListener("resize", () => {
     if (isMobileDevice() || isSmallScreen()) {
 

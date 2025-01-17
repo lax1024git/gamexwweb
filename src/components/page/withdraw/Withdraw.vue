@@ -182,6 +182,7 @@ const submit = async () => {
       type: "success",
       message: lang.t("提交成功")
     });
+    refreshBalance();
     getLimit();
     formRef.value?.resetFields();
     return true;

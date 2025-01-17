@@ -6,7 +6,7 @@
                     <div class="game-img-box">
                         <img :src="item?.show_img" alt="">
                     </div>
-                    <span class="game-name">{{ $t(item?.name) }}</span>
+                    <span class="game-name">{{ item?.name }}</span>
                 </div>
             </template>
             <template v-else>
@@ -100,7 +100,12 @@ const loadmore = () => {
     getGameList();
 };
 const jumpGameList = (item) => {
-    $router.push(`/playGameList?id=${item.extra}&title=${item.name}`);
+    if(item.href === "open_game"){
+        $router.push(`/showGame?id=${item.id}`);
+    }else{
+        $router.push(`/playGameList?id=${item.extra}&title=${item.name}`);
+    }
+    
 };
 const jumpshowGame = (item) => {
     $router.push(`/showGame?id=${item.id}`);

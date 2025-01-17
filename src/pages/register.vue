@@ -149,7 +149,7 @@
           {{ $t("注册") }}
         </el-button>
         <div class="link-list">
-          <div class="link" @click="$router.push('/OnlineServices')">{{ $t("客服服务") }}</div>
+          <div class="link" @click="$router.push('/OnlineServices')">{{ $t("在线客服") }}</div>
           <div class="link" @click="$router.push('/Login')">{{ $t("现在登录") }}</div>
         </div>
       </div>
@@ -162,7 +162,7 @@ import { Tab, Tabs } from "vant";
 import SendCode from "@/components/common/SendCode.vue";
 import { ref, onMounted, Ref, watch } from "vue";
 import useStore from "@/store";
-import { passwordAgainRule, passwordRule, phoneCodeRule, phoneRule, usernameRule } from "@/utils/rule";
+import { passwordAgainRule, passwordRule, phoneCodeRule, phoneRule, usernameRule,promotionCode} from "@/utils/rule";
 import { ElMessage, FormInstance } from "element-plus";
 import lang from "@/lang";
 import { login_register_api } from "@/api";
@@ -219,10 +219,11 @@ watch(() => shareCodeStore.code, v => {
 const rules = {
   username: usernameRule(),
   password: passwordRule(),
-  passwordAgain: passwordAgainRule(() => active.value == 0 ? formEmail.value.password : formPhone.value.password),
-  phoneUsername: phoneRule(),
-  phone: phoneRule(),
-  code: phoneCodeRule()
+  passwordAgain: passwordAgainRule(() => active.value == 1 ? formEmail.value.password : formPhone.value.password),
+  /* phoneUsername: phoneRule(), */
+  phone: phoneRule(systemStore.systemData?.mail_phone_reg_rule?.phone_rule,systemStore.systemData?.mail_phone_reg_rule?.phone_num_rule),
+  code: phoneCodeRule(),
+  rec_code:systemStore.systemData?.data.promotion_code == 1 ? promotionCode() : "",
 };
 
 // 发送验证码前的验证
@@ -235,7 +236,7 @@ const checkbox18YearsOld = ref(true);
 const bthLoading = ref(false);
 const register = async () => {
   // 验证数据
-  const validate = await (active.value == 0 ? formEmailRef : formPhoneRef).value?.validateField();
+  const validate = await (active.value == 1 ? formEmailRef : formPhoneRef).value?.validateField();
   if (!validate) return;
   if (!checkbox18YearsOld.value) {
     ElMessage({
@@ -249,7 +250,7 @@ const register = async () => {
   // 手机号码注册，表单用户名取电话号码
   formPhone.value.username = formPhone.value.phone;
   const res = await login_register_api({
-    ...(active.value === 0 ? formEmail.value : formPhone.value),
+    ...(active.value === 1 ? formEmail.value : formPhone.value),
     device_type: envStore.getDevice(),
     acid: pixelAcidStorage.getData()
   });

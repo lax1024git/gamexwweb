@@ -6,9 +6,16 @@
       <van-icon class="pointer-events-auto z-999 p-6px rounded-full bg-gradient-to-r bg-#00000066" name="wap-home"
         size="25" @click="back" />
     </div>
-    <iframe class="iframe" :src="url" frameborder="0" v-if="url && isLink"></iframe>
-    <iframe class="iframe" :srcdoc="url" frameborder="0" v-else-if="url && !isLink"></iframe>
+    <iframe class="iframe" :src="url" frameborder="0" @load="loadingfish" v-if="url && isLink"></iframe>
+    <iframe class="iframe" :srcdoc="url" frameborder="0" @load="loadingfish" v-else-if="url && !isLink"></iframe>
     <t-svg name="error" class="error-img" v-else-if="isError"></t-svg>
+    <div class="jiazai" v-if="!loading || isError">
+      <div class="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -29,6 +36,7 @@ const id = ref("");
 const url = ref("");
 const isError = ref(false);
 const isLink = ref(true);
+const loading = ref(false)
 const getUrl = async () => {
   isError.value = false;
   url.value = "";
@@ -97,7 +105,9 @@ const openFullscreen = () => {
     elem.msRequestFullscreen();
   }
 };
-
+const loadingfish = () => {
+  loading.value = true
+}
 onActivated(() => {
   userStore.isgame = true;
   if ($route.query.id) {
@@ -110,6 +120,7 @@ onActivated(() => {
 
 
 onDeactivated(async () => {
+  loading.value = false
   userStore.isgame = false;
   await userStore.getUserInfo();
   if (userStore.userInfo.third_balance) {
@@ -137,5 +148,44 @@ iframe {
 .error-img {
   font-size: 500px;
   .position-center();
+}
+.jiazai {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+}
+
+.loader {
+  display: flex;
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: #3498db;
+  animation: bounce 0.6s infinite alternate;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-20px);
+  }
 }
 </style>

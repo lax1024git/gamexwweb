@@ -151,7 +151,7 @@ const openToLink = (item) => {
   span {
     color: #fff;
     line-height: 2;
-    font-size: 25px;
+    font-size: 18px;
   }
 
   i {
