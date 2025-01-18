@@ -33,7 +33,7 @@
         <div ><a  href="#/BetRecord" class="sub-link bet-record">{{$t("投注记录")}}</a></div>
         <div ><a  href="#/Transaction?id=2" class="sub-link transaction">{{$t("交易记录")}}</a></div> 
         <div ><a  href="#/SiteMail" class="sub-link site-mail">{{$t("站内信")}}</a></div> 
-        <div ><a  href="#/loginPass" class="sub-link change-password">{{$t("修改密码")}}</a></div> 
+        <div ><a  href="#/securityCenter" class="sub-link change-password">{{$t("安全中心")}}</a></div> 
         <div ><a  href="#/newactivity" class="sub-link promotion">{{$t("活动")}}</a></div>
         <hr >
         <div ><a  href="javascript:void(0)" class="sub-link app">{{$t("APP下載")}}</a></div>
@@ -41,7 +41,7 @@
           <div class="sub-link set-language">{{$t("设定语系")}}</div>
         </div>
         <div ><a  href="#/BeginnerTeaching" class="sub-link faq">{{$t("新手教学")}}</a></div>
-        <div ><a  href="#/profile" class="sub-link faq">{{$t("个人信息")}}</a></div>
+        <div ><a  href="#/profile" class="sub-link useContent">{{$t("个人信息")}}</a></div>
       </div>
       <div  class="SignOut-btn" @click="quit">
         <a  href="##" class="d-block px-3 py-2 text-center text-decoration-none">{{$t("登出")}}</a>

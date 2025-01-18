@@ -9,7 +9,7 @@
       <div class="link-right">
         <div class="my-link-title">{{ $t("我的链接") }}</div>
         <div class="my-link-box">
-          <el-input :value="props.link" size="large" readonly></el-input>
+          <el-input maxlength="50" :value="props.link" size="large" readonly></el-input>
           <t-svg name="copy" class="copy-icon" @click="$copy(props.link)"></t-svg>
         </div>
         <div class="community-list">

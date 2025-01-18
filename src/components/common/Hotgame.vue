@@ -6,7 +6,7 @@
                     <div class="game-img-box">
                         <img :src="item?.show_img" alt="">
                     </div>
-                    <span class="game-name">{{ item?.name }}</span>
+                    <span class="game-name">{{ $t(item?.name) }}</span>
                 </div>
             </template>
             <template v-else>

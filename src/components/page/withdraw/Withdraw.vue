@@ -42,7 +42,7 @@
         </el-select>
       </el-form-item>
       <el-form-item prop="w_price">
-        <el-input size="large" :placeholder="placeholderPrice" v-model="form.w_price" type="number">
+        <el-input size="large" maxlength="50" @input="formatInput" :placeholder="placeholderPrice" v-model="form.w_price" type="number">
           <template #prefix>
             <span class="input-unit">{{ systemStore.systemData?.data.currency.symbol }}</span>
           </template>
@@ -144,6 +144,21 @@ const rules = {
     },
   ]
 };
+const formatInput = (value) => {
+  if (value.length > 50) {
+    form.value.w_price = value.slice(0, 50);
+    return;
+  }
+  // 正则表达式检查总长度和小数点位数
+
+  const reg = /^(?!0\.0*$)(\d{1,50}(\.\d{0,2})?)?$/;
+  if (!reg.test(value)) {
+    // 如果不匹配，保留有效部分
+    form.value.w_price = value.slice(0, -1);
+  } else {
+    form.value.w_price = value;
+  }
+}
 
 // 占位符提示文字
 const placeholderPrice = computed(() => {
@@ -168,7 +183,7 @@ const submit = async () => {
   }
 
   // 验证码开启，并且没有输入的时候，开始验证
-  if (limitData.value?.pay_passwd_verify === OpenState.open && !form.value.first_withdrawal_code) {
+  if (limitData.value?.ver_withdrawal_first === OpenState.open && !form.value.first_withdrawal_code) {
     openCode("first_withdrawal_code");
     return;
   }
@@ -223,7 +238,7 @@ onMounted(async () => {
 <style scoped lang="less" src="@/assets/css/pages/withdraw/withdraw.less"></style>
 
 <style lang="less" scoped>
-.btn{
+.btn {
   border-style: none;
   margin: 20px auto !important;
   color: #68affb;
@@ -236,7 +251,8 @@ onMounted(async () => {
   font-size: 24px;
   /* filter: brightness(.5); */
 }
-::v-deep(.el-button.is-loading:before){
+
+::v-deep(.el-button.is-loading:before) {
   background-color: transparent !important;
 }
 </style>

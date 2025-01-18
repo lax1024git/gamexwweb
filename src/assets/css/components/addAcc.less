@@ -1,3 +1,26 @@
+.page-box {
+  padding: 23px 0 42px;
+  font-size: 18px;
+  .md({
+    padding: 0;
+    
+    font-size: 20px;
+  });
+}
+.nav-bar {
+  margin-bottom: 15px;
+}
+.content-box {
+  background:radial-gradient(87.23% 87.23% at 50% 12.77%, rgba(60, 132, 217, 0.5) 0%, rgba(19, 49, 84, 0.5) 100%) !important;
+  border-radius: 5px;
+  padding: 54px 300px;
+  min-height: 800px;
+  .md({
+    border-radius: 0;
+    padding: 30px;
+    min-height: calc(var(--vh) - 15px - var(--navbar-height));
+  });
+}
 .title {
   text-align: center;
   font-size: 22px;

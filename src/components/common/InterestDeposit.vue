@@ -21,7 +21,7 @@
     </div>
     <el-form>
       <el-form-item>
-        <el-input :placeholder="$t('Min10,Max6000')" size="large">
+        <el-input maxlength="50" :placeholder="$t('Min10,Max6000')" size="large">
           <template #prefix>
             <span style="color: var(--color7);">R$</span>
           </template>

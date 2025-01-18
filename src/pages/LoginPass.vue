@@ -5,19 +5,19 @@
       <div class="change-password-main">
         <el-form ref="formRef" :model="form" :rules="rules">
           <el-form-item prop="old_password">
-            <el-input size="large" v-model="form.old_password" :placeholder="$t('请输入旧密码')" type="password"
+            <el-input size="large" maxlength="50" v-model="form.old_password" :placeholder="$t('请输入旧密码')" type="password"
                       show-password>
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input size="large" v-model="form.password" :placeholder="$t('请输入新密码')" type="password"
+            <el-input size="large" maxlength="50" v-model="form.password" :placeholder="$t('请输入新密码')" type="password"
                       show-password>
 
             </el-input>
           </el-form-item>
           <PassLevel :password="form.password"></PassLevel>
           <el-form-item prop="again_password">
-            <el-input size="large" v-model="form.again_password" :placeholder="$t('确认新密码')" type="password"
+            <el-input size="large" maxlength="50" v-model="form.again_password" :placeholder="$t('确认新密码')" type="password"
                       show-password>
 
             </el-input>

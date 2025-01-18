@@ -19,6 +19,7 @@ type CurrencyItem = {
   withdrawal_rate: string;
 };
 export type BankLists = {
+  length: number;
   all_currency: CurrencyItem[];
   bank_list: {
     bank_code: string;

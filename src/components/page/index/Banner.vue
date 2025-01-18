@@ -19,14 +19,15 @@
       </template>
       <template #default>
         <swiper-container class="swiper" :effect="systemStore.isPhone ? '' : 'coverflow'" :loop="true"
-          :centeredSlides="true" :breakpoints="{
+           :breakpoints="{
             0: { slidesPerView: 'auto', spaceBetween: 10 }, 768: { slidesPerView: 'auto' }
-          }" :autoplay="{ delay: 3000, }" :coverflowEffect="{
+          }" :autoplay="false" :coverflowEffect="{
             rotate: 0,
             stretch: 200,
             depth: 400,
             modifier: 1,
           }" v-if="banner.length">
+          
           <swiper-slide v-for="(item) in banner" :key="item" class="slider">
             <img :src="item.img" class="swiper-img" style="--color:var(--color1)" @click="$openLink(item.jump_url)" />
           </swiper-slide>

@@ -17,14 +17,14 @@
           </div>
         </div>
         <el-form-item>
-          <el-input size="large" disabled :value="userStore.userInfo?.yphone || userStore.userInfo?.mail">
+          <el-input size="large" maxlength="50" disabled :value="userStore.userInfo?.yphone || userStore.userInfo?.mail">
             <template #prefix>
               <t-svg name="user" class="input-icon"></t-svg>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-input size="large" disabled :placeholder="$t('链接到您的手机')"
+          <el-input size="large" maxlength="50" disabled :placeholder="$t('链接到您的手机')"
             :value="`+${userStore.userInfo?.qh} ${userStore.userInfo?.yphone}`">
             <template #prefix>
               <t-svg name="shouji2" class="input-icon"></t-svg>
@@ -45,21 +45,21 @@
           </el-input>
         </el-form-item> -->
         <el-form-item prop="whatsapp">
-          <el-input size="large" :placeholder="$t('输入您的Whatsapp账号')" v-model="form.whatsapp">
+          <el-input size="large" maxlength="50" :placeholder="$t('输入您的Whatsapp账号')" v-model="form.whatsapp">
             <template #prefix>
               <t-svg name="whatsapp" class="input-icon" style="transform: scale(.8);"></t-svg>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item prop="facebook">
-          <el-input size="large" :placeholder="$t('输入您的Facebook账号')" v-model="form.facebook">
+          <el-input size="large" maxlength="50" :placeholder="$t('输入您的Facebook账号')" v-model="form.facebook">
             <template #prefix>
-              <t-svg name="facebook" class="input-icon" style="transform: scale(.8);"></t-svg>
+              <t-svg name="facebook" maxlength="50" class="input-icon" style="transform: scale(.8);"></t-svg>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item prop="telegram" class="input-bottom">
-          <el-input size="large" :placeholder="$t('输入您的Telegram账号')" v-model="form.telegram">
+          <el-input size="large" maxlength="50" :placeholder="$t('输入您的Telegram账号')" v-model="form.telegram">
             <template #prefix>
               <t-svg name="telegram" class="input-icon" style="transform: scale(.8);"></t-svg>
             </template>

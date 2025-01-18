@@ -38,8 +38,8 @@
               </div>
             </div>
             <el-form-item prop="apply_price">
-              <el-input class="input" :placeholder="placeholderText()" size="large" v-model="form.apply_price"
-                type="number">
+              <el-input @input="formatInput" class="input" :placeholder="placeholderText()" size="large"
+                v-model="form.apply_price" type="number">
                 <template #prefix>
                   <div class="input-icon">{{ rechargeAll?.currency_symbol }}</div>
                 </template>
@@ -83,9 +83,9 @@
               </div>
             </div>
 
-            <el-button class="full btn"  @click="submit()" :loading="btnLoading">{{
+            <el-button class="full btn" @click="submit()" :loading="btnLoading">{{
               $t("现在充值")
-              }}</el-button>
+            }}</el-button>
           </el-form>
         </Tab>
       </Tabs>
@@ -177,7 +177,21 @@ watch(rechargeTypeActive, () => {
   channeActive.value = 0;
 });
 
+const formatInput = (value) => {
+  if (value.length > 50) {
+    form.value.apply_price = value.slice(0, 50);
+    return;
+  }
+  // 正则表达式检查总长度和小数点位数
 
+  const reg = /^(?!0\.0*$)(\d{1,50}(\.\d{0,2})?)?$/;
+  if (!reg.test(value)) {
+    // 如果不匹配，保留有效部分
+    form.value.apply_price = value.slice(0, -1);
+  } else {
+    form.value.apply_price = value;
+  }
+}
 // 是否参与活动
 const isAction = ref(false);
 
@@ -330,7 +344,7 @@ onMounted(async () => {
 </script>
 <style scoped lang="less" src="@/assets/css/components/deposit.less"></style>
 <style scoped lang="less">
-.btn{
+.btn {
   border-style: none;
   margin: 20px auto !important;
   color: #68affb;
@@ -343,7 +357,8 @@ onMounted(async () => {
   font-size: 24px;
   /* filter: brightness(.5); */
 }
-::v-deep(.el-button.is-loading:before){
+
+::v-deep(.el-button.is-loading:before) {
   background-color: transparent !important;
 }
 </style>

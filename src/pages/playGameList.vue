@@ -3,7 +3,7 @@
         <NavBar :title="$t($route.query.title)" class="nav-bar"></NavBar>
         <div class="search">
             <div class="searchContent">
-                <el-input v-model="keyword" class="searchInput" :input-style="{
+                <el-input v-model="keyword" maxlength="50" class="searchInput" :input-style="{
                     'height': '30px', 'font-size': '14px',
                     'color': 'black',
                 }" :placeholder="$t('游戏名称')">

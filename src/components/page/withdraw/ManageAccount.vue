@@ -20,7 +20,7 @@
         <img :src="getBankTypeData(item.bank_type)?.icon" class="item-icon" />
         <div class="item-content">
           <div class="itme-name">
-            <span style="color: var(--color7)">{{ getBankTypeData(item.bank_type)?.name }}</span>&nbsp;
+            <span style="color: var(--color7)">{{ $t(getBankTypeData(item.bank_type)?.name as string) }}</span>&nbsp;
             <span v-if="item.bank_type !== BankType.electronicWallet">({{ item.bank_name }})</span>
           </div>
           <div class="item-id">{{ isShowNum ? item.bank_number : bankNameFilter(item.bank_number) }}</div>
@@ -40,19 +40,19 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item v-if="bankLists?.paytype.includes($t('PIX'))"
-              @click="$openLink('/addPIX', { data: bankLists })">
+              @click="$router.push(`/AddPIX?data=${encodeURIComponent(JSON.stringify(bankLists))}`)">
               <div class="dropdown-item">{{ $t("PIX") }}</div>
             </el-dropdown-item>
             <el-dropdown-item v-if="bankLists?.paytype.includes($t('银行卡'))"
-              @click="$openLink('/addBank', { data: bankLists })">
+              @click="$router.push(`/AddBank?data=${encodeURIComponent(JSON.stringify(bankLists))}`)">
               <div class="dropdown-item">{{ $t("银行卡") }}</div>
             </el-dropdown-item>
             <el-dropdown-item v-if="bankLists?.paytype.includes($t('USDT'))"
-              @click="$openLink('/addUsdt', { data: bankLists })">
+              @click="$router.push(`/AddUsdt?data=${encodeURIComponent(JSON.stringify(bankLists))}`)">
               <div class="dropdown-item">{{ $t("USDT") }}</div>
             </el-dropdown-item>
             <el-dropdown-item v-if="bankLists?.paytype.includes($t('电子钱包'))"
-              @click="$openLink('/addElectronicWallet', { data: bankLists })">
+              @click="$router.push(`/AddElectronicWallet?data=${encodeURIComponent(JSON.stringify(bankLists))}`)">
               <div class="dropdown-item">{{ $t("电子钱包") }}</div>
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -73,6 +73,8 @@ import { Ref, onActivated, onMounted, ref } from "vue";
 import Empty from "@/components/common/Empty.vue";
 import { BankType } from "@/enum/BankType";
 import bankNameFilter from "@/utils/bankNameFilter";
+import { useRouter } from "vue-router";
+const $router = useRouter()
 const isShowNum = ref(false);
 
 const { bankStore } = useStore();
@@ -85,7 +87,7 @@ const getBankLists = async () => {
 };
 
 const loading = ref(false);
-onActivated(async()=>{
+onActivated(async () => {
   loading.value = true;
   await Promise.all([
     bankStore.getList(),

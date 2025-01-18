@@ -15,14 +15,14 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-input size="large" v-model="a" :placeholder="$t('输入答案')">
+          <el-input size="large" maxlength="50" v-model="a" :placeholder="$t('输入答案')">
             <template #prefix>
               <t-svg name="key" class="input-icon"></t-svg>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-input size="large" v-model="a" :placeholder="$t('再次输入安全问题的答案')">
+          <el-input size="large" v-model="a" maxlength="50" :placeholder="$t('再次输入安全问题的答案')">
             <template #prefix>
               <t-svg name="key" class="input-icon"></t-svg>
             </template>

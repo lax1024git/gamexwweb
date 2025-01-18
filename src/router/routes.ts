@@ -297,6 +297,26 @@ const routes = [
         },
       },
       {
+        path: "/AddBank",
+        name: "AddBank",
+        component: () => import("@/components/common/AddBank.vue"),
+      },
+      {
+        path: "/AddPIX",
+        name: "AddPIX",
+        component: () => import("@/components/common/AddPIX.vue"),
+      },
+      {
+        path: "/AddUsdt",
+        name: "AddUsdt",
+        component: () => import("@/components/common/AddUsdt.vue"),
+      },
+      {
+        path: "/AddElectronicWallet",
+        name: "AddElectronicWallet",
+        component: () => import("@/components/common/AddElectronicWallet.vue"),
+      },
+      {
         path: "/VIP",
         name: "VIP",
         component: () => import("@/pages/VipTwo.vue"),

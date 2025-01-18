@@ -1,21 +1,20 @@
 <template>
-  <Popup v-model:show="isShow" @closed="emit('closed')">
-    <div class="title">{{ $t("添加电子钱包") }}</div>
-    <el-form label-position="top" :model="form" :rules="rules" ref="formRef">
-      <el-form-item :label="$t('开户名')" prop="bank_hm">
-        <el-input size="large" v-model="form.bank_hm" :placeholder="$t('请输入开户名')"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('钱包号码')" prop="bank_number">
-        <el-input size="large" v-model="form.bank_number" :placeholder="$t('请输入钱包号码')"></el-input>
-      </el-form-item>
+  <div class="page-box">
+    <NavBar :title="$t('添加电子钱包')" class="nav-bar"></NavBar>
+    <div class="content-box ">
+      <el-form label-position="top" :model="form" :rules="rules" ref="formRef">
+        <el-form-item :label="$t('开户名')" prop="bank_hm">
+          <el-input size="large" maxlength="50" v-model="form.bank_hm" :placeholder="$t('请输入开户名')"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('钱包号码')" prop="bank_number">
+          <el-input size="large" maxlength="50" v-model="form.bank_number" :placeholder="$t('请输入钱包号码')"></el-input>
+        </el-form-item>
+        <el-button class="full btn" type="primary" size="large" @click="submit" :loading="loading">{{ $t("添加")
+          }}</el-button>
+      </el-form>
 
-
-
-      <el-button class="full btn" type="primary" size="large" @click="submit" :loading="loading">{{ $t("添加")
-        }}</el-button>
-    </el-form>
-
-  </Popup>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -26,10 +25,10 @@ import { BankType } from "@/enum/BankType";
 import { bank_add_api } from "@/api/bank";
 import { ResCode } from "@/enum/ResultCode";
 import useStore from "@/store";
-const { bankStore } = useStore();
-const isShow = ref(false);
-const emit = defineEmits(["closed"]);
+import { useRouter } from "vue-router";
 
+const $router = useRouter()
+const { bankStore } = useStore();
 
 const formRef: Ref<FormInstance | null> = ref(null);
 
@@ -38,7 +37,13 @@ const form = ref({
   bank_name: "",
   bank_number: "",
   bank_type: BankType.electronicWallet
-});
+})
+const setform = ref({
+  bank_hm: "",
+  bank_name: "",
+  bank_number: "",
+  bank_type: BankType.electronicWallet
+})
 const rules = {
   bank_hm: [
     {
@@ -69,13 +74,14 @@ const submit = async () => {
       type: "success",
       message: lang.t("添加成功")
     });
-    isShow.value = false;
+    form.value = setform.value;
     bankStore.getList(false);
+    $router.go(-1)
   }
 };
 
 onMounted(() => {
-  isShow.value = true;
+
 });
 </script>
 

@@ -2,7 +2,7 @@
   <div class="page-box">
     <NavBar class="nav-bar" :title="$t('全部游戏')"></NavBar>
     <div class="search-box">
-      <el-input class="search-input" size="large" :placeholder="$t('搜索游戏')" :suffix-icon="Search"
+      <el-input class="search-input" size="large" maxlength="50" :placeholder="$t('搜索游戏')" :suffix-icon="Search"
         v-model="params.keywords"></el-input>
       <el-button size="large" type="primary" class="search-btn" @click="search">{{ $t("搜索") }}</el-button>
     </div>

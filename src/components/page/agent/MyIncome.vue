@@ -3,7 +3,7 @@
     <div class="top-input-box">
       <el-date-picker v-model="form.time" :start-placeholder="$t('开始日期')" :end-placeholder="$t('结束日期')" size="large"
         type="daterange" prefix-icon="none" class="round search" format="YYYY-MM-DD" value-format="YYYY-MM-DD" />
-      <el-input class="round search" size="large" :placeholder="$t('搜索账户')" :suffix-icon="Search"
+      <el-input class="round search" maxlength="50" size="large" :placeholder="$t('搜索账户')" :suffix-icon="Search"
         v-model="form.username"></el-input>
     </div>
     <Empty class="empty" :loading="loading" v-if="list.length === 0"></Empty>

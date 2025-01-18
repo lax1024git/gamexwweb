@@ -41,7 +41,7 @@
             </div>
           </div>
           <el-form-item prop="apply_price">
-            <el-input class="input" :placeholder="placeholderText()" size="large" v-model="form.apply_price"
+            <el-input class="input" @input="formatInput" :placeholder="placeholderText()" size="large" v-model="form.apply_price"
               type="number">
               <template #prefix>
                 <div class="input-icon">{{ rechargeAll?.currency_symbol }}</div>
@@ -172,7 +172,21 @@ const channelList = computed(() => {
 });
 const channeActive = ref(0);
 const channeActiveData = computed(() => channelList.value[channeActive.value]); //选中的数据
+const formatInput = (value) => {
+  if (value.length > 50) {
+    form.value.apply_price = value.slice(0, 50);
+    return;
+  }
+  // 正则表达式检查总长度和小数点位数
 
+  const reg = /^(?!0\.0*$)(\d{1,50}(\.\d{0,2})?)?$/;
+  if (!reg.test(value)) {
+    // 如果不匹配，保留有效部分
+    form.value.apply_price = value.slice(0, -1);
+  } else {
+    form.value.apply_price = value;
+  }
+}
 // 切换选项，重置下级选项，避免切换到不必要的索引导致的错误
 watch(tabActive, () => {
   rechargeTypeActive.value = 0;

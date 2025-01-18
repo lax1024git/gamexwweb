@@ -14,12 +14,12 @@
         <div class="cell-content" v-else>{{ `+${userStore.userInfo?.qh} ${userStore.userInfo?.yphone}` }}</div>
         <t-svg name="right" class="right-icon" v-if="!userStore.userInfo?.yphone"></t-svg>
       </div>
-      <div class="cell-item" @click=" (!userStore.userInfo?.mail) && $router.push('/email')">
+     <!--  <div class="cell-item" @click=" (!userStore.userInfo?.mail) && $router.push('/email')">
         <t-svg name="youxiang" class="cell-icon"></t-svg>
         <span class="cell-name">{{ $t("电子邮件地址") }}</span>
         <div class="cell-content">{{ userStore.userInfo?.mail || $t("链接") }}</div>
         <t-svg name="right" class="right-icon" v-if="!userStore.userInfo?.mail"></t-svg>
-      </div>
+      </div> -->
       <div class="cell-item"
         @click="userStore.userInfo?.goodsle_bind === OpenState.close && $router.push('/googleAuthenticator')"
         v-if="systemStore.systemData?.data.user_google_status === OpenState.open">

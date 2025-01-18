@@ -8,7 +8,7 @@
         </div>
         <el-form ref="formRef" :model="form" :rules="rules">
           <el-form-item prop="code">
-            <el-input :placeholder="$t('输入兑换码')" size="large" v-model="form.code">
+            <el-input maxlength="50" :placeholder="$t('输入兑换码')" size="large" v-model="form.code">
               <template #prefix>
                 <t-svg name="duihuan" class="input-icon"></t-svg>
               </template>

@@ -12,7 +12,7 @@
           <template #label>
             <span class="label">{{ $t("检查登录密码") }}</span>
           </template>
-          <el-input size="large" v-model="a" :placeholder="$t('输入密码')">
+          <el-input size="large" maxlength="50" v-model="a" :placeholder="$t('输入密码')">
             <template #prefix>
               <t-svg name="pass" class="input-icon"></t-svg>
             </template>

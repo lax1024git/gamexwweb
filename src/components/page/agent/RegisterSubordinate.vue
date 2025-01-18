@@ -2,7 +2,7 @@
   <div class="card-box">
     <el-form :model="form" :rules="rules" ref="formRef">
       <el-form-item prop="username">
-        <el-input size="large" v-model="form.username" :placeholder="$t('输入邮箱/手机号码')">
+        <el-input size="large" maxlength="50" v-model="form.username" :placeholder="$t('输入邮箱/手机号码')">
           <template #prefix>
             <t-svg name="user" class="input-icon"></t-svg>
           </template>

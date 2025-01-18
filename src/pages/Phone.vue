@@ -5,7 +5,7 @@
       <div class="input-title">{{ $t("链接号码") }}</div>
       <el-form :model="form" :rules="rules" ref="formRef">
         <el-form-item prop="phone">
-          <el-input size="large" v-model="form.phone" :placeholder="$t('输入手机号码')" inputmode="tel" type="tel">
+          <el-input size="large" maxlength="50" v-model="form.phone" :placeholder="$t('输入手机号码')" inputmode="tel" type="tel">
             <template #prefix>
               <el-select v-model="form.qh" class="select">
                 <el-option :label="`+${item.label}`" :value="item.value" v-for="item in systemStore.systemData?.idc"
@@ -15,7 +15,7 @@
           </el-input>
         </el-form-item>
         <el-form-item prop="verify_code">
-          <el-input size="large" v-model="form.verify_code" :placeholder="$t('验证码')">
+          <el-input size="large" maxlength="50" v-model="form.verify_code" :placeholder="$t('验证码')">
             <template #prefix>
               <t-svg name="key" class="input-icon"></t-svg>
             </template>

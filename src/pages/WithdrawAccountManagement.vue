@@ -1,7 +1,7 @@
 <template>
   <div class="back">
     <NavBar :title="$t('設定銀行帳戶')" class="nav-bar"></NavBar>
-    <ManageAccount></ManageAccount>
+    <ManageAccount  eAccount></ManageAccount>
   </div>
 </template>
 <script setup lang="ts">

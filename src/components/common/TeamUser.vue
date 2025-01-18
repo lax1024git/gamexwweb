@@ -8,7 +8,7 @@
       <el-select size="large" v-model="form.level" class="round select">
         <el-option :label="$t(item.name)" :value="item.value" v-for="item in levelList" :key="item.value" />
       </el-select>
-      <el-input size="large" class="round search" :suffix-icon="Search" :placeholder="$t('账户')"
+      <el-input size="large" maxlength="50" class="round search" :suffix-icon="Search" :placeholder="$t('账户')"
         v-model="form.username"></el-input>
     </div>
     <div class="content">

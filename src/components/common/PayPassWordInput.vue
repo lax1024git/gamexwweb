@@ -4,7 +4,7 @@
       index == data.length ? 'input-item-active' : '',
       data[index] ? 'input-placehoder' : '']" v-for="item, index in 6" :key="item">
     </div>
-    <el-input class="input" inputmode="numeric" type="text" v-model="data" />
+    <el-input maxlength="50" class="input" inputmode="numeric" type="text" v-model="data" />
   </div>
 </template>
 

@@ -27,14 +27,14 @@
                         v-if="systemStore.systemData?.data.phone_bind == PhoneBind.email || systemStore.systemData?.data.phone_bind == PhoneBind.all">
                         <el-form :model="formEmail" :rules="rules" ref="formEmailRef">
                             <el-form-item prop="username">
-                                <el-input size="large" v-model="formEmail.username" :placeholder="$t('邮箱')">
+                                <el-input size="large" maxlength="50" v-model="formEmail.username" :placeholder="$t('邮箱')">
                                     <template #prefix>
                                         <t-svg name="user" class="input-icon"></t-svg>
                                     </template>
                                 </el-input>
                             </el-form-item>
                             <el-form-item prop="password">
-                                <el-input size="large" v-model="formEmail.password" :placeholder="$t('密码')"
+                                <el-input size="large" maxlength="50" v-model="formEmail.password" :placeholder="$t('密码')"
                                     type="password">
                                     <template #prefix>
                                         <t-svg name="pass" class="input-icon"></t-svg>
@@ -49,7 +49,7 @@
 
                             <div class="desc">{{ $t("此字段仅用于注册或登录，不可用于链接！") }}</div>
                             <el-form-item prop="phone">
-                                <el-input size="large" :placeholder="$t('输入手机号码')" v-model="formPhone.phone"
+                                <el-input size="large" maxlength="50" :placeholder="$t('输入手机号码')" v-model="formPhone.phone"
                                     inputmode="tel" type="tel">
                                     <template #prefix>
                                         <el-select v-model="formPhone.qh" class="select">
@@ -62,7 +62,7 @@
                             </el-form-item>
                             
                             <el-form-item prop="password">
-                                <el-input size="large" v-model="formPhone.password" :placeholder="$t('密码')"
+                                <el-input size="large" maxlength="50" v-model="formPhone.password" :placeholder="$t('密码')"
                                     type="password">
                                     <template #prefix>
                                         <t-svg name="pass" class="input-icon"></t-svg>

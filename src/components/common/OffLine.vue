@@ -47,7 +47,7 @@
           </el-input>
         </el-form-item>
         <el-form-item :label="$t('到账金额')">
-          <el-input :value="$numInit(poprs.data.computedProce)" readonly size="large">
+          <el-input maxlength="50" :value="$numInit(poprs.data.computedProce)" readonly size="large">
             <template #prefix>
               <div class="input-icon">{{ poprs.data.currency_symbol }}</div>
             </template>
