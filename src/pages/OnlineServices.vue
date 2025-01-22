@@ -6,8 +6,8 @@
       <div class="services-link" @click="jumpserve(indexMenuStore.menuData?.xw_service[0]?.children?.[0].href)">
         <div class="icon"><img :src="indexMenuStore.menuData?.xw_service[0]?.children?.[0].icon_url" width="30"></div>
         <div class="text">
-          <span>{{ indexMenuStore.menuData?.xw_service[0]?.name}}</span>
-          <b>{{indexMenuStore.menuData?.xw_service[0]?.children?.[0].name}}</b>
+          <span>{{ $t(indexMenuStore.menuData?.xw_service[0]?.name)}}</span>
+          <b>{{$t(indexMenuStore.menuData?.xw_service[0]?.children?.[0].name)}}</b>
         </div>
         <div class="join">{{$t('JOIN NOW')}}</div>
       </div>
@@ -17,15 +17,15 @@
             <template #title>
               <div class="title-box">
                 <img :src="tab.icon_url" class="title-icon">
-                <span>{{ tab.name }}</span>
+                <span>{{ $t(tab.name) }}</span>
               </div>
             </template>
             <div class="service-list">
               <div class="service-item" v-for="(item, index) in tab.children" :key="index">
                 <img :src="item.icon_url" class="service-item-icon"/>
                 <div class="service-item-content">
-                  <div class="item-name">{{ tab.name }}</div>
-                  <div class="item-desc">{{ item.name }}</div>
+                  <div class="item-name">{{ $t(tab.name) }}</div>
+                  <div class="item-desc">{{ $t(item.name) }}</div>
                 </div>
                 <el-button type="primary" @click="jumpserve(item.href)">{{ $t("现在联系") }}</el-button>
               </div>

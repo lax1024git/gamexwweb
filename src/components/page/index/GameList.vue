@@ -52,7 +52,7 @@ watch($route,()=>{
     changeType(menuIndex);
   }
 });
-onActivated(()=>{
+onMounted(()=>{
   nextTick(async()=>{
     await changeType(activeIndex.value);
   })
@@ -66,7 +66,7 @@ onActivated(()=>{
   display: flex;
   gap: 20px;
   overflow-y: auto;
-  height: 51vh;
+  height: 56vh;
   padding-bottom: 50px;
 
   &-left {
@@ -143,12 +143,12 @@ onActivated(()=>{
   span {
     font-size: 25px;
     overflow: hidden;
-    text-decoration: none;
-    line-height: 1;
-    /* width: 100%;
+    /* text-decoration: none;
+    line-height: 1; */
+    width: 100%;
     text-overflow: ellipsis;
     padding: 4px 1px;
-    white-space:nowrap; */
+    white-space:nowrap;
   }
 
   li:after {

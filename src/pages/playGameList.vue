@@ -15,7 +15,7 @@
 
                 </el-input>
                 <el-select v-model="value" class="selectStyle" :placeholder="$t('全部游戏')">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+                    <el-option v-for="item in options" :key="item.value" :label="$t(item.label)" :value="item.value" />
                 </el-select>
             </div>
         </div>

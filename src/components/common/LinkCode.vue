@@ -40,7 +40,7 @@ const communityList = computed(() => {
   return [
     { name: "Telegram", icon: "telegram.png", url: `https://t.me/share/url?url=${url}&text=${shareText}` },
     { name: "Instagram", icon: "Instagram.png", url: "https://www.instagram.com/" },
-    { name: "WhatsApp", icon: "whatsapp.png", url: `whatsapp://send?text=${shareText + url}&via=lopscoop` },
+    { name: "WhatsApp", icon: "whatsapp.png", url: `whatsapp://send?text=${shareText + ' ' + url}` },
     { name: "Facebook", icon: "Facebook2.png", url: `https://m.facebook.com/sharer/sharer.php?u=${url}&t=${shareText}` },
     { name: "Tiktok", icon: "Tiktok.png", url: "https://www.tiktok.com/explore?" },
     { name: "Youtube", icon: "Youtube.png", url: "https://www.youtube.com/" },

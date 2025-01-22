@@ -1,6 +1,6 @@
 <template>
   <div class="tips-wapper" v-if="props.isShow.value">
-    <t-svg name="slot" class="logo"></t-svg>
+    <t-svg name="wudi" class="logo"></t-svg>
   </div>
 </template>
 

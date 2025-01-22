@@ -31,7 +31,7 @@
         <div class="swiper-button-prev" @click="swiperGo('left')"></div>
         <div class="swiper-button-next" @click="swiperGo('right')"></div>
       </div>
-      <div v-if="!ununlockedLevelList.length" class="vip-list-wrap">
+      <div v-if="!ununlockedLevelList.length && loading" class="vip-list-wrap">
         <div class="flex justify-center items-center text-[30px] font-700 h-[200px]"> {{$t("恭喜您，已升到顶级")}} </div>
         
       </div>
@@ -50,13 +50,13 @@
           <div class="bar-box">
             <p class="d-flex progress-top">{{ $t('晋级充值') }} ({{vipList.length ? $t(recharge_Type[vipList.filter(item => item.id == userStore.userInfo?.level_id)[0].type]) : ""}})<span class="ml-auto">{{ Number(userStore.userInfo?.recharge1) }} / {{ Number(nextLev?.recharge_amount) }}</span></p>
             <div class="progressbar"><span class="progressbar-text">0 %</span>
-              <div class="bar color2" :style="{'width': `${((Number(userStore.userInfo?.recharge1)) / (Number(nextLev?.recharge_amount))) * 100 || 0}%`}"><span></span></div>
+              <div class="bar color2" :style="{'width': `${((Number(userStore.userInfo?.recharge1)) / (Number(nextLev?.recharge_amount))) > 1 ? 100 : ((Number(userStore.userInfo?.recharge1)) / (Number(nextLev?.recharge_amount))) * 100 || 0}%`}"><span></span></div>
             </div>
           </div>
           <div class="bar-box">
             <p class="d-flex progress-top">{{ $t('晋级流水') }}<span class="ml-auto">{{ Number(userStore.userInfo?.water) }} / {{ Number(nextLev?.water) }}</span></p>
             <div class="progressbar"><span class="progressbar-text">0 %</span>
-              <div class="bar color5" :style="{'width':`${((Number(userStore.userInfo?.water)) / (Number(nextLev?.water))) * 100 || 0}%`}"><span></span></div>
+              <div class="bar color5" :style="{'width':`${((Number(userStore.userInfo?.water)) / (Number(nextLev?.water))) > 1 ? 100 : ((Number(userStore.userInfo?.water)) / (Number(nextLev?.water))) * 100 || 0}%`}"><span></span></div>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@ import { ElMessage } from "element-plus";
 import lang from "@/lang";
 const { userStore } = useStore();
 let swiper = ref(null);
-
+const loading = ref(false)
 const imagesList = [
   new URL('@/assets/images/vip/tiger/1.png', import.meta.url).href,
   new URL('@/assets/images/vip/tiger/2.png', import.meta.url).href,
@@ -145,9 +145,9 @@ const getVipList = async () => {
     api: () => user_vip_api(),
     success: data => {
       vipList.value = data;
-      console.log(vipList.value,"vip数据");
     }
   }).getData();
+  loading.value = true
 };
 
 const onChange = (index) => {
